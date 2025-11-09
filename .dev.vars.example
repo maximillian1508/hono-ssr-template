@@ -1,0 +1,12 @@
+# Local development environment variables
+# Copy this file to .dev.vars for local development
+
+# KV Namespace ID for domain mapping cache
+# Get this from: wrangler kv:namespace create DOMAIN_MAPPING
+DOMAIN_MAPPING_ID=your-kv-namespace-id-here
+
+# API Base URL
+API_BASE_URL=http://localhost:22080
+
+# Use domain-based routing (true for production, false for dev/staging)
+USE_DOMAIN_ROUTING=false

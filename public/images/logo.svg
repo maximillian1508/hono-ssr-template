@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="120" height="40" fill="#667eea" rx="4"/>
+
+  <!-- House icon -->
+  <path d="M 20 20 L 15 25 L 15 32 L 25 32 L 25 25 Z" fill="white"/>
+  <path d="M 20 15 L 12 23 L 28 23 Z" fill="white"/>
+
+  <!-- Text -->
+  <text x="35" y="27" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white">
+    Property Genie
+  </text>
+</svg>
