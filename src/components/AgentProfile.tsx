@@ -83,8 +83,10 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
           body {
             font-family: Poppins, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            line-height: 1.5;
+            font-weight: 400;
+            color: #2c2c2c;
+            font-size: 1rem;
             background: white;
           }
 
@@ -130,7 +132,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             gap: 1rem 2rem;
             position: relative;
             align-items: start;
-            padding: 0 35px;
           }
 
           .left-column {
@@ -263,12 +264,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
           .description-container {
             position: relative;
-            margin-top: 0;
-          }
-
-          .description-container p {
-            line-height: 1.8;
-            color: #333;
             margin-top: 0;
           }
 
