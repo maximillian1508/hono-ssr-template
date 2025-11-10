@@ -1,16 +1,13 @@
 import type { FC } from 'hono/jsx';
 import { css, Style } from 'hono/css';
-
-interface MobileMenuProps {
-  env?: any;
-}
+import { env } from 'cloudflare:workers';
 
 /**
  * MobileMenu Component
  * Hamburger menu and drawer navigation for mobile devices
  */
-export const MobileMenu: FC<MobileMenuProps> = ({ env }) => {
-  const baseUrl = env?.WEBSITE_URL || 'https://www.propertygenie.com.my';
+export const MobileMenu: FC = () => {
+  const baseUrl = env.WEBSITE_URL || 'https://www.propertygenie.com.my';
 
   return (
     <>

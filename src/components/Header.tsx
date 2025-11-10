@@ -3,18 +3,18 @@ import { css, Style } from 'hono/css';
 import { HeaderLeftLinks } from './HeaderLeftLinks';
 import { HeaderLinks } from './HeaderLinks';
 import { MobileMenu } from './MobileMenu';
+import { env } from 'cloudflare:workers';
 
 interface HeaderProps {
   logoUrl?: string;
-  env?: any;
 }
 
 /**
  * Header Component
  * Main navigation header for public pages (logged out state only)
  */
-export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r.png', env }) => {
-  const baseUrl = env?.WEBSITE_URL || 'https://www.propertygenie.com.my';
+export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r.png' }) => {
+  const baseUrl = env.WEBSITE_URL || 'https://www.propertygenie.com.my';
   return (
     <>
       <Style>{css`
@@ -66,7 +66,7 @@ export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r
         <div class="header-container">
           <div class="header-toolbar">
             {/* Mobile Menu Button */}
-            <MobileMenu env={env} />
+            <MobileMenu />
 
             {/* Logo */}
             <div class="header-logo">
@@ -76,10 +76,10 @@ export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r
             </div>
 
             {/* Navigation Menu - Desktop */}
-            <HeaderLeftLinks env={env} />
+            <HeaderLeftLinks />
 
             {/* Action Buttons - Desktop */}
-            <HeaderLinks env={env} />
+            <HeaderLinks />
           </div>
         </div>
       </header>

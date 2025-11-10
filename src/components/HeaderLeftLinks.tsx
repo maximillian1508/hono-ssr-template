@@ -1,16 +1,13 @@
 import type { FC } from 'hono/jsx';
 import { css, Style } from 'hono/css';
-
-interface HeaderLeftLinksProps {
-  env?: any;
-}
+import { env } from 'cloudflare:workers';
 
 /**
  * HeaderLeftLinks Component
  * Navigation menu with dropdown menus for Buy, Rent, Projects, Resources, Others
  */
-export const HeaderLeftLinks: FC<HeaderLeftLinksProps> = ({ env }) => {
-  const baseUrl = env?.WEBSITE_URL || 'https://www.propertygenie.com.my';
+export const HeaderLeftLinks: FC = () => {
+  const baseUrl = env.WEBSITE_URL || 'https://www.propertygenie.com.my';
 
   return (
     <>

@@ -10,14 +10,13 @@ interface AgentProfileProps {
   domain: string;
   accountId: string;
   commonData: any;
-  env?: any;
 }
 
 /**
  * Agent Profile Component - Premium Version
  * Displays agent information without authentication
  */
-export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, commonData, env }) => {
+export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, commonData }) => {
   // Helper function to get property type color
   const getPropertyTypeColor = (typeName: string): string => {
     const colorMap: Record<string, string> = {
@@ -1198,7 +1197,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
       </head>
       <body>
         {/* Header */}
-        <Header env={env} />
+        <Header />
 
         {/* Spacer for fixed header */}
         <HeaderCompensation />
