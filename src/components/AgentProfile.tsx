@@ -2,6 +2,8 @@ import type { FC } from 'hono/jsx';
 import { css, Style } from 'hono/css';
 import type { AgentApiResponse } from '../types/agent';
 import { getLicenseLabel, formatContactNumber } from '../types/agent';
+import { Header } from './Header';
+import { HeaderCompensation } from './HeaderCompensation';
 
 interface AgentProfileProps {
   agent: AgentApiResponse;
@@ -91,40 +93,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             flex: 1;
             flex-direction: column;
             background: white;
-          }
-
-          .app-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background-color: white;
-            border-bottom: 1px solid #dddddd;
-            color: #2c2c2c;
-          }
-
-          .header-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
-          }
-
-          .header-toolbar {
-            display: flex;
-            align-items: center;
-            min-height: 54px;
-            height: 73px;
-          }
-
-          .header-logo {
-            display: flex;
-            align-items: center;
-          }
-
-          .header-spacer {
-            height: 73px;
-            visibility: hidden;
           }
 
           .hero-section {
@@ -1229,18 +1197,10 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
       </head>
       <body>
         {/* Header */}
-        <header class="app-header">
-          <div class="header-container">
-            <div class="header-toolbar">
-              <div class="header-logo">
-                {/* Logo placeholder - can add logo image here */}
-              </div>
-            </div>
-          </div>
-        </header>
+        <Header />
 
         {/* Spacer for fixed header */}
-        <div class="header-spacer"></div>
+        <HeaderCompensation />
 
         <main>
 
