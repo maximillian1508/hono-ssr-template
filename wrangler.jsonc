@@ -13,6 +13,10 @@
   "vars": {
     "API_BASE_URL": "https://api.propertygenie.com.my",
     "USE_DOMAIN_ROUTING": "true"
+  },
+  "assets": {
+    "directory": "public",
+    "binding": "ASSETS"
   }
   // "compatibility_flags": [
   //   "nodejs_compat"

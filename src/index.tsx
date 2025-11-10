@@ -17,7 +17,7 @@ async function renderAgentProfile(c: any, accountId: string, domain: string) {
     const response = await fetch(`${c.env.API_BASE_URL}/v1/account/${accountId}`);
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch agent profile: ${response.statusText}`);
+      throw new Error(`Failed to fetch agent profile [${accountId}]: ${response.statusText}`);
     }
 
     const agent = await response.json() as AgentApiResponse;
@@ -27,8 +27,19 @@ async function renderAgentProfile(c: any, accountId: string, domain: string) {
       return c.text('Agent not found', 404);
     }
 
+    // Fetch common filter data
+    let commonData = null;
+    try {
+      const commonResponse = await fetch(`${c.env.API_BASE_URL}/v1/common`);
+      if (commonResponse.ok) {
+        commonData = await commonResponse.json();
+      }
+    } catch (error) {
+      console.error('Failed to fetch common data:', error);
+    }
+
     // Render agent profile
-    return c.html(<AgentProfile agent={agent} domain={domain} accountId={accountId} />);
+    return c.html(<AgentProfile agent={agent} domain={domain} accountId={accountId} commonData={commonData} />);
   } catch (error) {
     console.error('Error fetching agent data:', error);
     return c.html(
@@ -60,7 +71,7 @@ app.get('/*', async (c) => {
 
     return c.html(
       <html>
-        <body style="font-family: system-ui; padding: 2rem; max-width: 800px; margin: 0 auto;">
+        <body style="padding: 2rem; max-width: 800px; margin: 0 auto;">
           <h1>Agent Profile Template</h1>
           <p>This worker is running in <strong>{useDomainRouting ? 'domain-based' : 'path-based'}</strong> mode.</p>
 
