@@ -1337,7 +1337,17 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               <div class="listings-grid">
                 {agent.listings && agent.listings.length > 0 ? (
                   agent.listings.map((listing) => {
-                    const priceObject = listing.sale || listing.rent || listing.auction || null;
+                    // Helper to check if object has properties
+                    const isNotEmpty = (obj: any) => obj && typeof obj === 'object' && Object.keys(obj).length > 0;
+
+                    // Get price object - prioritize sale, then rent, then auction (only if not empty)
+                    const priceObject = isNotEmpty(listing.sale)
+                      ? listing.sale
+                      : isNotEmpty(listing.rent)
+                      ? listing.rent
+                      : isNotEmpty(listing.auction)
+                      ? listing.auction
+                      : null;
                     const formattedPrice = priceObject?.price?.text || '-';
                     const psf = priceObject?.perSize?.text || '-';
                     const propertyType = listing.type?.name || '';
@@ -1632,7 +1642,18 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
               const listingsHtml = listings.map(listing => {
                 const image = listing.image?.medium?.src || '/amenties-placeholder.png';
-                const priceObject = listing.sale || listing.rent || listing.auction || null;
+
+                // Helper to check if object has properties
+                const isNotEmpty = (obj) => obj && typeof obj === 'object' && Object.keys(obj).length > 0;
+
+                // Get price object - prioritize sale, then rent, then auction (only if not empty)
+                const priceObject = isNotEmpty(listing.sale)
+                  ? listing.sale
+                  : isNotEmpty(listing.rent)
+                  ? listing.rent
+                  : isNotEmpty(listing.auction)
+                  ? listing.auction
+                  : null;
                 const price = priceObject?.price?.text || '-';
                 const psf = priceObject?.perSize?.text || '-';
                 const propertyType = listing.type?.name || '';
