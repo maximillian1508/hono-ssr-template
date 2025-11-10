@@ -2,6 +2,7 @@ import type { FC } from 'hono/jsx';
 import { css, Style } from 'hono/css';
 import { HeaderLeftLinks } from './HeaderLeftLinks';
 import { HeaderLinks } from './HeaderLinks';
+import { MobileMenu } from './MobileMenu';
 
 interface HeaderProps {
   logoUrl?: string;
@@ -62,6 +63,9 @@ export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r
       <header class="app-header">
         <div class="header-container">
           <div class="header-toolbar">
+            {/* Mobile Menu Button */}
+            <MobileMenu />
+
             {/* Logo */}
             <div class="header-logo">
               <a href={process.env.WEBSITE_URL || 'https://www.propertygenie.com.my'}>
