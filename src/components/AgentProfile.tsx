@@ -86,6 +86,13 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             background: white;
           }
 
+          main {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            background: white;
+          }
+
           .app-header {
             position: fixed;
             top: 0;
@@ -412,9 +419,11 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .listings-section {
-            margin-top: 3rem;
-            padding-top: 2rem;
+            max-width: 1280px;
+            width: 100%;
+            margin: 2rem auto;
             border-top: 2px solid #e0e0e0;
+            padding: 0 1rem;
           }
 
           .listings-section h2 {
@@ -1233,6 +1242,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
         {/* Spacer for fixed header */}
         <div class="header-spacer"></div>
 
+        <main>
+
         <div class="hero-section">
           <p>PROPERTY AGENT</p>
         </div>
@@ -1299,7 +1310,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 <div class="gallery-container">
                   {agent.galleryImages.slice(0, 3).map((image, index) => (
                     <div class="gallery-item-inline" key={index}>
-                      <img src={image.medium?.src || image.src} alt={`Gallery ${index + 1}`} />
+                      <img src={image.medium?.src || ""} alt={`Gallery ${index + 1}`} />
                     </div>
                   ))}
                 </div>
@@ -1322,8 +1333,10 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               <h3>Listings for Auction</h3>
             </div>
           </div>
+        </div>
 
-          <div class="listings-section">
+
+        <div class="listings-section">
             <h2>{name}'s Listings</h2>
 
             <div class="tabs-container">
@@ -1411,7 +1424,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               </div>
             </div>
           </div>
-        </div>
+          </main>
 
         {/* Loading Overlay */}
         <div class="loading-overlay hidden" id="loading-overlay">
@@ -1518,6 +1531,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 <div class="filter-grid" id="furnishing-grid"></div>
               </div>
             </div>
+            
 
             <div class="modal-footer">
               <button class="footer-button outline" id="clear-filters">Clear All</button>
