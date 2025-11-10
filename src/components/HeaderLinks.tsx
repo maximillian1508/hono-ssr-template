@@ -1,12 +1,13 @@
 import type { FC } from 'hono/jsx';
 import { css, Style } from 'hono/css';
+import { env } from 'cloudflare:workers';
 
 /**
  * HeaderLinks Component
  * Sign Up and Login buttons for logged-out users
  */
 export const HeaderLinks: FC = () => {
-  const baseUrl = process.env.WEBSITE_URL || 'https://www.propertygenie.com.my';
+  const baseUrl = env.WEBSITE_URL || 'https://www.propertygenie.com.my';
 
   return (
     <>

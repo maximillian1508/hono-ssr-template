@@ -3,6 +3,7 @@ import { css, Style } from 'hono/css';
 import { HeaderLeftLinks } from './HeaderLeftLinks';
 import { HeaderLinks } from './HeaderLinks';
 import { MobileMenu } from './MobileMenu';
+import { env } from 'cloudflare:workers';
 
 interface HeaderProps {
   logoUrl?: string;
@@ -13,6 +14,7 @@ interface HeaderProps {
  * Main navigation header for public pages (logged out state only)
  */
 export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r.png' }) => {
+  const baseUrl = env.WEBSITE_URL || 'https://www.propertygenie.com.my';
   return (
     <>
       <Style>{css`
@@ -68,7 +70,7 @@ export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r
 
             {/* Logo */}
             <div class="header-logo">
-              <a href={process.env.WEBSITE_URL || 'https://www.propertygenie.com.my'}>
+              <a href={baseUrl}>
                 <img src={logoUrl} alt="Property Genie" />
               </a>
             </div>
