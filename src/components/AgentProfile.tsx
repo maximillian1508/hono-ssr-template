@@ -1,4 +1,5 @@
 import type { FC } from 'hono/jsx';
+import { css, Style } from 'hono/css';
 import type { AgentApiResponse } from '../types/agent';
 import { getLicenseLabel, formatContactNumber } from '../types/agent';
 
@@ -71,7 +72,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-        <style>{`
+        <Style>{css`
           * {
             margin: 0;
             padding: 0;
@@ -1215,7 +1216,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               height: 35vh;
             }
           }
-        `}</style>
+        `}</Style>
       </head>
       <body>
         {/* Header */}
