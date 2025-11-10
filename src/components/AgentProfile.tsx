@@ -20,7 +20,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
   // Helper function to get property type color
   const getPropertyTypeColor = (typeName: string): string => {
     const colorMap: Record<string, string> = {
-      'Condominium': '#6366f1',
+      'Condominium': '#3462F4',
       'Serviced Residence': '#8b5cf6',
       'Apartment': '#ec4899',
       'Flat': '#f97316',
@@ -38,7 +38,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
       'Commercial Land': '#0891b2',
       'Industrial Land': '#0284c7',
     };
-    return colorMap[typeName] || '#6366f1';
+    return colorMap[typeName] || '#3462F4';
   };
 
   // Extract agent data
@@ -109,7 +109,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             text-align: center;
             height: 45vh;
             max-height: 400px;
-            background-color: #6366f1;
+            background-color: #3462F4;
           }
 
           .hero-section p {
@@ -201,7 +201,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             background-color: white;
             border-radius: 25px;
             padding: 8px 20px;
-            border: 1px solid #6366f1;
+            border: 1px solid #3462F4;
             font-size: 1rem;
             cursor: pointer;
             text-decoration: none;
@@ -231,7 +231,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             display: inline-block;
             width: 24px;
             height: 24px;
-            background-color: #6366f1;
+            background-color: #3462F4;
             border-radius: 50%;
             color: white;
             text-align: center;
@@ -255,7 +255,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .details-container strong {
-            color: #6366f1;
+            color: #3462F4;
           }
 
           .agent-content-container {
@@ -318,7 +318,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .listing-summary p {
-            color: #6366f1;
+            color: #3462F4;
             font-size: 2.25rem;
             font-weight: 600;
             margin: 0;
@@ -434,7 +434,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
           .search-input:focus {
             outline: none;
-            border-color: #6366f1;
+            border-color: #3462F4;
             background-color: white;
           }
 
@@ -449,7 +449,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
           .filter-button {
             padding: 0.75rem 1rem;
-            background-color: #6366f1;
+            background-color: #3462F4;
             color: white;
             border: none;
             border-radius: 8px;
@@ -591,14 +591,14 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .filter-option:hover {
-            border-color: #6366f1;
+            border-color: #3462F4;
             background: #eef2ff;
           }
 
           .filter-option.selected {
-            border-color: #6366f1;
+            border-color: #3462F4;
             background: #eef2ff;
-            color: #6366f1;
+            color: #3462F4;
             font-weight: 600;
           }
 
@@ -632,7 +632,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
           .price-select:focus {
             outline: none;
-            border-color: #6366f1;
+            border-color: #3462F4;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
           }
 
@@ -656,8 +656,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
           .footer-button.outline {
             background: white;
-            color: #6366f1;
-            border: 1.5px solid #6366f1;
+            color: #3462F4;
+            border: 1.5px solid #3462F4;
           }
 
           .footer-button.outline:hover {
@@ -665,7 +665,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .footer-button.primary {
-            background: #6366f1;
+            background: #3462F4;
             color: white;
           }
 
@@ -756,7 +756,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
           .tab.active {
             color: #000;
-            border-bottom-color: #6366f1;
+            border-bottom-color: #3462F4;
             font-weight: 700;
           }
 
@@ -942,7 +942,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .empty-button {
-            background-color: #6366f1;
+            background-color: #3462F4;
             color: white;
             padding: 0.75rem 2rem;
             border: none;
@@ -1005,8 +1005,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             height: 48px;
             margin: 8px;
             border-radius: 50%;
-            border: 6px solid #6366f1;
-            border-color: #6366f1 transparent #6366f1 transparent;
+            border: 6px solid #3462F4;
+            border-color: #3462F4 transparent #3462F4 transparent;
             animation: spinner-ring 1.2s linear infinite;
           }
 
@@ -1554,7 +1554,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             // Property type color helper
             function getPropertyTypeColor(typeName) {
               const colorMap = {
-                'Condominium': '#6366f1',
+                'Condominium': '#3462F4',
                 'Serviced Residence': '#8b5cf6',
                 'Apartment': '#ec4899',
                 'Flat': '#f97316',
@@ -1572,7 +1572,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 'Commercial Land': '#0891b2',
                 'Industrial Land': '#0284c7',
               };
-              return colorMap[typeName] || '#6366f1';
+              return colorMap[typeName] || '#3462F4';
             }
 
             // Share handler
