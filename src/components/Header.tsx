@@ -6,13 +6,15 @@ import { MobileMenu } from './MobileMenu';
 
 interface HeaderProps {
   logoUrl?: string;
+  env?: any;
 }
 
 /**
  * Header Component
  * Main navigation header for public pages (logged out state only)
  */
-export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r.png' }) => {
+export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r.png', env }) => {
+  const baseUrl = env?.WEBSITE_URL || 'https://www.propertygenie.com.my';
   return (
     <>
       <Style>{css`
@@ -64,20 +66,20 @@ export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r
         <div class="header-container">
           <div class="header-toolbar">
             {/* Mobile Menu Button */}
-            <MobileMenu />
+            <MobileMenu env={env} />
 
             {/* Logo */}
             <div class="header-logo">
-              <a href={process.env.WEBSITE_URL || 'https://www.propertygenie.com.my'}>
+              <a href={baseUrl}>
                 <img src={logoUrl} alt="Property Genie" />
               </a>
             </div>
 
             {/* Navigation Menu - Desktop */}
-            <HeaderLeftLinks />
+            <HeaderLeftLinks env={env} />
 
             {/* Action Buttons - Desktop */}
-            <HeaderLinks />
+            <HeaderLinks env={env} />
           </div>
         </div>
       </header>

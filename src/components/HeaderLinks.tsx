@@ -1,12 +1,16 @@
 import type { FC } from 'hono/jsx';
 import { css, Style } from 'hono/css';
 
+interface HeaderLinksProps {
+  env?: any;
+}
+
 /**
  * HeaderLinks Component
  * Sign Up and Login buttons for logged-out users
  */
-export const HeaderLinks: FC = () => {
-  const baseUrl = process.env.WEBSITE_URL || 'https://www.propertygenie.com.my';
+export const HeaderLinks: FC<HeaderLinksProps> = ({ env }) => {
+  const baseUrl = env?.WEBSITE_URL || 'https://www.propertygenie.com.my';
 
   return (
     <>
