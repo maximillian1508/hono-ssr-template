@@ -320,86 +320,94 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             object-fit: cover;
           }
 
-          .gallery-section h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #333;
+          .listings-container {
+            grid-area: listings;
+            display: flex;
+            flex-direction: row;
+            border-top: 2px solid #dddddd;
+            border-bottom: 2px solid #dddddd;
+            padding: 0;
+            margin-top: 2rem;
           }
 
-          .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
+          .listing-summary {
+            width: 33.33%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 25px 0;
+            text-align: center;
           }
 
-          .gallery-item {
+          .listing-summary:nth-child(2) {
+            border-left: 2px solid #dddddd;
+            border-right: 2px solid #dddddd;
+          }
+
+          .listing-summary p {
+            color: #6366f1;
+            font-size: 2.25rem;
+            font-weight: 600;
+            margin: 0;
+          }
+
+          .listing-summary h3 {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 0;
+          }
+
+          /* Expandable Description Styles */
+          .expandable-description {
+            max-height: none;
+            overflow: visible;
+            transition: max-height 0.3s ease;
             position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            aspect-ratio: 1;
-            border: 1px solid #e5e7eb;
           }
 
-          .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+          .expandable-description.collapsed {
+            max-height: 150px;
+            overflow: hidden;
+          }
+
+          .expandable-description.collapsed::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: linear-gradient(transparent, white);
+            pointer-events: none;
+          }
+
+          .read-more-button {
+            background: none;
+            border: none;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            padding: 0;
+          }
+
+          .read-more-button:hover {
+            text-decoration: underline;
+          }
+
+          .expand-icon {
             transition: transform 0.3s ease;
           }
 
-          .gallery-item:hover img {
-            transform: scale(1.05);
-          }
-
-          .meta-info {
-            margin-top: 3rem;
-            padding: 1rem;
-            background: #f9fafb;
-            border-radius: 8px;
-            margin-left: 300px;
-          }
-
-          .meta-info p {
-            color: #999;
-            font-size: 0.9rem;
-            margin: 0.5rem 0;
-          }
-
-          .listing-summary-section {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            margin-left: 300px;
-            flex-wrap: wrap;
-          }
-
-          .summary-box {
-            flex: 1;
-            min-width: 150px;
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-          }
-
-          .summary-box:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-          }
-
-          .summary-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #6366f1;
-            margin-bottom: 0.5rem;
-          }
-
-          .summary-label {
-            font-size: 1rem;
-            color: #666;
-            font-weight: 500;
+          .expand-icon.rotated {
+            transform: rotate(180deg);
           }
 
           .listings-section {
@@ -1091,6 +1099,81 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           @media (max-width: 768px) {
+            .agent-detail-section {
+              grid-template-columns: 1fr;
+              grid-template-areas:
+                "image"
+                "info"
+                "details"
+                "agent-content"
+                "listings";
+            }
+
+            .left-column,
+            .right-column {
+              display: contents;
+            }
+
+            .image-container {
+              width: 200px;
+              height: 200px;
+              left: 20px;
+            }
+
+            .info-container {
+              margin-top: 100px;
+              padding: 0 20px;
+            }
+
+            .info-container h1 {
+              max-width: 100%;
+            }
+
+            .info-container h3 {
+              font-size: 1.2rem;
+            }
+
+            .contact-section {
+              top: 0px;
+              position: static;
+              margin-top: 1rem;
+              justify-content: flex-start;
+            }
+
+            .details-container {
+              margin-top: 0;
+              margin-left: 0;
+              padding: 0 20px;
+            }
+
+            .details-container p {
+              font-size: 1rem;
+            }
+
+            .agent-content-container {
+              padding: 0 20px;
+            }
+
+            .agent-content-container p {
+              margin-top: 0;
+            }
+
+            .listings-container {
+              padding: 0;
+            }
+
+            .listing-summary {
+              padding: 15px;
+            }
+
+            .listing-summary p {
+              font-size: 1.75rem;
+            }
+
+            .listing-summary h3 {
+              font-size: 1rem;
+            }
+
             .listings-grid {
               grid-template-columns: repeat(2, 1fr);
             }
@@ -1131,30 +1214,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             .hero-section {
               height: 35vh;
             }
-
-            .image-container {
-              width: 200px;
-              height: 200px;
-              left: 20px;
-            }
-
-            .info-container,
-            .details-container,
-            .description-container,
-            .meta-info {
-              margin-left: 0;
-              margin-top: 120px;
-            }
-
-            .details-container {
-              margin-top: 2rem;
-            }
-
-            .contact-section {
-              position: static;
-              margin-top: 1rem;
-              justify-content: flex-start;
-            }
           }
         `}</style>
       </head>
@@ -1178,82 +1237,88 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
         </div>
 
         <div class="agent-detail-section">
-          <div class="image-container">
-            <img src={avatarUrl} alt={name} />
-          </div>
+          {/* Left Column */}
+          <div class="left-column">
+            <div class="image-container">
+              <img src={avatarUrl} alt={name} />
+            </div>
 
-          <div class="info-container">
-            <h1>{name}</h1>
-            <h3>{publisherName}</h3>
-
-            <div class="contact-section">
-              <a
-                href={`https://wa.me/${contactNumber}/?text=Hi ${name}, I am looking for property. I'm eager to explore the available options and would appreciate it if you could share details about any properties you have. Thank you!`}
-                class="contact-btn"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span class="icon-whatsapp">💬</span>
-              </a>
-              <button class="contact-btn" onclick="alert('Please login to view contact details')">
-                <span class="icon-phone">📞</span>
-              </button>
-              <button class="contact-btn">Share</button>
+            <div class="details-container">
+              <p>
+                {maskedContact}
+                {isMobileVerified && <span style="color: #2563eb; margin-left: 5px;">✓</span>}
+              </p>
+              <p>
+                {getLicenseLabel(licenseNumber)} <strong>{licenseNumber}</strong>
+                {isRenVerified && <span style="color: #2563eb; margin-left: 5px;">✓</span>}
+              </p>
+              <p>
+                Agency Reg. no. <strong>{publisherRegistrationNumber}</strong>
+              </p>
             </div>
           </div>
 
-          <div class="details-container">
-            <p>
-              {maskedContact}
-              {isMobileVerified && <span style="color: #2563eb; margin-left: 5px;">✓</span>}
-            </p>
-            <p>
-              {getLicenseLabel(licenseNumber)} <strong>{licenseNumber}</strong>
-              {isRenVerified && <span style="color: #2563eb; margin-left: 5px;">✓</span>}
-            </p>
-            <p>
-              Agency Reg. no. <strong>{publisherRegistrationNumber}</strong>
-            </p>
-          </div>
+          {/* Right Column */}
+          <div class="right-column">
+            <div class="info-container">
+              <h1>{name}</h1>
+              <h3>{publisherName}</h3>
 
-          {description && (
-            <div class="description-container">
-              <p>{description}</p>
-            </div>
-          )}
-
-          {/* Gallery Images */}
-          {agent.galleryImages && agent.galleryImages.length > 0 && (
-            <div class="gallery-section">
-              <h3>Gallery</h3>
-              <div class="gallery-grid">
-                {agent.galleryImages.map((image, index) => (
-                  <div class="gallery-item" key={index}>
-                    <img src={image.medium?.src} alt={`Gallery ${index + 1}`} />
-                  </div>
-                ))}
+              <div class="contact-section">
+                <a
+                  href={`https://wa.me/${contactNumber}/?text=Hi ${name}, I am looking for property. I'm eager to explore the available options and would appreciate it if you could share details about any properties you have. Thank you!`}
+                  class="contact-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span class="icon-whatsapp">💬</span>
+                </a>
+                <button class="contact-btn" onclick="alert('Please login to view contact details')">
+                  <span class="icon-phone">📞</span>
+                </button>
+                <button class="contact-btn">Share</button>
               </div>
             </div>
-          )}
 
-          <div class="meta-info">
-            <p>Domain: {domain}</p>
-            <p>Account ID: {accountId}</p>
+            <div class="agent-content-container">
+              {description && (
+                <div class="description-container">
+                  <div class="expandable-description" id="description-text">
+                    <p>{description}</p>
+                  </div>
+                  <button class="read-more-button" id="read-more-btn" style="display: none;">
+                    Read More
+                    <span class="expand-icon">▼</span>
+                  </button>
+                </div>
+              )}
+
+              {/* Gallery Images - Inline Display */}
+              {agent.galleryImages && agent.galleryImages.length > 0 && (
+                <div class="gallery-container">
+                  {agent.galleryImages.slice(0, 3).map((image, index) => (
+                    <div class="gallery-item-inline" key={index}>
+                      <img src={image.medium?.src || image.src} alt={`Gallery ${index + 1}`} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
-          {/* Listing Summary Boxes */}
-          <div class="listing-summary-section">
-            <div class="summary-box">
-              <div class="summary-number">{agent._metadata?.activeSaleListingCount || 0}</div>
-              <div class="summary-label">For Sale</div>
+          {/* Listings Summary Container */}
+          <div class="listings-container">
+            <div class="listing-summary">
+              <p>{agent._metadata?.activeSaleListingCount || 0}</p>
+              <h3>Listings for Sale</h3>
             </div>
-            <div class="summary-box">
-              <div class="summary-number">{agent._metadata?.activeRentListingCount || 0}</div>
-              <div class="summary-label">For Rent</div>
+            <div class="listing-summary">
+              <p>{agent._metadata?.activeRentListingCount || 0}</p>
+              <h3>Listings for Rent</h3>
             </div>
-            <div class="summary-box">
-              <div class="summary-number">{agent._metadata?.activeAuctionListingCount || 0}</div>
-              <div class="summary-label">For Auction</div>
+            <div class="listing-summary">
+              <p>{agent._metadata?.activeAuctionListingCount || 0}</p>
+              <h3>Listings for Auction</h3>
             </div>
           </div>
 
@@ -1958,6 +2023,44 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
             // Initialize filter options on page load
             initializeFilterOptions();
+
+            // Expandable description functionality
+            function initializeExpandableDescription() {
+              const descriptionText = document.getElementById('description-text');
+              const readMoreBtn = document.getElementById('read-more-btn');
+
+              if (!descriptionText || !readMoreBtn) return;
+
+              // Check if content height exceeds 150px
+              const contentHeight = descriptionText.scrollHeight;
+              const shouldShowReadMore = contentHeight > 150;
+
+              if (shouldShowReadMore) {
+                descriptionText.classList.add('collapsed');
+                readMoreBtn.style.display = 'flex';
+
+                // Add click handler for read more/less
+                readMoreBtn.addEventListener('click', () => {
+                  const isExpanded = !descriptionText.classList.contains('collapsed');
+                  const expandIcon = readMoreBtn.querySelector('.expand-icon');
+
+                  if (isExpanded) {
+                    // Collapse
+                    descriptionText.classList.add('collapsed');
+                    readMoreBtn.childNodes[0].textContent = 'Read More ';
+                    if (expandIcon) expandIcon.classList.remove('rotated');
+                  } else {
+                    // Expand
+                    descriptionText.classList.remove('collapsed');
+                    readMoreBtn.childNodes[0].textContent = 'Read Less ';
+                    if (expandIcon) expandIcon.classList.add('rotated');
+                  }
+                });
+              }
+            }
+
+            // Initialize expandable description on page load
+            initializeExpandableDescription();
 
             // Tab click handlers
             document.querySelectorAll('.tab').forEach(tab => {
