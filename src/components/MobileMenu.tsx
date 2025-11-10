@@ -180,11 +180,15 @@ export const MobileMenu: FC = () => {
         }
 
         .mobile-dropdown-link {
-          display: block;
-          padding: 1em 1.2em;
+          display: inline-flex;
+          justify-content: space-between;
+          padding: 1.5rem 0.6rem;
           color: white;
           text-decoration: none;
-          font-size: 1rem;
+          font-size: 20px;
+          font-weight: 600;
+          border-radius: 3px;
+          line-height: 20px;
           transition: background 0.2s ease;
         }
 
