@@ -1,5 +1,7 @@
 import type { FC } from 'hono/jsx';
 import { css, Style } from 'hono/css';
+import { HeaderLeftLinks } from './HeaderLeftLinks';
+import { HeaderLinks } from './HeaderLinks';
 
 interface HeaderProps {
   logoUrl?: string;
@@ -55,30 +57,6 @@ export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r
           width: auto;
           object-fit: contain;
         }
-
-        .header-nav {
-          display: flex;
-          align-items: center;
-          gap: 2rem;
-          flex: 1;
-          margin: 0 2rem;
-        }
-
-        .header-actions {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-
-        @media (max-width: 1279px) {
-          .header-nav {
-            display: none;
-          }
-
-          .header-actions {
-            display: none;
-          }
-        }
       `}</Style>
 
       <header class="app-header">
@@ -92,30 +70,10 @@ export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r
             </div>
 
             {/* Navigation Menu - Desktop */}
-            <nav class="header-nav">
-              {/* TODO: Add HeaderLeftLinks navigation here */}
-              <a href="/property-for-sale" style="color: #2c2c2c; text-decoration: none; font-weight: 600;">Buy</a>
-              <a href="/property-for-rent" style="color: #2c2c2c; text-decoration: none; font-weight: 600;">Rent</a>
-              <a href="/project-listing" style="color: #2c2c2c; text-decoration: none; font-weight: 600;">Projects</a>
-              <a href="/contact-us" style="color: #2c2c2c; text-decoration: none; font-weight: 600;">Contact Us</a>
-            </nav>
+            <HeaderLeftLinks />
 
             {/* Action Buttons - Desktop */}
-            <div class="header-actions">
-              {/* TODO: Add HeaderLinks buttons here */}
-              <a
-                href="/agent-sign-up"
-                style="background-color: #6366f1; color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; font-weight: 600;"
-              >
-                Sign Up
-              </a>
-              <a
-                href="/login"
-                style="background-color: #6366f1; color: white; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; font-weight: 600;"
-              >
-                Login
-              </a>
-            </div>
+            <HeaderLinks />
           </div>
         </div>
       </header>
