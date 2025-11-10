@@ -88,6 +88,13 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             color: #2c2c2c;
             font-size: 1rem;
             background: white;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+          }
+
+          h1, h2, h3, h4, h5, h6, p, span, a, button, input, select, textarea {
+            font-family: Poppins, sans-serif;
           }
 
           main {
@@ -160,6 +167,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             display: flex;
             justify-content: center;
             align-items: center;
+            grid-area:image;
           }
 
           .image-container img {
@@ -172,6 +180,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           .info-container {
             padding: 25px 25px 0 0;
             position: relative;
+            grid-area: info;
           }
 
           .info-container h1 {
@@ -242,6 +251,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           .details-container {
             margin-top: 175px;
             margin-left: 2rem;
+            grid-area: details;
           }
 
           .details-container p {
@@ -259,6 +269,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .agent-content-container {
+            grid-area: agent-content;
             padding: 0;
           }
 
@@ -385,7 +396,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             max-width: 1280px;
             width: 100%;
             margin: 2rem auto;
-            border-top: 2px solid #e0e0e0;
             padding: 0 1rem;
           }
 

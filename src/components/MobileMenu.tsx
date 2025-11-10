@@ -73,8 +73,7 @@ export const MobileMenu: FC = () => {
           display: flex;
           align-items: center;
           height: 73px;
-          padding: 0 1rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+          padding: 0 20px;
         }
 
         .drawer-close {
@@ -87,8 +86,8 @@ export const MobileMenu: FC = () => {
         }
 
         .drawer-close svg {
-          width: 28px;
-          height: 28px;
+          width: 32px;
+          height: 32px;
         }
 
         .drawer-logo {
@@ -108,7 +107,7 @@ export const MobileMenu: FC = () => {
 
         /* Drawer Content */
         .drawer-content {
-          padding: 1rem;
+          padding: 0 20px;
         }
 
         .mobile-nav-list {
@@ -117,20 +116,18 @@ export const MobileMenu: FC = () => {
           padding: 0;
         }
 
-        .mobile-nav-item {
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         .mobile-nav-toggle {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          position: relative;
           width: 100%;
           padding: 1.5rem 0.6rem;
           color: white;
           text-decoration: none;
           font-size: 1.25rem;
           font-weight: 600;
+          line-height: 20px;
           background: none;
           border: none;
           cursor: pointer;
@@ -147,6 +144,7 @@ export const MobileMenu: FC = () => {
           align-items: center;
           justify-content: space-between;
           padding: 1.5rem 0.6rem;
+          line-height: 20px;
           color: white;
           text-decoration: none;
           font-size: 1.25rem;
@@ -161,6 +159,8 @@ export const MobileMenu: FC = () => {
         .dropdown-arrow {
           width: 25px;
           height: 25px;
+          position: absolute;
+          right: 0px;
           transition: transform 0.3s ease;
         }
 
@@ -198,10 +198,15 @@ export const MobileMenu: FC = () => {
 
         /* Mobile Actions */
         .mobile-actions {
-          margin-top: 2rem;
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 20px;
+
+          hr {
+            border-color: #ffffff;
+            border-width: 1px;
+            opacity: 1;
+          }
         }
 
         .mobile-action-btn {
@@ -223,8 +228,8 @@ export const MobileMenu: FC = () => {
         }
 
         .mobile-action-btn.secondary {
-          background-color: #f97316;
-          color: #000;
+          background-color: #ec8d02;
+          color: #2c2c2c;
         }
 
         @keyframes fadeIn {
@@ -265,7 +270,7 @@ export const MobileMenu: FC = () => {
               {/* Buy Dropdown */}
               <li class="mobile-nav-item">
                 <button class="mobile-nav-toggle" data-dropdown="buy">
-                  <div>Buy</div>
+                  <p>Buy</p>
                   <svg class="dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="white">
                     <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
                   </svg>
@@ -289,7 +294,7 @@ export const MobileMenu: FC = () => {
               {/* Rent Dropdown */}
               <li class="mobile-nav-item">
                 <button class="mobile-nav-toggle" data-dropdown="rent">
-                  <div>Rent</div>
+                  <p>Rent</p>
                   <svg class="dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="white">
                     <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
                   </svg>
@@ -307,7 +312,7 @@ export const MobileMenu: FC = () => {
               {/* Projects Dropdown */}
               <li class="mobile-nav-item">
                 <button class="mobile-nav-toggle" data-dropdown="projects">
-                  <div>Projects</div>
+                  <p>Projects</p>
                   <svg class="dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="white">
                     <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
                   </svg>
@@ -328,7 +333,7 @@ export const MobileMenu: FC = () => {
               {/* Resources Dropdown */}
               <li class="mobile-nav-item">
                 <button class="mobile-nav-toggle" data-dropdown="resources">
-                  <div>Resources</div>
+                  <p>Resources</p>
                   <svg class="dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="white">
                     <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
                   </svg>
@@ -343,7 +348,7 @@ export const MobileMenu: FC = () => {
               {/* Others Dropdown */}
               <li class="mobile-nav-item">
                 <button class="mobile-nav-toggle" data-dropdown="others">
-                  <div>Others</div>
+                  <p>Others</p>
                   <svg class="dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="white">
                     <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
                   </svg>
@@ -367,11 +372,15 @@ export const MobileMenu: FC = () => {
           </nav>
 
           <div class="mobile-actions">
+            <hr />
             <a href={`${baseUrl}/login`} class="mobile-action-btn">
               Login as User
             </a>
-            <a href={`${baseUrl}/agent-sign-in`} class="mobile-action-btn secondary">
+            <a href={`${baseUrl}/agent-sign-in`} class="mobile-action-btn">
               Login as Agent
+            </a>
+            <a href={`${baseUrl}/agent-sign-up`} class="mobile-action-btn secondary">
+              Join as Agent
             </a>
           </div>
         </div>

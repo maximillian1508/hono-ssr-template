@@ -18,7 +18,6 @@ export const HeaderLeftLinks: FC = () => {
           list-style: none;
           margin: 0;
           padding: 0;
-          gap: 0.5rem;
           font-size: 14px;
         }
 
@@ -29,8 +28,7 @@ export const HeaderLeftLinks: FC = () => {
         .nav-link {
           display: inline-flex;
           align-items: center;
-          gap: 0.25rem;
-          padding: 0.6rem 1rem;
+          padding: 0.6rem 1em;
           font-weight: 600;
           font-size: 1em;
           color: #2c2c2c;
@@ -38,11 +36,6 @@ export const HeaderLeftLinks: FC = () => {
           border-radius: 3px;
           transition: all 150ms ease;
           cursor: pointer;
-        }
-
-        .nav-link:hover,
-        .nav-link:focus {
-          background: rgba(200, 200, 200, 0.2);
         }
 
         .nav-link.active {

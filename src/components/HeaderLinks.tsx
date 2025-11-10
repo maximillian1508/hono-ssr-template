@@ -24,18 +24,20 @@ export const HeaderLinks: FC = () => {
           color: white;
           border: none;
           border-radius: 5px;
-          font-size: 0.95rem;
-          font-weight: 600;
+          font-size: 0.875rem;
+          font-weight: 400;
           text-decoration: none;
           cursor: pointer;
           transition: background-color 0.2s;
           display: inline-flex;
           align-items: center;
           font-family: 'Poppins', sans-serif;
+          text-transform: uppercase;
         }
 
-        .action-btn:hover {
-          background-color: #5558eb;
+        .action-btn-agent {
+          background-color: #ec8d02;
+          color: #2c2c2c;
         }
 
         @media (max-width: 1279px) {
