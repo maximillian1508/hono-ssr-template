@@ -19,6 +19,7 @@ export const HeaderLeftLinks: FC = () => {
           margin: 0;
           padding: 0;
           gap: 0.5rem;
+          font-size: 14px;
         }
 
         .nav-item {
@@ -31,7 +32,7 @@ export const HeaderLeftLinks: FC = () => {
           gap: 0.25rem;
           padding: 0.6rem 1rem;
           font-weight: 600;
-          font-size: 16px;
+          font-size: 1em;
           color: #2c2c2c;
           text-decoration: none;
           border-radius: 3px;
@@ -164,7 +165,7 @@ export const HeaderLeftLinks: FC = () => {
             <span class="nav-link">
               Buy
               <span class="dropdown-icon">
-                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon">
+                <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
                   <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
                 </svg>
               </span>
@@ -215,7 +216,7 @@ export const HeaderLeftLinks: FC = () => {
             <span class="nav-link">
               Rent
               <span class="dropdown-icon">
-                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon">
+                <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
                   <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
                 </svg>
               </span>
@@ -260,7 +261,7 @@ export const HeaderLeftLinks: FC = () => {
             <span class="nav-link">
               Projects
               <span class="dropdown-icon">
-                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon">
+                <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
                   <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
                 </svg>
               </span>
@@ -298,7 +299,7 @@ export const HeaderLeftLinks: FC = () => {
             <span class="nav-link">
               Resources
               <span class="dropdown-icon">
-                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon">
+                <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
                   <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
                 </svg>
               </span>
@@ -353,7 +354,7 @@ export const HeaderLeftLinks: FC = () => {
             <span class="nav-link">
               Others
               <span class="dropdown-icon">
-                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon">
+                <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24">
                   <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
                 </svg>
               </span>
