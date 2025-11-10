@@ -31,7 +31,7 @@ export const HeaderLeftLinks: FC = () => {
           gap: 0.25rem;
           padding: 0.6rem 1rem;
           font-weight: 600;
-          font-size: 1em;
+          font-size: 16px;
           color: #2c2c2c;
           text-decoration: none;
           border-radius: 3px;
@@ -45,12 +45,21 @@ export const HeaderLeftLinks: FC = () => {
         }
 
         .nav-link.active {
-          color: #6366f1;
+          color: #3462F4;
         }
 
         .dropdown-icon {
-          font-size: 1.2rem;
+          width: 20px;
+          height: 20px;
           transition: transform 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .dropdown-icon svg {
+          width: 20px;
+          height: 20px;
         }
 
         .nav-item:hover .dropdown-icon {
@@ -132,12 +141,12 @@ export const HeaderLeftLinks: FC = () => {
         }
 
         .dropdown-link:hover {
-          color: #6366f1;
+          color: #3462F4;
           background-color: #f0f0f0;
         }
 
         .dropdown-link.primary {
-          color: #6366f1;
+          color: #3462F4;
           font-weight: 500;
         }
 
@@ -154,7 +163,11 @@ export const HeaderLeftLinks: FC = () => {
           <li class="nav-item">
             <span class="nav-link">
               Buy
-              <span class="dropdown-icon">▼</span>
+              <span class="dropdown-icon">
+                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon">
+                  <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
+                </svg>
+              </span>
             </span>
             <div class="dropdown-content">
               <div class="dropdown-grid cols-3">
@@ -201,7 +214,11 @@ export const HeaderLeftLinks: FC = () => {
           <li class="nav-item">
             <span class="nav-link">
               Rent
-              <span class="dropdown-icon">▼</span>
+              <span class="dropdown-icon">
+                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon">
+                  <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
+                </svg>
+              </span>
             </span>
             <div class="dropdown-content">
               <div class="dropdown-grid cols-3">
@@ -242,7 +259,11 @@ export const HeaderLeftLinks: FC = () => {
           <li class="nav-item">
             <span class="nav-link">
               Projects
-              <span class="dropdown-icon">▼</span>
+              <span class="dropdown-icon">
+                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon">
+                  <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
+                </svg>
+              </span>
             </span>
             <div class="dropdown-content medium">
               <div class="dropdown-grid cols-2">
@@ -276,7 +297,11 @@ export const HeaderLeftLinks: FC = () => {
           <li class="nav-item">
             <span class="nav-link">
               Resources
-              <span class="dropdown-icon">▼</span>
+              <span class="dropdown-icon">
+                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon">
+                  <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
+                </svg>
+              </span>
             </span>
             <div class="dropdown-content">
               <div class="dropdown-grid cols-3">
@@ -327,7 +352,11 @@ export const HeaderLeftLinks: FC = () => {
           <li class="nav-item">
             <span class="nav-link">
               Others
-              <span class="dropdown-icon">▼</span>
+              <span class="dropdown-icon">
+                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="KeyboardArrowDownIcon">
+                  <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
+                </svg>
+              </span>
             </span>
             <div class="dropdown-content small">
               <div class="dropdown-grid cols-1">

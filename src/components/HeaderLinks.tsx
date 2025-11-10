@@ -20,7 +20,7 @@ export const HeaderLinks: FC = () => {
 
         .action-btn {
           padding: 0.5rem 1rem;
-          background-color: #6366f1;
+          background-color: #3462F4;
           color: white;
           border: none;
           border-radius: 5px;
@@ -46,6 +46,9 @@ export const HeaderLinks: FC = () => {
       `}</Style>
 
       <div class="header-actions">
+        <a href={`${baseUrl}/agent-sign-up`} class="action-btn action-btn-agent" data-gtm-action="join_agent_intent_header">
+          Join as Agent
+        </a>
         <a href={`${baseUrl}/agent-sign-up`} class="action-btn" data-gtm-action="sign_up_intent_header">
           Sign Up
         </a>

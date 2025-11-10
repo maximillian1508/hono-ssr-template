@@ -57,7 +57,7 @@ export const MobileMenu: FC = () => {
           right: -100vw;
           width: 100vw;
           height: 100vh;
-          background-color: #6366f1;
+          background-color: #3462F4;
           box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
           z-index: 9999;
           overflow-y: auto;
@@ -148,7 +148,7 @@ export const MobileMenu: FC = () => {
         .mobile-action-btn {
           padding: 1rem;
           background-color: white;
-          color: #6366f1;
+          color: #3462F4;
           border: none;
           border-radius: 8px;
           font-size: 1.25rem;
