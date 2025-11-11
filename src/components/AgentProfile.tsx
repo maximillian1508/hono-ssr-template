@@ -6,6 +6,9 @@ import { Header } from './Header';
 import { HeaderCompensation } from './HeaderCompensation';
 import { ShareModal } from './ShareModal';
 import { FilterModal } from './FilterModal';
+import { AgentFooter } from './AgentFooter';
+import { ListingCardStyles } from './ListingCardStyles';
+import { ListingCard, generateListingCardHTML } from './ListingCard';
 
 interface AgentProfileProps {
   agent: AgentApiResponse;
@@ -20,28 +23,6 @@ interface AgentProfileProps {
  */
 export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, commonData }) => {
   // Helper function to get property type color
-  const getPropertyTypeColor = (typeName: string): string => {
-    const colorMap: Record<string, string> = {
-      'Condominium': '#3462F4',
-      'Serviced Residence': '#8b5cf6',
-      'Apartment': '#ec4899',
-      'Flat': '#f97316',
-      'Townhouse': '#14b8a6',
-      'Terrace': '#10b981',
-      'Bungalow': '#22c55e',
-      'Semi-D': '#84cc16',
-      'Shop': '#eab308',
-      'Office': '#f59e0b',
-      'Factory': '#ef4444',
-      'Warehouse': '#dc2626',
-      'Land': '#78716c',
-      'Agricultural Land': '#65a30d',
-      'Residential Land': '#16a34a',
-      'Commercial Land': '#0891b2',
-      'Industrial Land': '#0284c7',
-    };
-    return colorMap[typeName] || '#3462F4';
-  };
 
   // Extract agent data
   const name = agent.name;
@@ -496,135 +477,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             font-weight: 700;
           }
 
-          .listings-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
-          }
-
-          .listing-card {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-            height: 375px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            display: block;
-            text-decoration: none;
-          }
-
-          .listing-card:hover {
-            transform: translateY(-4px);
-          }
-
-          .listing-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-          }
-
-          .listing-card:hover img {
-            transform: scale(1.025);
-          }
-
-          .action-buttons {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            display: flex;
-            gap: 8px;
-            z-index: 2;
-          }
-
-          .action-button {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-            color: white;
-            font-size: 20px;
-          }
-
-          .action-button:hover {
-            transform: scale(1.1);
-            background-color: rgba(0, 0, 0, 0.6);
-          }
-
-          .action-button.active {
-            background-color: #ef4444;
-          }
-
-          .action-button.active:hover {
-            background-color: #dc2626;
-          }
-
-          .property-type-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: white;
-            z-index: 2;
-          }
-
-          .listing-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.85) 100%);
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            color: white;
-          }
-
-          .listing-overlay h3 {
-            font-size: 1.15rem;
-            margin: 0 0 0.5rem 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-
-          .listing-overlay p {
-            font-size: 0.875rem;
-            margin: 0.25rem 0;
-          }
-
-          .listing-details {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
-            margin: 0.75rem 0;
-          }
-
-          .listing-detail-item {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            font-size: 0.875rem;
-          }
-
-          .listing-price {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-top: 0.5rem;
-          }
 
           .loading {
             text-align: center;
@@ -762,29 +614,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             font-weight: 500;
           }
 
-          /* Footer Styles */
-          .footer {
-            margin-top: 4rem;
-            background-color: #1f2937;
-            color: white;
-            padding: 2rem 0;
-          }
-
-          .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
-          }
-
-          .footer-content {
-            text-align: center;
-          }
-
-          .footer-content p {
-            margin: 0.5rem 0;
-            font-size: 0.9rem;
-            color: #d1d5db;
-          }
 
           .listings-loading {
             display: flex;
@@ -801,11 +630,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             margin-bottom: 1rem;
           }
 
-          @media (max-width: 992px) {
-            .listings-grid {
-              grid-template-columns: repeat(3, 1fr);
-            }
-          }
 
           @media (max-width: 768px) {
             .agent-detail-section {
@@ -883,9 +707,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               font-size: 1rem;
             }
 
-            .listings-grid {
-              grid-template-columns: repeat(2, 1fr);
-            }
 
             .tabs-container {
               overflow-x: auto;
@@ -926,9 +747,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           @media (max-width: 480px) {
-            .listings-grid {
-              grid-template-columns: repeat(1, 1fr);
-            }
           }
         `}</Style>
       </head>
@@ -938,6 +756,9 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
         {/* Spacer for fixed header */}
         <HeaderCompensation />
+
+        {/* Listing Card Styles */}
+        <ListingCardStyles />
 
         <main>
 
@@ -1068,67 +889,9 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             <div id="listings-container">
               <div class="listings-grid">
                 {agent.listings && agent.listings.length > 0 ? (
-                  agent.listings.map((listing) => {
-                    // Helper to check if object has properties
-                    const isNotEmpty = (obj: any) => obj && typeof obj === 'object' && Object.keys(obj).length > 0;
-
-                    // Get price object - prioritize sale, then rent, then auction (only if not empty)
-                    const priceObject = isNotEmpty(listing.sale)
-                      ? listing.sale
-                      : isNotEmpty(listing.rent)
-                      ? listing.rent
-                      : isNotEmpty(listing.auction)
-                      ? listing.auction
-                      : null;
-                    const formattedPrice = priceObject?.price?.text || '-';
-                    const psf = priceObject?.perSize?.text || '-';
-                    const propertyType = listing.type?.name || '';
-                    const listingHref = `https://www.propertygenie.com.my/property/${listing.slug}`;
-
-                    return (
-                      <a class="listing-card" key={listing.id} href={listingHref} target="_blank" rel="noopener noreferrer">
-                        <img
-                          src={listing.image?.medium?.src || '/amenties-placeholder.png'}
-                          alt={listing.name}
-                        />
-                        {propertyType && (
-                          <div class="property-type-badge" style={`background-color: ${getPropertyTypeColor(propertyType)};`}>
-                            {propertyType}
-                          </div>
-                        )}
-                        <div class="action-buttons">
-                          <button class="action-button" data-action="share" data-slug={listing.slug} onclick="handleShare(event, '{listing.slug}', '{listing.name}')">
-                            📤
-                          </button>
-                        </div>
-                        <div class="listing-overlay">
-                          <h3>{listing.name}</h3>
-                          <p>{listing.city?.name}, {listing.postcode}, {listing.state?.name}</p>
-                          <div class="listing-details">
-                            <div class="listing-detail-item">
-                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BedIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle; fill: #ffffff;"><path d="M21 10.78V8c0-1.65-1.35-3-3-3h-4c-.77 0-1.47.3-2 .78-.53-.48-1.23-.78-2-.78H6C4.35 5 3 6.35 3 8v2.78c-.61.55-1 1.34-1 2.22v6h2v-2h16v2h2v-6c0-.88-.39-1.67-1-2.22M14 7h4c.55 0 1 .45 1 1v2h-6V8c0-.55.45-1 1-1M5 8c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v2H5z"></path></svg>
-                              {listing.room?.bed?.text || listing.room?.bedroom || 0}
-                            </div>
-                            <div class="listing-detail-item">
-                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ShowerIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle; fill: #ffffff;"><circle cx="8" cy="17" r="1"></circle><circle cx="12" cy="17" r="1"></circle><circle cx="16" cy="17" r="1"></circle><path d="M13 5.08V3h-2v2.08C7.61 5.57 5 8.47 5 12v2h14v-2c0-3.53-2.61-6.43-6-6.92"></path><circle cx="8" cy="20" r="1"></circle><circle cx="12" cy="20" r="1"></circle><circle cx="16" cy="20" r="1"></circle></svg>
-                              {listing.room?.bath?.text || listing.room?.bathroom || 0}
-                            </div>
-                            <div class="listing-detail-item">
-                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle; fill: #ffffff;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
-                              {listing.size?.floor?.text || listing.size?.land?.text || '-'}
-                            </div>
-                            <div class="listing-detail-item">
-                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle; fill: #ffffff;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
-                              {psf}
-                            </div>
-                          </div>
-                          <p class="listing-price">
-                            {formattedPrice}
-                          </p>
-                        </div>
-                      </a>
-                    );
-                  })
+                  agent.listings.map((listing) => (
+                    <ListingCard key={listing.id} listing={listing} />
+                  ))
                 ) : (
                   <div class="empty-state">No listings available</div>
                 )}
@@ -1143,15 +906,9 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           <div class="loading-text">Loading</div>
         </div>
 
-        {/* Footer */}
-        <footer class="footer">
-          <div class="footer-container">
-            <div class="footer-content">
-              <p>&copy; {new Date().getFullYear()} {publisherName}. All rights reserved.</p>
-              <p>Powered by PropertyGenie</p>
-            </div>
-          </div>
-        </footer>
+        {/* Footer Component */}
+        <AgentFooter publisherName={publisherName} />
+
 
         {/* Filter Modal Component */}
         <FilterModal commonData={commonData} />
@@ -1223,29 +980,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               }
             }
 
-            // Property type color helper
-            function getPropertyTypeColor(typeName) {
-              const colorMap = {
-                'Condominium': '#3462F4',
-                'Serviced Residence': '#8b5cf6',
-                'Apartment': '#ec4899',
-                'Flat': '#f97316',
-                'Townhouse': '#14b8a6',
-                'Terrace': '#10b981',
-                'Bungalow': '#22c55e',
-                'Semi-D': '#84cc16',
-                'Shop': '#eab308',
-                'Office': '#f59e0b',
-                'Factory': '#ef4444',
-                'Warehouse': '#dc2626',
-                'Land': '#78716c',
-                'Agricultural Land': '#65a30d',
-                'Residential Land': '#16a34a',
-                'Commercial Land': '#0891b2',
-                'Industrial Land': '#0284c7',
-              };
-              return colorMap[typeName] || '#3462F4';
-            }
 
             // Share handler
             window.handleShare = function(event, slug, name) {
@@ -1268,6 +1002,9 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 });
               }
             };
+
+            // Generate listing card HTML (client-side rendering helper)
+            ${generateListingCardHTML.toString()}
 
             function renderListings(listings, pagination = null) {
               const container = document.getElementById('listings-container');
@@ -1292,65 +1029,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 return;
               }
 
-              const listingsHtml = listings.map(listing => {
-                const image = listing.image?.medium?.src || '/amenties-placeholder.png';
-
-                // Helper to check if object has properties
-                const isNotEmpty = (obj) => obj && typeof obj === 'object' && Object.keys(obj).length > 0;
-
-                // Get price object - prioritize sale, then rent, then auction (only if not empty)
-                const priceObject = isNotEmpty(listing.sale)
-                  ? listing.sale
-                  : isNotEmpty(listing.rent)
-                  ? listing.rent
-                  : isNotEmpty(listing.auction)
-                  ? listing.auction
-                  : null;
-                const price = priceObject?.price?.text || '-';
-                const psf = priceObject?.perSize?.text || '-';
-                const propertyType = listing.type?.name || '';
-                const propertyTypeColor = getPropertyTypeColor(propertyType);
-                const listingUrl = \`https://www.propertygenie.com.my/property/\${listing.slug}\`;
-                const bed = listing.room?.bed?.text || listing.room?.bedroom || 0;
-                const bath = listing.room?.bath?.text || listing.room?.bathroom || 0;
-                const size = listing.size?.floor?.text || listing.size?.land?.text || '-';
-
-                return \`
-                  <a class="listing-card" href="\${listingUrl}" target="_blank" rel="noopener noreferrer">
-                    <img src="\${image}" alt="\${listing.name}" />
-                    \${propertyType ? \`<div class="property-type-badge" style="background-color: \${propertyTypeColor};">\${propertyType}</div>\` : ''}
-                    <div class="action-buttons">
-                      <button class="action-button" onclick="handleShare(event, '\${listing.slug}', '\${listing.name.replace(/'/g, "\\'")}')">
-                        📤
-                      </button>
-                    </div>
-                    <div class="listing-overlay">
-                      <h3>\${listing.name}</h3>
-                      <p>\${listing.city?.name || '-'}, \${listing.postcode || '-'}, \${listing.state?.name || '-'}</p>
-                      <div class="listing-details">
-                        <div class="listing-detail-item">
-                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BedIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle; fill: #ffffff;"><path d="M21 10.78V8c0-1.65-1.35-3-3-3h-4c-.77 0-1.47.3-2 .78-.53-.48-1.23-.78-2-.78H6C4.35 5 3 6.35 3 8v2.78c-.61.55-1 1.34-1 2.22v6h2v-2h16v2h2v-6c0-.88-.39-1.67-1-2.22M14 7h4c.55 0 1 .45 1 1v2h-6V8c0-.55.45-1 1-1M5 8c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v2H5z"></path></svg>
-                          \${bed}
-                        </div>
-                        <div class="listing-detail-item">
-                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ShowerIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle; fill: #ffffff;"><circle cx="8" cy="17" r="1"></circle><circle cx="12" cy="17" r="1"></circle><circle cx="16" cy="17" r="1"></circle><path d="M13 5.08V3h-2v2.08C7.61 5.57 5 8.47 5 12v2h14v-2c0-3.53-2.61-6.43-6-6.92"></path><circle cx="8" cy="20" r="1"></circle><circle cx="12" cy="20" r="1"></circle><circle cx="16" cy="20" r="1"></circle></svg>
-                          \${bath}
-                        </div>
-                        <div class="listing-detail-item">
-                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle; fill: #ffffff;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
-                          \${size}
-                        </div>
-                        <div class="listing-detail-item">
-                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle; fill: #ffffff;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
-                          \${psf}
-                        </div>
-                      </div>
-                      <p class="listing-price">\${price}</p>
-                    </div>
-                  </a>
-                \`;
-              }).join('');
-
+              const listingsHtml = listings.map(listing => generateListingCardHTML(listing)).join('');
               container.innerHTML = '<div class="listings-grid">' + listingsHtml + '</div>';
             }
 
