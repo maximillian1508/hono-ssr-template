@@ -4,6 +4,7 @@ import type { AgentApiResponse } from '../types/agent';
 import { getLicenseLabel, formatContactNumber } from '../types/agent';
 import { Header } from './Header';
 import { HeaderCompensation } from './HeaderCompensation';
+import { ShareModal } from './ShareModal';
 
 interface AgentProfileProps {
   agent: AgentApiResponse;
@@ -1253,7 +1254,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 <button class="contact-btn" onclick="alert('Please login to view contact details')">
                   <span class="icon-phone">📞</span>
                 </button>
-                <button class="contact-btn">Share</button>
+                <button class="contact-btn" id="share-button">Share</button>
               </div>
             </div>
 
@@ -1514,6 +1515,12 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             </div>
           </div>
         </div>
+
+        {/* Share Modal Component */}
+        <ShareModal
+          url={`https://${domain}`}
+          title={`${name} from ${publisherName}`}
+        />
 
         <script dangerouslySetInnerHTML={{
           __html: `
