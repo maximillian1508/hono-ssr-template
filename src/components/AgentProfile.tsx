@@ -1597,7 +1597,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             let currentPage = 1;
             let isLoading = false;
             let searchKeyword = '';
-            let filterTypes = {};
+            let filterTypes = { types: [] }; // Always include types as empty array
             let currentListings = initialData.listings;
             let totalCount = initialData.metadata.activeListingCount || 0;
             let searchTimeout = null;
@@ -1952,10 +1952,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             // Initialize filter options from commonData
             function initializeFilterOptions() {
               const commonData = initialData.commonData;
-              if (!commonData || !commonData.filter) {
-                console.error('commonData or commonData.filter is missing');
-                return;
-              }
+              if (!commonData || !commonData.filter) return;
 
               // Render main Property Type buttons (5 categories)
               const propertyTypeGrid = document.getElementById('property-type-grid');
@@ -1963,13 +1960,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               // Try to get categories from commonData, fallback to hardcoded list
               let categories = commonData.filter.category?.items || [];
 
-              // Debug log
-              console.log('Category data structure:', commonData.filter.category);
-              console.log('Categories found:', categories);
-
               // If no categories from API, use hardcoded list
               if (categories.length === 0) {
-                console.log('Using hardcoded categories');
                 categories = [
                   { code: 'residential', name: 'Residential' },
                   { code: 'commercial', name: 'Commercial' },
@@ -1979,18 +1971,11 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 ];
               }
 
-              if (propertyTypeGrid) {
-                if (categories.length > 0) {
-                  const buttonsHtml = categories.map(category => {
-                    return \`<button class="filter-option" data-type="main-category" data-value="\${category.code}">\${category.name}</button>\`;
-                  }).join('');
-                  propertyTypeGrid.innerHTML = buttonsHtml;
-                  console.log('Property type buttons rendered:', categories.length);
-                } else {
-                  console.error('No categories available to render');
-                }
-              } else {
-                console.error('property-type-grid element not found');
+              if (propertyTypeGrid && categories.length > 0) {
+                const buttonsHtml = categories.map(category => {
+                  return \`<button class="filter-option" data-type="main-category" data-value="\${category.code}">\${category.name}</button>\`;
+                }).join('');
+                propertyTypeGrid.innerHTML = buttonsHtml;
               }
 
               // Render bedrooms
@@ -2351,10 +2336,13 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 ).map(el => el.dataset.value).filter(v => v && v !== 'undefined');
 
                 // Build filter object
-                filterTypes = {};
+                // Note: types should always be empty array, categories contains the actual property types
+                filterTypes = {
+                  types: []  // Always empty array
+                };
+
                 if (minPrice) filterTypes.minPrice = parseInt(minPrice);
                 if (maxPrice) filterTypes.maxPrice = parseInt(maxPrice);
-                if (selectedPropertyType) filterTypes.types = selectedPropertyType;
                 if (categoriesData) filterTypes.categories = categoriesData;
                 if (selectedBedrooms.length > 0) filterTypes.bedRooms = selectedBedrooms;
                 if (selectedBathrooms.length > 0) filterTypes.bathRooms = selectedBathrooms;
@@ -2362,9 +2350,9 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 if (selectedFloorLevels.length > 0) filterTypes.floorLevels = selectedFloorLevels;
                 if (selectedFurnishings.length > 0) filterTypes.furnishings = selectedFurnishings;
 
-                // Update badge count
-                const filterCount = Object.keys(filterTypes).length;
-                updateFilterBadge(filterCount);
+                // Update badge count (exclude types and keyword from count)
+                const activeFilterKeys = Object.keys(filterTypes).filter(key => key !== 'types');
+                updateFilterBadge(activeFilterKeys.length);
 
                 // Close modal and fetch
                 closeModal();
@@ -2392,8 +2380,10 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 document.getElementById('property-categories-section').style.display = 'none';
                 document.getElementById('property-categories-container').innerHTML = '';
 
-                // Clear filter object
-                filterTypes = {};
+                // Clear filter object - types should always be empty array
+                filterTypes = {
+                  types: []
+                };
                 updateFilterBadge(0);
 
                 // Close modal and reset to initial data
