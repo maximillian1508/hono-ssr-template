@@ -685,42 +685,87 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           /* Property Type Category Styles */
-          .property-category {
-            margin-bottom: 1.5rem;
+          .property-category-label {
+            font-size: 0.875rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+            margin-top: 0.5rem;
           }
 
-          .category-header {
+          .checkbox-section {
+            max-height: 300px;
+            overflow-y: auto;
+          }
+
+          .checkbox-section::-webkit-scrollbar {
+            width: 6px;
+          }
+
+          .checkbox-section::-webkit-scrollbar-track {
+            background: #f3f4f6;
+            border-radius: 3px;
+          }
+
+          .checkbox-section::-webkit-scrollbar-thumb {
+            background: #3462F4;
+            border-radius: 3px;
+          }
+
+          .checkbox-group {
+            margin-bottom: 1rem;
+          }
+
+          .parent-checkbox-label {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.75rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #111827;
+            margin: 0.5rem 0;
             cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 8px;
-            transition: background 0.2s;
           }
 
-          .category-header:hover {
-            background: #f9fafb;
+          .parent-checkbox-label:hover {
+            color: #3462F4;
           }
 
-          .category-checkbox {
+          .child-checkbox-label {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin: 0.375rem 0 0.375rem 1.75rem;
+            cursor: pointer;
+          }
+
+          .child-checkbox-label:hover {
+            color: #3462F4;
+          }
+
+          .styled-checkbox {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             width: 18px;
             height: 18px;
-            cursor: pointer;
+            border-radius: 4px;
+            border: 1.5px solid #6b7280;
+            margin-right: 10px;
+            background-color: transparent;
+            transition: all 0.2s;
+            flex-shrink: 0;
           }
 
-          .category-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #374151;
+          .styled-checkbox.checked {
+            border-color: #3462F4;
+            background-color: #3462F4;
           }
 
-          .category-types {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 0.75rem;
-            margin-left: 2rem;
+          .styled-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
           }
 
           @media (max-width: 768px) {
@@ -735,9 +780,12 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               grid-template-columns: 1fr;
             }
 
-            .category-types {
-              margin-left: 1rem;
-              grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            .checkbox-section {
+              max-height: 250px;
+            }
+
+            .child-checkbox-label {
+              margin-left: 1.5rem;
             }
           }
 
@@ -1479,7 +1527,13 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
               <div class="filter-section">
                 <h3 class="section-title">Property Type</h3>
-                <div id="property-type-container"></div>
+                <div class="filter-grid" id="property-type-grid"></div>
+              </div>
+
+              <div class="filter-section" id="property-categories-section" style="display: none;">
+                <h3 class="section-title">Property Categories</h3>
+                <div class="property-category-label">Select Property Types</div>
+                <div class="checkbox-section" id="property-categories-container"></div>
               </div>
 
               <div class="filter-section">
@@ -1541,6 +1595,10 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             let currentListings = initialData.listings;
             let totalCount = initialData.metadata.activeListingCount || 0;
             let searchTimeout = null;
+
+            // Property type and category state
+            let selectedPropertyType = ''; // Single string: 'residential', 'commercial', etc.
+            let selectedCategories = {}; // Object tracking selected categories and their children
 
             // Loading overlay functions
             function showLoadingOverlay() {
@@ -1792,39 +1850,71 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               });
             }
 
+            // Helper function to get all property type values for a category
+            function getAllPropertyTypeValues(categoryKey) {
+              const commonData = initialData.commonData;
+              if (!commonData || !commonData.filter) return [];
+
+              const categories = commonData.filter.category?.items || [];
+              const category = categories.find(cat => cat.code === categoryKey);
+              if (!category) return [];
+
+              const allTypes = [];
+              const types = category.types?.items || [];
+              types.forEach(type => {
+                if (type.types?.items) {
+                  // Has nested types
+                  type.types.items.forEach(nestedType => {
+                    allTypes.push(nestedType.code);
+                  });
+                }
+              });
+
+              return allTypes;
+            }
+
+            // Helper function to get formatted category data
+            function getFormattedCategoryData(categoryKey) {
+              const commonData = initialData.commonData;
+              if (!commonData || !commonData.filter) return [];
+
+              const categories = commonData.filter.category?.items || [];
+              const category = categories.find(cat => cat.code === categoryKey);
+              if (!category) return [];
+
+              const formatted = [];
+              const types = category.types?.items || [];
+
+              types.forEach(type => {
+                const nestedTypes = type.types?.items || [];
+                if (nestedTypes.length > 0) {
+                  formatted.push({
+                    label: type.name,
+                    value: type.code,
+                    options: nestedTypes.map(nested => ({
+                      label: nested.name,
+                      value: nested.code
+                    }))
+                  });
+                }
+              });
+
+              return formatted;
+            }
+
             // Initialize filter options from commonData
             function initializeFilterOptions() {
               const commonData = initialData.commonData;
               if (!commonData || !commonData.filter) return;
 
-              // Render Property Types with Categories
-              const propertyTypeContainer = document.getElementById('property-type-container');
+              // Render main Property Type buttons (5 categories)
+              const propertyTypeGrid = document.getElementById('property-type-grid');
               const categories = commonData.filter.category?.items || [];
-              if (propertyTypeContainer && categories.length > 0) {
-                const categoriesHtml = categories.map(category => {
-                  const categoryCode = category.code;
-                  const categoryName = category.name;
-                  const types = category.types?.items || [];
-
-                  if (types.length === 0) return '';
-
-                  const typesHtml = types.map(type => {
-                    return \`<button class="filter-option" data-type="propertyType" data-value="\${type.code}">\${type.name}</button>\`;
-                  }).join('');
-
-                  return \`
-                    <div class="property-category">
-                      <div class="category-header" onclick="toggleCategory('\${categoryCode}')">
-                        <input type="checkbox" class="category-checkbox" data-category="\${categoryCode}" onclick="handleCategoryCheckbox(event, '\${categoryCode}')">
-                        <span class="category-title">\${categoryName}</span>
-                      </div>
-                      <div class="category-types" id="category-\${categoryCode}">
-                        \${typesHtml}
-                      </div>
-                    </div>
-                  \`;
+              if (propertyTypeGrid && categories.length > 0) {
+                const buttonsHtml = categories.map(category => {
+                  return \`<button class="filter-option" data-type="main-category" data-value="\${category.code}">\${category.name}</button>\`;
                 }).join('');
-                propertyTypeContainer.innerHTML = categoriesHtml;
+                propertyTypeGrid.innerHTML = buttonsHtml;
               }
 
               // Render bedrooms
@@ -1882,33 +1972,243 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 }).join('');
               }
 
-              // Add click handlers for filter options
-              document.querySelectorAll('.filter-option').forEach(option => {
+              // Add click handlers for main category buttons (Property Type)
+              document.querySelectorAll('.filter-option[data-type="main-category"]').forEach(option => {
+                option.addEventListener('click', (e) => {
+                  handlePropertyTypeClick(e.currentTarget.dataset.value);
+                });
+              });
+
+              // Add click handlers for other filter options (non-category)
+              document.querySelectorAll('.filter-option:not([data-type="main-category"])').forEach(option => {
                 option.addEventListener('click', (e) => {
                   e.currentTarget.classList.toggle('selected');
                 });
               });
             }
 
-            // Handle category checkbox
-            window.handleCategoryCheckbox = function(event, categoryCode) {
-              event.stopPropagation();
-              const checkbox = event.target;
-              const categoryTypes = document.querySelectorAll(\`#category-\${categoryCode} .filter-option\`);
+            // Handle property type selection (Residential, Commercial, etc.)
+            function handlePropertyTypeClick(typeValue) {
+              const allTypeButtons = document.querySelectorAll('.filter-option[data-type="main-category"]');
 
-              categoryTypes.forEach(typeBtn => {
-                if (checkbox.checked) {
-                  typeBtn.classList.add('selected');
+              // If clicking the already selected type, deselect it
+              if (selectedPropertyType === typeValue) {
+                selectedPropertyType = '';
+                selectedCategories = {};
+                allTypeButtons.forEach(btn => btn.classList.remove('selected'));
+                document.getElementById('property-categories-section').style.display = 'none';
+                return;
+              }
+
+              // Select new type
+              selectedPropertyType = typeValue;
+              allTypeButtons.forEach(btn => {
+                if (btn.dataset.value === typeValue) {
+                  btn.classList.add('selected');
                 } else {
-                  typeBtn.classList.remove('selected');
+                  btn.classList.remove('selected');
                 }
               });
-            };
 
-            // Toggle category visibility (optional collapse feature)
-            window.toggleCategory = function(categoryCode) {
-              // You can add collapse/expand functionality here if needed
-            };
+              // Auto-select "All" for this category
+              const allTypeValues = getAllPropertyTypeValues(typeValue);
+              selectedCategories = {
+                [\`all_\${typeValue}\`]: {
+                  selected: true,
+                  children: allTypeValues
+                }
+              };
+
+              // Render the property categories section
+              renderPropertyCategories(typeValue);
+
+              // Show the categories section
+              document.getElementById('property-categories-section').style.display = 'block';
+            }
+
+            // Render property categories checkboxes based on selected property type
+            function renderPropertyCategories(typeValue) {
+              const container = document.getElementById('property-categories-container');
+              if (!container) return;
+
+              const categoryData = getFormattedCategoryData(typeValue);
+              const allTypeValues = getAllPropertyTypeValues(typeValue);
+
+              // Create "All" option
+              const allOption = {
+                label: \`All \${typeValue.charAt(0).toUpperCase() + typeValue.slice(1)}\`,
+                value: \`all_\${typeValue}\`
+              };
+
+              // Combine "All" with category data
+              const fullData = [allOption, ...categoryData];
+
+              const html = fullData.map(category => {
+                const isAllCategory = category.value.startsWith('all_');
+                const isSelected = isCategorySelected(category);
+
+                let categoryHtml = \`
+                  <div class="checkbox-group">
+                    <label class="parent-checkbox-label" data-category="\${category.value}">
+                      <span class="styled-checkbox \${isSelected ? 'checked' : ''}"></span>
+                      \${category.label}
+                    </label>
+                \`;
+
+                // Render children if not "All" category and has children selected
+                if (!isAllCategory && category.options && (isSelected || hasCategoryChildren(category))) {
+                  category.options.forEach(subCategory => {
+                    const isChildSelected = isSubCategorySelected(category, subCategory);
+                    categoryHtml += \`
+                      <label class="child-checkbox-label" data-parent="\${category.value}" data-child="\${subCategory.value}">
+                        <span class="styled-checkbox \${isChildSelected ? 'checked' : ''}"></span>
+                        \${subCategory.label}
+                      </label>
+                    \`;
+                  });
+                }
+
+                categoryHtml += \`</div>\`;
+                return categoryHtml;
+              }).join('');
+
+              container.innerHTML = html;
+
+              // Add click handlers for category checkboxes
+              container.querySelectorAll('.parent-checkbox-label').forEach(label => {
+                label.addEventListener('click', (e) => {
+                  const categoryValue = e.currentTarget.dataset.category;
+                  const category = fullData.find(c => c.value === categoryValue);
+                  handleCategoryToggle(category);
+                });
+              });
+
+              container.querySelectorAll('.child-checkbox-label').forEach(label => {
+                label.addEventListener('click', (e) => {
+                  const parentValue = e.currentTarget.dataset.parent;
+                  const childValue = e.currentTarget.dataset.child;
+                  const parentCategory = fullData.find(c => c.value === parentValue);
+                  const subCategory = parentCategory.options.find(opt => opt.value === childValue);
+                  handleCategoryToggle(parentCategory, subCategory);
+                });
+              });
+            }
+
+            // Handle category toggle logic
+            function handleCategoryToggle(category, subCategory = null) {
+              const isAllCategory = !category.options || category.value.startsWith('all_');
+
+              if (isAllCategory) {
+                // Toggle "All" category
+                const allTypeValues = getAllPropertyTypeValues(selectedPropertyType);
+
+                if (selectedCategories[category.value]?.selected) {
+                  // Deselect all
+                  selectedCategories = {};
+                } else {
+                  // Select all
+                  selectedCategories = {
+                    [category.value]: {
+                      selected: true,
+                      children: allTypeValues
+                    }
+                  };
+                }
+              } else if (subCategory) {
+                // Handle subcategory toggle
+                // First clear "All" category if selected
+                const allCategoryKey = Object.keys(selectedCategories).find(key => key.startsWith('all_'));
+                if (allCategoryKey) {
+                  delete selectedCategories[allCategoryKey];
+                }
+
+                if (!selectedCategories[category.value]) {
+                  selectedCategories[category.value] = {
+                    selected: false,
+                    children: [subCategory.value]
+                  };
+                } else {
+                  const children = [...(selectedCategories[category.value].children || [])];
+                  const index = children.indexOf(subCategory.value);
+
+                  if (index > -1) {
+                    children.splice(index, 1);
+                  } else {
+                    children.push(subCategory.value);
+                  }
+
+                  selectedCategories[category.value].children = children;
+
+                  // Check if all subcategories are selected
+                  const allSubcategories = category.options.map(opt => opt.value);
+                  const allSelected = allSubcategories.every(val => children.includes(val));
+                  selectedCategories[category.value].selected = allSelected;
+                }
+
+                // Clean up empty categories
+                if (selectedCategories[category.value]?.children?.length === 0) {
+                  delete selectedCategories[category.value];
+                }
+              } else {
+                // Handle parent category toggle (select/deselect all children)
+                // First clear "All" category if selected
+                const allCategoryKey = Object.keys(selectedCategories).find(key => key.startsWith('all_'));
+                if (allCategoryKey) {
+                  delete selectedCategories[allCategoryKey];
+                }
+
+                if (!selectedCategories[category.value] || !selectedCategories[category.value].selected) {
+                  // Select all subcategories
+                  selectedCategories[category.value] = {
+                    selected: true,
+                    children: category.options ? category.options.map(opt => opt.value) : []
+                  };
+                } else {
+                  // Deselect all subcategories
+                  selectedCategories[category.value] = {
+                    selected: false,
+                    children: []
+                  };
+                  delete selectedCategories[category.value];
+                }
+              }
+
+              // Re-render categories
+              renderPropertyCategories(selectedPropertyType);
+            }
+
+            // Helper functions for checking category state
+            function isCategorySelected(category) {
+              const categoryData = selectedCategories[category.value];
+              return categoryData?.selected || (categoryData?.children && categoryData.children.length > 0) || false;
+            }
+
+            function isSubCategorySelected(category, subCategory) {
+              return selectedCategories[category.value]?.children?.includes(subCategory.value) || false;
+            }
+
+            function hasCategoryChildren(category) {
+              const categoryData = selectedCategories[category.value];
+              return categoryData && categoryData.children && categoryData.children.length > 0;
+            }
+
+            // Get categories data for API request
+            function getCategoriesData() {
+              const categories = [];
+              Object.keys(selectedCategories).forEach(parentKey => {
+                const parentCategory = selectedCategories[parentKey];
+
+                if (parentCategory.selected) {
+                  // If parent is selected, add all children
+                  categories.push(...parentCategory.children);
+                } else if (parentCategory.children && parentCategory.children.length > 0) {
+                  // Add only selected children
+                  categories.push(...parentCategory.children);
+                }
+              });
+
+              return categories.length > 0 ? categories : null;
+            }
 
             // Open/Close modal handlers
             const filterModal = document.getElementById('filter-modal');
@@ -1944,12 +2244,15 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             const applyFiltersBtn = document.getElementById('apply-filters');
             if (applyFiltersBtn) {
               applyFiltersBtn.addEventListener('click', () => {
+                // Check if property type is selected but no categories
+                const categoriesData = getCategoriesData();
+                if (selectedPropertyType && !categoriesData) {
+                  alert('Please select at least one category for the chosen property type.');
+                  return;
+                }
+
                 const minPrice = document.getElementById('min-price').value;
                 const maxPrice = document.getElementById('max-price').value;
-
-                const selectedPropertyTypes = Array.from(
-                  document.querySelectorAll('.filter-option[data-type="propertyType"].selected')
-                ).map(el => el.dataset.value).filter(v => v && v !== 'undefined');
 
                 const selectedBedrooms = Array.from(
                   document.querySelectorAll('.filter-option[data-type="bedroom"].selected')
@@ -1975,7 +2278,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 filterTypes = {};
                 if (minPrice) filterTypes.minPrice = parseInt(minPrice);
                 if (maxPrice) filterTypes.maxPrice = parseInt(maxPrice);
-                if (selectedPropertyTypes.length > 0) filterTypes.types = selectedPropertyTypes;
+                if (selectedPropertyType) filterTypes.types = selectedPropertyType;
+                if (categoriesData) filterTypes.categories = categoriesData;
                 if (selectedBedrooms.length > 0) filterTypes.bedRooms = selectedBedrooms;
                 if (selectedBathrooms.length > 0) filterTypes.bathRooms = selectedBathrooms;
                 if (selectedTenures.length > 0) filterTypes.tenures = selectedTenures;
@@ -2006,10 +2310,11 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   el.classList.remove('selected');
                 });
 
-                // Clear all category checkboxes
-                document.querySelectorAll('.category-checkbox').forEach(checkbox => {
-                  checkbox.checked = false;
-                });
+                // Clear property type and categories
+                selectedPropertyType = '';
+                selectedCategories = {};
+                document.getElementById('property-categories-section').style.display = 'none';
+                document.getElementById('property-categories-container').innerHTML = '';
 
                 // Clear filter object
                 filterTypes = {};
