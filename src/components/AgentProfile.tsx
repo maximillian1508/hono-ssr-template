@@ -1855,20 +1855,36 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               const commonData = initialData.commonData;
               if (!commonData || !commonData.filter) return [];
 
-              const categories = commonData.filter.category?.items || [];
-              const category = categories.find(cat => cat.code === categoryKey);
-              if (!category) return [];
+              // Try to get category items from the nested structure
+              const categoryData = commonData.filter.category?.[categoryKey]?.items ||
+                                   commonData.filter.category?.items?.find(cat => cat.code === categoryKey);
+
+              if (!categoryData) return [];
 
               const allTypes = [];
-              const types = category.types?.items || [];
-              types.forEach(type => {
-                if (type.types?.items) {
-                  // Has nested types
-                  type.types.items.forEach(nestedType => {
-                    allTypes.push(nestedType.code);
+
+              // Handle array structure (from category.items[])
+              if (Array.isArray(categoryData)) {
+                categoryData.forEach(item => {
+                  const nestedItems = item[0]?.items || item.items || [];
+                  nestedItems.forEach(nested => {
+                    if (nested.value || nested.code) {
+                      allTypes.push(nested.value || nested.code);
+                    }
                   });
-                }
-              });
+                });
+              }
+              // Handle object structure (from category.types.items)
+              else if (categoryData.types?.items) {
+                const types = categoryData.types.items;
+                types.forEach(type => {
+                  if (type.types?.items) {
+                    type.types.items.forEach(nestedType => {
+                      allTypes.push(nestedType.code || nestedType.value);
+                    });
+                  }
+                });
+              }
 
               return allTypes;
             }
@@ -1878,26 +1894,51 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               const commonData = initialData.commonData;
               if (!commonData || !commonData.filter) return [];
 
-              const categories = commonData.filter.category?.items || [];
-              const category = categories.find(cat => cat.code === categoryKey);
-              if (!category) return [];
+              // Try to access category data from nested structure
+              const categoryData = commonData.filter.category?.[categoryKey]?.items ||
+                                   commonData.filter.category?.items?.find(cat => cat.code === categoryKey);
+
+              if (!categoryData) return [];
 
               const formatted = [];
-              const types = category.types?.items || [];
 
-              types.forEach(type => {
-                const nestedTypes = type.types?.items || [];
-                if (nestedTypes.length > 0) {
-                  formatted.push({
-                    label: type.name,
-                    value: type.code,
-                    options: nestedTypes.map(nested => ({
-                      label: nested.name,
-                      value: nested.code
-                    }))
-                  });
-                }
-              });
+              // Handle array structure (Map format from selectors)
+              if (Array.isArray(categoryData)) {
+                categoryData.forEach(item => {
+                  const mainItem = item[0] || item;
+                  const name = mainItem.name;
+                  const value = mainItem.value;
+                  const nestedItems = mainItem.items || [];
+
+                  if (nestedItems.length > 0) {
+                    formatted.push({
+                      label: name,
+                      value: value,
+                      options: nestedItems.map(nested => ({
+                        label: nested.name,
+                        value: nested.value
+                      }))
+                    });
+                  }
+                });
+              }
+              // Handle object structure (from category.types.items)
+              else if (categoryData.types?.items) {
+                const types = categoryData.types.items;
+                types.forEach(type => {
+                  const nestedTypes = type.types?.items || [];
+                  if (nestedTypes.length > 0) {
+                    formatted.push({
+                      label: type.name,
+                      value: type.code,
+                      options: nestedTypes.map(nested => ({
+                        label: nested.name,
+                        value: nested.code
+                      }))
+                    });
+                  }
+                });
+              }
 
               return formatted;
             }
@@ -1905,16 +1946,45 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             // Initialize filter options from commonData
             function initializeFilterOptions() {
               const commonData = initialData.commonData;
-              if (!commonData || !commonData.filter) return;
+              if (!commonData || !commonData.filter) {
+                console.error('commonData or commonData.filter is missing');
+                return;
+              }
 
               // Render main Property Type buttons (5 categories)
               const propertyTypeGrid = document.getElementById('property-type-grid');
-              const categories = commonData.filter.category?.items || [];
-              if (propertyTypeGrid && categories.length > 0) {
-                const buttonsHtml = categories.map(category => {
-                  return \`<button class="filter-option" data-type="main-category" data-value="\${category.code}">\${category.name}</button>\`;
-                }).join('');
-                propertyTypeGrid.innerHTML = buttonsHtml;
+
+              // Try to get categories from commonData, fallback to hardcoded list
+              let categories = commonData.filter.category?.items || [];
+
+              // Debug log
+              console.log('Category data structure:', commonData.filter.category);
+              console.log('Categories found:', categories);
+
+              // If no categories from API, use hardcoded list
+              if (categories.length === 0) {
+                console.log('Using hardcoded categories');
+                categories = [
+                  { code: 'residential', name: 'Residential' },
+                  { code: 'commercial', name: 'Commercial' },
+                  { code: 'agricultural', name: 'Agricultural' },
+                  { code: 'industrial', name: 'Industrial' },
+                  { code: 'others', name: 'Others' }
+                ];
+              }
+
+              if (propertyTypeGrid) {
+                if (categories.length > 0) {
+                  const buttonsHtml = categories.map(category => {
+                    return \`<button class="filter-option" data-type="main-category" data-value="\${category.code}">\${category.name}</button>\`;
+                  }).join('');
+                  propertyTypeGrid.innerHTML = buttonsHtml;
+                  console.log('Property type buttons rendered:', categories.length);
+                } else {
+                  console.error('No categories available to render');
+                }
+              } else {
+                console.error('property-type-grid element not found');
               }
 
               // Render bedrooms
