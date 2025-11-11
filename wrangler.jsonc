@@ -12,7 +12,8 @@
   ],
   "vars": {
     "API_BASE_URL": "https://api.propertygenie.com.my",
-    "USE_DOMAIN_ROUTING": "true"
+    "USE_DOMAIN_ROUTING": "true",
+    "WEBSITE_URL": "https://www.propertygenie.com.my"
   },
   "assets": {
     "directory": "public",

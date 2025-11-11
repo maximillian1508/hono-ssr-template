@@ -8,6 +8,7 @@ export type Bindings = {
   DOMAIN_MAPPING: KVNamespace;
   API_BASE_URL: string;
   USE_DOMAIN_ROUTING: string;
+  WEBSITE_URL: string;
 };
 
 /**
