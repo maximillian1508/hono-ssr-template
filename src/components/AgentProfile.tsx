@@ -1349,7 +1349,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
               <div class="search-filter-wrapper">
                 <div class="search-input-container">
-                  <span class="search-icon">🔍</span>
+                  <span class="search-icon"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SearchIcon" style="width: 20px; height: 20px;"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></span>
                   <input
                     type="text"
                     class="search-input"
@@ -1358,7 +1358,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   />
                 </div>
                 <button class="filter-button" id="filter-button">
-                  🎛️ Filter
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FilterListOutlinedIcon" style="color:#ffffff"><path d="M10 18h4v-2h-4zM3 6v2h18V6zm3 7h12v-2H6z"></path></svg>
                   <span class="filter-badge" id="filter-badge" style="display: none;">0</span>
                 </button>
               </div>
@@ -1453,7 +1453,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           <div class="modal-container">
             <div class="modal-header">
               <h2 class="modal-title">
-                🎛️ Filter Properties
+                <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FilterListOutlinedIcon" style="color:inherit; width: 1.2em; height: 1.2em; vertical-align: middle; margin-right: 8px;"><path d="M10 18h4v-2h-4zM3 6v2h18V6zm3 7h12v-2H6z"></path></svg>
+                Filter Properties
               </h2>
               <button class="close-button" id="close-modal">
                 ✕
