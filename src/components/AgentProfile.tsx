@@ -1405,16 +1405,20 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                           <p>{listing.city?.name}, {listing.postcode}, {listing.state?.name}</p>
                           <div class="listing-details">
                             <div class="listing-detail-item">
-                              🛏️ {listing.room?.bed?.text || listing.room?.bedroom || 0}
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BedIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="M21 10.78V8c0-1.65-1.35-3-3-3h-4c-.77 0-1.47.3-2 .78-.53-.48-1.23-.78-2-.78H6C4.35 5 3 6.35 3 8v2.78c-.61.55-1 1.34-1 2.22v6h2v-2h16v2h2v-6c0-.88-.39-1.67-1-2.22M14 7h4c.55 0 1 .45 1 1v2h-6V8c0-.55.45-1 1-1M5 8c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v2H5z"></path></svg>
+                              {listing.room?.bed?.text || listing.room?.bedroom || 0}
                             </div>
                             <div class="listing-detail-item">
-                              🚿 {listing.room?.bath?.text || listing.room?.bathroom || 0}
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ShowerIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><circle cx="8" cy="17" r="1"></circle><circle cx="12" cy="17" r="1"></circle><circle cx="16" cy="17" r="1"></circle><path d="M13 5.08V3h-2v2.08C7.61 5.57 5 8.47 5 12v2h14v-2c0-3.53-2.61-6.43-6-6.92"></path><circle cx="8" cy="20" r="1"></circle><circle cx="12" cy="20" r="1"></circle><circle cx="16" cy="20" r="1"></circle></svg>
+                              {listing.room?.bath?.text || listing.room?.bathroom || 0}
                             </div>
                             <div class="listing-detail-item">
-                              📏 {listing.size?.floor?.text || listing.size?.land?.text || '-'}
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
+                              {listing.size?.floor?.text || listing.size?.land?.text || '-'}
                             </div>
                             <div class="listing-detail-item">
-                              📐 {psf}
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
+                              {psf}
                             </div>
                           </div>
                           <p class="listing-price">
@@ -1725,16 +1729,20 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                       <p>\${listing.city?.name || '-'}, \${listing.postcode || '-'}, \${listing.state?.name || '-'}</p>
                       <div class="listing-details">
                         <div class="listing-detail-item">
-                          🛏️ \${bed}
+                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BedIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="M21 10.78V8c0-1.65-1.35-3-3-3h-4c-.77 0-1.47.3-2 .78-.53-.48-1.23-.78-2-.78H6C4.35 5 3 6.35 3 8v2.78c-.61.55-1 1.34-1 2.22v6h2v-2h16v2h2v-6c0-.88-.39-1.67-1-2.22M14 7h4c.55 0 1 .45 1 1v2h-6V8c0-.55.45-1 1-1M5 8c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v2H5z"></path></svg>
+                          \${bed}
                         </div>
                         <div class="listing-detail-item">
-                          🚿 \${bath}
+                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ShowerIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><circle cx="8" cy="17" r="1"></circle><circle cx="12" cy="17" r="1"></circle><circle cx="16" cy="17" r="1"></circle><path d="M13 5.08V3h-2v2.08C7.61 5.57 5 8.47 5 12v2h14v-2c0-3.53-2.61-6.43-6-6.92"></path><circle cx="8" cy="20" r="1"></circle><circle cx="12" cy="20" r="1"></circle><circle cx="16" cy="20" r="1"></circle></svg>
+                          \${bath}
                         </div>
                         <div class="listing-detail-item">
-                          📏 \${size}
+                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
+                          \${size}
                         </div>
                         <div class="listing-detail-item">
-                          📐 \${psf}
+                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
+                          \${psf}
                         </div>
                       </div>
                       <p class="listing-price">\${price}</p>
