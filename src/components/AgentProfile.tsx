@@ -39,7 +39,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
   const publisherName = agent.publisher?.name || '';
   const publisherRegistrationNumber = agent.publisher?.registrationNumber || '';
 
-  const avatarUrl = agent.image?.medium?.src || '/amenties-placeholder.png';
+  const avatarUrl = agent.image?.medium?.src || '/images/amenties-placeholder.png';
 
   const isRenVerified = agent._metadata?.isRenVerified || false;
   const isMobileVerified = agent._metadata?.isMobileVerified || false;

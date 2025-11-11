@@ -58,7 +58,7 @@ export const ListingCard: FC<ListingCardProps> = ({ listing, onShareClick }) => 
   return (
     <a class="listing-card" href={listingHref} target="_blank" rel="noopener noreferrer">
       <img
-        src={listing.image?.medium?.src || '/amenties-placeholder.png'}
+        src={listing.image?.medium?.src || '/images/amenties-placeholder.png'}
         alt={listing.name}
       />
       {propertyType && (
@@ -162,7 +162,7 @@ export function generateListingCardHTML(listing: any): string {
 
   const propertyTypeColor = propertyTypeColors[propertyType] || '#3462F4';
   const listingUrl = `https://www.propertygenie.com.my/property/${listing.slug}`;
-  const image = listing.image?.medium?.src || '/amenties-placeholder.png';
+  const image = listing.image?.medium?.src || '/images/amenties-placeholder.png';
   const bed = listing.room?.bed?.text || listing.room?.bedroom || 0;
   const bath = listing.room?.bath?.text || listing.room?.bathroom || 0;
   const size = listing.size?.floor?.text || listing.size?.land?.text || '-';
