@@ -6,6 +6,8 @@ import { Header } from './Header';
 import { HeaderCompensation } from './HeaderCompensation';
 import { ShareModal } from './ShareModal';
 import { FilterModal } from './FilterModal';
+import { AgentFooter } from './AgentFooter';
+import { ListingCardStyles } from './ListingCardStyles';
 
 interface AgentProfileProps {
   agent: AgentApiResponse;
@@ -496,135 +498,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             font-weight: 700;
           }
 
-          .listings-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
-          }
-
-          .listing-card {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-            height: 375px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            display: block;
-            text-decoration: none;
-          }
-
-          .listing-card:hover {
-            transform: translateY(-4px);
-          }
-
-          .listing-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-          }
-
-          .listing-card:hover img {
-            transform: scale(1.025);
-          }
-
-          .action-buttons {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            display: flex;
-            gap: 8px;
-            z-index: 2;
-          }
-
-          .action-button {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: none;
-            color: white;
-            font-size: 20px;
-          }
-
-          .action-button:hover {
-            transform: scale(1.1);
-            background-color: rgba(0, 0, 0, 0.6);
-          }
-
-          .action-button.active {
-            background-color: #ef4444;
-          }
-
-          .action-button.active:hover {
-            background-color: #dc2626;
-          }
-
-          .property-type-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: white;
-            z-index: 2;
-          }
-
-          .listing-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.85) 100%);
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            color: white;
-          }
-
-          .listing-overlay h3 {
-            font-size: 1.15rem;
-            margin: 0 0 0.5rem 0;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-
-          .listing-overlay p {
-            font-size: 0.875rem;
-            margin: 0.25rem 0;
-          }
-
-          .listing-details {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
-            margin: 0.75rem 0;
-          }
-
-          .listing-detail-item {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-            font-size: 0.875rem;
-          }
-
-          .listing-price {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-top: 0.5rem;
-          }
 
           .loading {
             text-align: center;
@@ -762,29 +635,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             font-weight: 500;
           }
 
-          /* Footer Styles */
-          .footer {
-            margin-top: 4rem;
-            background-color: #1f2937;
-            color: white;
-            padding: 2rem 0;
-          }
-
-          .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 2rem;
-          }
-
-          .footer-content {
-            text-align: center;
-          }
-
-          .footer-content p {
-            margin: 0.5rem 0;
-            font-size: 0.9rem;
-            color: #d1d5db;
-          }
 
           .listings-loading {
             display: flex;
@@ -801,11 +651,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             margin-bottom: 1rem;
           }
 
-          @media (max-width: 992px) {
-            .listings-grid {
-              grid-template-columns: repeat(3, 1fr);
-            }
-          }
 
           @media (max-width: 768px) {
             .agent-detail-section {
@@ -883,9 +728,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               font-size: 1rem;
             }
 
-            .listings-grid {
-              grid-template-columns: repeat(2, 1fr);
-            }
 
             .tabs-container {
               overflow-x: auto;
@@ -926,9 +768,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           @media (max-width: 480px) {
-            .listings-grid {
-              grid-template-columns: repeat(1, 1fr);
-            }
           }
         `}</Style>
       </head>
@@ -938,6 +777,9 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
         {/* Spacer for fixed header */}
         <HeaderCompensation />
+
+        {/* Listing Card Styles */}
+        <ListingCardStyles />
 
         <main>
 
@@ -1143,15 +985,9 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           <div class="loading-text">Loading</div>
         </div>
 
-        {/* Footer */}
-        <footer class="footer">
-          <div class="footer-container">
-            <div class="footer-content">
-              <p>&copy; {new Date().getFullYear()} {publisherName}. All rights reserved.</p>
-              <p>Powered by PropertyGenie</p>
-            </div>
-          </div>
-        </footer>
+        {/* Footer Component */}
+        <AgentFooter publisherName={publisherName} />
+
 
         {/* Filter Modal Component */}
         <FilterModal commonData={commonData} />
