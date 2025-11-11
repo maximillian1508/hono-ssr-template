@@ -1247,6 +1247,12 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               height: 35vh;
             }
           }
+
+          @media (max-width: 480px) {
+            .listings-grid {
+              grid-template-columns: repeat(1, 1fr);
+            }
+          }
         `}</Style>
       </head>
       <body>

@@ -8,5 +8,8 @@ DOMAIN_MAPPING_ID=your-kv-namespace-id-here
 # API Base URL
 API_BASE_URL=http://localhost:22080
 
+# Website URL
+WEBSITE_URL=http://localhost:3000
+
 # Use domain-based routing (true for production, false for dev/staging)
 USE_DOMAIN_ROUTING=false
