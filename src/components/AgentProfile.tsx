@@ -225,30 +225,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             background-color: #f3f4f6;
           }
 
-          .icon-whatsapp {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            background-color: #25D366;
-            border-radius: 50%;
-            color: white;
-            text-align: center;
-            line-height: 24px;
-            font-size: 14px;
-          }
-
-          .icon-phone {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            background-color: #3462F4;
-            border-radius: 50%;
-            color: white;
-            text-align: center;
-            line-height: 24px;
-            font-size: 14px;
-          }
-
           .details-container {
             margin-top: 175px;
             margin-left: 2rem;
@@ -1278,11 +1254,11 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             <div class="details-container">
               <p>
                 {maskedContact}
-                {isMobileVerified && <span style="color: #2563eb; margin-left: 5px;">✓</span>}
+                {isMobileVerified && <svg style="width: 20px; height: 20px; fill: #2563eb; margin-left: 5px; vertical-align: middle;" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="VerifiedIcon"><path d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48z"></path></svg>}
               </p>
               <p>
                 {getLicenseLabel(licenseNumber)} <strong>{licenseNumber}</strong>
-                {isRenVerified && <span style="color: #2563eb; margin-left: 5px;">✓</span>}
+                {isRenVerified && <svg style="width: 20px; height: 20px; fill: #2563eb; margin-left: 5px; vertical-align: middle;" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="VerifiedIcon"><path d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48z"></path></svg>}
               </p>
               <p>
                 Agency Reg. no. <strong>{publisherRegistrationNumber}</strong>
@@ -1303,10 +1279,10 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span class="icon-whatsapp">💬</span>
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WhatsAppIcon" style="color:white;background-color:#25d366;border-radius:50%;padding:5px;width:1.5em;height:1.5em"><path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z"></path></svg>
                 </a>
                 <button class="contact-btn" onclick="alert('Please login to view contact details')">
-                  <span class="icon-phone">📞</span>
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CallIcon" style="color:white;background-color:#3462F4;border-radius:50%;padding:5px;width:1.5em;height:1.5em"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99"></path></svg>
                 </button>
                 <button class="contact-btn" id="share-button">Share</button>
               </div>
@@ -1320,7 +1296,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   </div>
                   <button class="read-more-button" id="read-more-btn" style="display: none;">
                     Read More
-                    <span class="expand-icon">▼</span>
+                    <span class="expand-icon"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></span>
                   </button>
                 </div>
               )}
@@ -1373,7 +1349,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
               <div class="search-filter-wrapper">
                 <div class="search-input-container">
-                  <span class="search-icon">🔍</span>
+                  <span class="search-icon"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SearchIcon" style="width: 20px; height: 20px;"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></span>
                   <input
                     type="text"
                     class="search-input"
@@ -1382,7 +1358,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   />
                 </div>
                 <button class="filter-button" id="filter-button">
-                  🎛️ Filter
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FilterListOutlinedIcon" style="color:#ffffff"><path d="M10 18h4v-2h-4zM3 6v2h18V6zm3 7h12v-2H6z"></path></svg>
                   <span class="filter-badge" id="filter-badge" style="display: none;">0</span>
                 </button>
               </div>
@@ -1429,16 +1405,20 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                           <p>{listing.city?.name}, {listing.postcode}, {listing.state?.name}</p>
                           <div class="listing-details">
                             <div class="listing-detail-item">
-                              🛏️ {listing.room?.bed?.text || listing.room?.bedroom || 0}
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BedIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="M21 10.78V8c0-1.65-1.35-3-3-3h-4c-.77 0-1.47.3-2 .78-.53-.48-1.23-.78-2-.78H6C4.35 5 3 6.35 3 8v2.78c-.61.55-1 1.34-1 2.22v6h2v-2h16v2h2v-6c0-.88-.39-1.67-1-2.22M14 7h4c.55 0 1 .45 1 1v2h-6V8c0-.55.45-1 1-1M5 8c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v2H5z"></path></svg>
+                              {listing.room?.bed?.text || listing.room?.bedroom || 0}
                             </div>
                             <div class="listing-detail-item">
-                              🚿 {listing.room?.bath?.text || listing.room?.bathroom || 0}
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ShowerIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><circle cx="8" cy="17" r="1"></circle><circle cx="12" cy="17" r="1"></circle><circle cx="16" cy="17" r="1"></circle><path d="M13 5.08V3h-2v2.08C7.61 5.57 5 8.47 5 12v2h14v-2c0-3.53-2.61-6.43-6-6.92"></path><circle cx="8" cy="20" r="1"></circle><circle cx="12" cy="20" r="1"></circle><circle cx="16" cy="20" r="1"></circle></svg>
+                              {listing.room?.bath?.text || listing.room?.bathroom || 0}
                             </div>
                             <div class="listing-detail-item">
-                              📏 {listing.size?.floor?.text || listing.size?.land?.text || '-'}
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
+                              {listing.size?.floor?.text || listing.size?.land?.text || '-'}
                             </div>
                             <div class="listing-detail-item">
-                              📐 {psf}
+                              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
+                              {psf}
                             </div>
                           </div>
                           <p class="listing-price">
@@ -1477,7 +1457,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           <div class="modal-container">
             <div class="modal-header">
               <h2 class="modal-title">
-                🎛️ Filter Properties
+                <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FilterListOutlinedIcon" style="color:inherit; width: 1.2em; height: 1.2em; vertical-align: middle; margin-right: 8px;"><path d="M10 18h4v-2h-4zM3 6v2h18V6zm3 7h12v-2H6z"></path></svg>
+                Filter Properties
               </h2>
               <button class="close-button" id="close-modal">
                 ✕
@@ -1748,16 +1729,20 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                       <p>\${listing.city?.name || '-'}, \${listing.postcode || '-'}, \${listing.state?.name || '-'}</p>
                       <div class="listing-details">
                         <div class="listing-detail-item">
-                          🛏️ \${bed}
+                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="BedIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="M21 10.78V8c0-1.65-1.35-3-3-3h-4c-.77 0-1.47.3-2 .78-.53-.48-1.23-.78-2-.78H6C4.35 5 3 6.35 3 8v2.78c-.61.55-1 1.34-1 2.22v6h2v-2h16v2h2v-6c0-.88-.39-1.67-1-2.22M14 7h4c.55 0 1 .45 1 1v2h-6V8c0-.55.45-1 1-1M5 8c0-.55.45-1 1-1h4c.55 0 1 .45 1 1v2H5z"></path></svg>
+                          \${bed}
                         </div>
                         <div class="listing-detail-item">
-                          🚿 \${bath}
+                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ShowerIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><circle cx="8" cy="17" r="1"></circle><circle cx="12" cy="17" r="1"></circle><circle cx="16" cy="17" r="1"></circle><path d="M13 5.08V3h-2v2.08C7.61 5.57 5 8.47 5 12v2h14v-2c0-3.53-2.61-6.43-6-6.92"></path><circle cx="8" cy="20" r="1"></circle><circle cx="12" cy="20" r="1"></circle><circle cx="16" cy="20" r="1"></circle></svg>
+                          \${bath}
                         </div>
                         <div class="listing-detail-item">
-                          📏 \${size}
+                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
+                          \${size}
                         </div>
                         <div class="listing-detail-item">
-                          📐 \${psf}
+                          <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SquareFootIcon" style="width: 1em; height: 1em; margin-right: 4px; vertical-align: middle;"><path d="m17.66 17.66-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4 4v14c0 1.1.9 2 2 2h14zM7 17v-5.76L12.76 17z"></path></svg>
+                          \${psf}
                         </div>
                       </div>
                       <p class="listing-price">\${price}</p>
