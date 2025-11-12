@@ -503,10 +503,13 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           .search-input-container {
             position: relative;
             flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
           }
 
           .search-input {
-            width: 100%;
+            flex: 1;
             padding: 0.75rem 1rem 0.75rem 2.5rem;
             border: 1.5px solid #e0e0e0;
             border-radius: 8px;
@@ -523,7 +526,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
           .search-icon {
             position: absolute;
-            left: 0.75rem;
+            left: 4rem;
             top: 50%;
             transform: translateY(-50%);
             color: #666;
@@ -531,7 +534,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .filter-button {
-            padding: 0.75rem 1rem;
+            position: relative;
+            padding: 0.75rem;
             background-color: #3462F4;
             color: white;
             border: none;
@@ -541,9 +545,11 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             cursor: pointer;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
             transition: background-color 0.2s;
             white-space: nowrap;
+            flex-shrink: 0;
           }
 
           .filter-button:hover {
@@ -551,6 +557,9 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .filter-badge {
+            position: absolute;
+            top: -0.375rem;
+            right: -0.375rem;
             background-color: #ef4444;
             color: white;
             border-radius: 50%;
@@ -854,8 +863,12 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               width: 100%;
             }
 
+            .search-icon {
+              left: 3.5rem;
+            }
+
             .filter-button {
-              padding: 0.75rem;
+              padding: 0.625rem;
               font-size: 0.875rem;
             }
 
@@ -988,6 +1001,10 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
               <div class="search-filter-wrapper">
                 <div class="search-input-container">
+                  <button class="filter-button" id="filter-button">
+                    <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FilterListOutlinedIcon" style="width: 1.2em; height: 1.2em; fill: #ffffff;"><path d="M10 18h4v-2h-4zM3 6v2h18V6zm3 7h12v-2H6z"></path></svg>
+                    <span class="filter-badge" id="filter-badge" style="display: none;">0</span>
+                  </button>
                   <span class="search-icon"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="SearchIcon" style="width: 20px; height: 20px;"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></span>
                   <input
                     type="text"
@@ -996,10 +1013,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                     id="search-input"
                   />
                 </div>
-                <button class="filter-button" id="filter-button">
-                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FilterListOutlinedIcon" style="width: 1.2em; height: 1.2em; fill: #ffffff;"><path d="M10 18h4v-2h-4zM3 6v2h18V6zm3 7h12v-2H6z"></path></svg>
-                  <span class="filter-badge" id="filter-badge" style="display: none;">0</span>
-                </button>
               </div>
             </div>
 
