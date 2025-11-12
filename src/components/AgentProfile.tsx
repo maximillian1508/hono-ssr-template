@@ -130,7 +130,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               ...(licenseNumber && {
                 "identifier": {
                   "@type": "PropertyValue",
-                  "name": "License Number",
+                  "name": getLicenseLabel(licenseNumber, true).replace(':', ''),
                   "value": licenseNumber
                 }
               }),
