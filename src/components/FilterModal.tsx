@@ -51,21 +51,27 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
         .modal-container {
           background: white;
           border-radius: 16px;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-          width: 90%;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+          width: 100%;
           max-width: 900px;
           max-height: 90vh;
           display: flex;
           flex-direction: column;
+          overflow: hidden;
           animation: slideIn 0.3s ease-out;
         }
 
         .modal-header {
-          padding: 1.5rem;
-          border-bottom: 1px solid #e5e7eb;
+          padding: 24px 24px 16px;
+          border-bottom: 1px solid #f1f1f1;
           display: flex;
           align-items: center;
           justify-content: space-between;
+          position: sticky;
+          top: 0;
+          background: white;
+          z-index: 10;
+          border-radius: 16px 16px 0 0;
         }
 
         .modal-title {
@@ -93,9 +99,10 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
         }
 
         .modal-content {
-          padding: 1.5rem;
+          padding: 24px 24px 0 24px;
           overflow-y: auto;
           flex: 1;
+          overscroll-behavior: contain;
         }
 
         .filter-section {
@@ -302,6 +309,19 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
             max-height: 100vh;
           }
 
+          .modal-header {
+            padding: 16px;
+            border-radius: 0;
+          }
+
+          .modal-content {
+            padding: 16px 16px 0 16px;
+          }
+
+          .modal-footer {
+            padding: 12px 16px;
+          }
+
           .price-inputs {
             grid-template-columns: 1fr;
           }
@@ -325,7 +345,7 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
               Filter Properties
             </h2>
             <button class="close-button" id="close-modal">
-              ✕
+              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CloseIcon" style="font-size: 20px;"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
             </button>
           </div>
 
