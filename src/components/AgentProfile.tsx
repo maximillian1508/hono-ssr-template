@@ -563,22 +563,34 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
           .tabs-container {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             border-bottom: 2px solid #e0e0e0;
             margin-bottom: 2rem;
-            gap: 1rem;
+            gap: 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+          }
+
+          .tabs-container::-webkit-scrollbar {
+            display: none;
           }
 
           .tab {
-            padding: 1rem 2rem;
+            padding: 0.75rem 1rem;
             background: none;
             border: none;
             border-bottom: 3px solid transparent;
-            font-size: 1rem;
+            font-size: 0.875rem;
             font-weight: 500;
             cursor: pointer;
             color: #666;
             transition: all 0.3s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-width: 90px;
+            text-align: center;
           }
 
           .tab:hover {
@@ -822,14 +834,10 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             }
 
 
-            .tabs-container {
-              overflow-x: auto;
-              justify-content: flex-start;
-            }
-
             .tab {
-              padding: 0.75rem 1rem;
-              font-size: 0.9rem;
+              padding: 0.625rem 0.875rem;
+              font-size: 0.8125rem;
+              min-width: 80px;
             }
 
             .search-filter-container {
