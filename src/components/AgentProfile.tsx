@@ -1422,7 +1422,9 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 }
 
                 const data = await response.json();
-                renderListings(data.items || [], data.pagination);
+                // API returns pagination data in _meta field
+                const paginationData = data._meta || data.pagination || null;
+                renderListings(data.items || [], paginationData);
               } catch (error) {
                 console.error('Error fetching listings:', error);
                 container.innerHTML = \`
@@ -1456,10 +1458,22 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   searchKeyword = value;
                   currentPage = 1;
 
+                  // Check if we have any active filters (excluding the default 'types' key)
+                  const hasActiveFilters = Object.keys(filterTypes).some(key => {
+                    if (key === 'types') return false;
+                    return true;
+                  });
+
                   // Fetch with search keyword
-                  if (currentTab === 'all' && !value && Object.keys(filterTypes).length === 0) {
+                  if (currentTab === 'all' && !value && !hasActiveFilters) {
                     // If no search and no filters on 'all' tab, use initial data
-                    renderListings(initialData.listings);
+                    const initialPagination = {
+                      currentPage: 1,
+                      pageCount: Math.ceil(totalCount / 30),
+                      totalCount: totalCount,
+                      perPage: 30
+                    };
+                    renderListings(initialData.listings, initialPagination);
                   } else {
                     fetchListings(currentTab, currentPage);
                   }
@@ -2004,7 +2018,13 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 document.getElementById('search-input').value = '';
 
                 if (currentTab === 'all') {
-                  renderListings(initialData.listings);
+                  const initialPagination = {
+                    currentPage: 1,
+                    pageCount: Math.ceil(totalCount / 30),
+                    totalCount: totalCount,
+                    perPage: 30
+                  };
+                  renderListings(initialData.listings, initialPagination);
                 } else {
                   fetchListings(currentTab, currentPage);
                 }
@@ -2016,11 +2036,13 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
             // Initialize pagination and listing count on page load
             (function initializeListingsDisplay() {
+              const itemsOnPage = initialData.listings?.length || 0;
+              const perPage = 30; // Default perPage from API
               const initialPagination = {
                 currentPage: 1,
-                pageCount: Math.ceil(totalCount / 25),
+                pageCount: Math.ceil(totalCount / perPage),
                 totalCount: totalCount,
-                perPage: 25
+                perPage: perPage
               };
               updateListingCount(initialData.listings, initialPagination);
               renderPagination(initialPagination);
@@ -2076,9 +2098,21 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 currentTab = tabType;
                 currentPage = 1;
 
+                // Check if we have any active filters (excluding the default 'types' key)
+                const hasActiveFilters = Object.keys(filterTypes).some(key => {
+                  if (key === 'types') return false;
+                  return true;
+                });
+
                 // Use initial data for 'all' tab if no search/filters, fetch for others
-                if (tabType === 'all' && !searchKeyword && Object.keys(filterTypes).length === 0) {
-                  renderListings(initialData.listings);
+                if (tabType === 'all' && !searchKeyword && !hasActiveFilters) {
+                  const initialPagination = {
+                    currentPage: 1,
+                    pageCount: Math.ceil(totalCount / 30),
+                    totalCount: totalCount,
+                    perPage: 30
+                  };
+                  renderListings(initialData.listings, initialPagination);
                 } else {
                   fetchListings(tabType, currentPage);
                 }
