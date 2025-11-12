@@ -50,7 +50,7 @@ export const ListingCardStyles: FC = () => {
         position: absolute;
         top: 12px;
         right: 12px;
-        display: flex;
+        display: none; /* Temporarily hidden */
         gap: 8px;
         z-index: 2;
       }
