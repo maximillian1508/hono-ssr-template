@@ -23,7 +23,7 @@ export const ContactModal: FC<ContactModalProps> = ({
     <>
       <Style>{css`
         /* Contact Modal Overlay Styles */
-        .modal-overlay {
+        .contact-modal-overlay {
           display: none;
           position: fixed;
           top: 0;
@@ -37,7 +37,7 @@ export const ContactModal: FC<ContactModalProps> = ({
           animation: fadeIn 0.2s ease;
         }
 
-        .modal-overlay.active {
+        .contact-modal-overlay.active {
           display: flex;
         }
 
@@ -57,7 +57,7 @@ export const ContactModal: FC<ContactModalProps> = ({
           }
         }
 
-        .modal-container {
+        .contact-modal-container {
           background: white;
           border-radius: 16px;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -69,7 +69,7 @@ export const ContactModal: FC<ContactModalProps> = ({
           animation: slideIn 0.3s ease-out;
         }
 
-        .modal-header {
+        .contact-modal-header-base {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -77,13 +77,13 @@ export const ContactModal: FC<ContactModalProps> = ({
           border-bottom: 1px solid #e5e7eb;
         }
 
-        .modal-title {
+        .contact-modal-title-base {
           font-size: 1.25rem;
           font-weight: 600;
           margin: 0;
         }
 
-        .close-button {
+        .contact-modal-close-button {
           background: none;
           border: none;
           padding: 0.5rem;
@@ -95,7 +95,7 @@ export const ContactModal: FC<ContactModalProps> = ({
           transition: all 0.2s;
         }
 
-        .close-button:hover {
+        .contact-modal-close-button:hover {
           background: #f3f4f6;
           color: #000;
         }
@@ -341,11 +341,11 @@ export const ContactModal: FC<ContactModalProps> = ({
       `}</Style>
 
       {/* Contact Modal */}
-      <div class="modal-overlay" id="contact-modal">
-        <div class="modal-container" style="max-width: 410px;">
+      <div class="contact-modal-overlay" id="contact-modal">
+        <div class="contact-modal-container" style="max-width: 410px;">
           <div class="contact-modal-header">
             <h2 class="contact-modal-title">Contact Agent</h2>
-            <button class="close-button" id="close-contact-modal">✕</button>
+            <button class="contact-modal-close-button" id="close-contact-modal">✕</button>
           </div>
 
           <form id="contact-form">
