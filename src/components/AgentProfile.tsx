@@ -44,16 +44,122 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
   const isRenVerified = agent._metadata?.isRenVerified || false;
   const isMobileVerified = agent._metadata?.isMobileVerified || false;
 
+  // SEO Data
+  const pageTitle = `${name} - ${publisherName} | Property Agent`;
+  const pageDescription = description
+    ? `${name} from ${publisherName}. ${description.substring(0, 150)}${description.length > 150 ? '...' : ''}`
+    : `Professional property agent ${name} from ${publisherName}. Specializing in property sales and rentals.`;
+  const pageUrl = `https://${domain}`;
+  const imageUrl = avatarUrl.startsWith('http') ? avatarUrl : `https://${domain}${avatarUrl}`;
+
+  // Active listing counts
+  const activeSaleListingCount = agent._metadata?.activeSaleListingCount || 0;
+  const activeRentListingCount = agent._metadata?.activeRentListingCount || 0;
+  const activeAuctionListingCount = agent._metadata?.activeAuctionListingCount || 0;
+  const activeListingCount = agent._metadata?.activeListingCount || 0;
+
   return (
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{name} from {publisherName} | Property Genie</title>
-        <meta
-          name="description"
-          content={`${name} from ${publisherName}. ${description.substring(0, 150)}...`}
-        />
+
+        {/* Primary Meta Tags */}
+        <title>{pageTitle}</title>
+        <meta name="title" content={pageTitle} />
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="profile" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="600" />
+        <meta property="og:image:alt" content={`${name} - Property Agent`} />
+        <meta property="og:locale" content="en_MY" />
+        <meta property="og:site_name" content={`${name} - ${publisherName}`} />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={pageUrl} />
+        <meta property="twitter:title" content={pageTitle} />
+        <meta property="twitter:description" content={pageDescription} />
+        <meta property="twitter:image" content={imageUrl} />
+
+        {/* Additional SEO Tags */}
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="author" content={name} />
+
+        {/* JSON-LD Structured Data */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfilePage",
+            "name": pageTitle,
+            "description": pageDescription,
+            "url": pageUrl,
+            "mainEntity": {
+              "@type": "Person",
+              "name": name,
+              "description": description || `Professional property agent at ${publisherName}`,
+              "image": imageUrl,
+              "url": pageUrl,
+              "jobTitle": "Real Estate Agent",
+              "worksFor": {
+                "@type": "Organization",
+                "name": publisherName,
+                ...(publisherRegistrationNumber && {
+                  "identifier": publisherRegistrationNumber
+                })
+              },
+              ...(contactNumber && {
+                "telephone": contactNumber
+              }),
+              ...(licenseNumber && {
+                "identifier": {
+                  "@type": "PropertyValue",
+                  "name": "License Number",
+                  "value": licenseNumber
+                }
+              }),
+              "knowsAbout": [
+                "Real Estate",
+                "Property Sales",
+                "Property Rental",
+                "Property Investment",
+                "Malaysia Property Market"
+              ],
+              "additionalProperty": [
+                {
+                  "@type": "PropertyValue",
+                  "name": "Active Listings",
+                  "value": activeListingCount
+                },
+                {
+                  "@type": "PropertyValue",
+                  "name": "Sale Listings",
+                  "value": activeSaleListingCount
+                },
+                {
+                  "@type": "PropertyValue",
+                  "name": "Rental Listings",
+                  "value": activeRentListingCount
+                },
+                {
+                  "@type": "PropertyValue",
+                  "name": "Auction Listings",
+                  "value": activeAuctionListingCount
+                }
+              ]
+            },
+            "dateModified": new Date().toISOString()
+          })
+        }} />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -839,15 +945,15 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           {/* Listings Summary Container */}
           <div class="listings-container">
             <div class="listing-summary">
-              <p>{agent._metadata?.activeSaleListingCount || 0}</p>
+              <p>{activeSaleListingCount}</p>
               <h3>Listings for Sale</h3>
             </div>
             <div class="listing-summary">
-              <p>{agent._metadata?.activeRentListingCount || 0}</p>
+              <p>{activeRentListingCount}</p>
               <h3>Listings for Rent</h3>
             </div>
             <div class="listing-summary">
-              <p>{agent._metadata?.activeAuctionListingCount || 0}</p>
+              <p>{activeAuctionListingCount}</p>
               <h3>Listings for Auction</h3>
             </div>
           </div>
