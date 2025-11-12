@@ -14,7 +14,7 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
     <>
       <Style>{css`
         /* Filter Modal Styles */
-        .modal-overlay {
+        .filter-modal-overlay {
           display: none;
           position: fixed;
           top: 0;
@@ -28,7 +28,7 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           animation: fadeIn 0.2s ease;
         }
 
-        .modal-overlay.active {
+        .filter-modal-overlay.active {
           display: flex;
         }
 
@@ -48,7 +48,7 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           }
         }
 
-        .modal-container {
+        .filter-modal-container {
           background: white;
           border-radius: 16px;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
@@ -61,7 +61,7 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           animation: slideIn 0.3s ease-out;
         }
 
-        .modal-header {
+        .filter-modal-header {
           padding: 24px 24px 16px;
           border-bottom: 1px solid #f1f1f1;
           display: flex;
@@ -74,7 +74,7 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           border-radius: 16px 16px 0 0;
         }
 
-        .modal-title {
+        .filter-modal-title {
           font-size: 1.25rem;
           font-weight: 600;
           margin: 0;
@@ -83,7 +83,7 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           gap: 0.5rem;
         }
 
-        .close-button {
+        .filter-modal-close-button {
           background: none;
           border: none;
           padding: 0.5rem;
@@ -93,23 +93,23 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           transition: all 0.2s;
         }
 
-        .close-button:hover {
+        .filter-modal-close-button:hover {
           background: #f3f4f6;
           color: #000;
         }
 
-        .modal-content {
+        .filter-modal-content {
           padding: 24px 24px 0 24px;
           overflow-y: auto;
           flex: 1;
           overscroll-behavior: contain;
         }
 
-        .filter-section {
+        .filter-modal-section {
           margin-bottom: 2rem;
         }
 
-        .section-title {
+        .filter-modal-section-title {
           font-size: 1rem;
           font-weight: 600;
           margin: 0 0 1rem 0;
@@ -146,25 +146,25 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           font-weight: 600;
         }
 
-        .price-inputs {
+        .filter-modal-price-inputs {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 1rem;
         }
 
-        .price-input-wrapper {
+        .filter-modal-price-input-wrapper {
           display: flex;
           flex-direction: column;
           gap: 0.5rem;
         }
 
-        .price-label {
+        .filter-modal-price-label {
           font-size: 0.875rem;
           font-weight: 500;
           color: #111827;
         }
 
-        .price-select {
+        .filter-modal-price-select {
           padding: 0.75rem 1rem;
           border: 1.5px solid #e5e7eb;
           border-radius: 12px;
@@ -174,20 +174,20 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           transition: all 0.2s;
         }
 
-        .price-select:focus {
+        .filter-modal-price-select:focus {
           outline: none;
           border-color: #3462F4;
           box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
 
-        .modal-footer {
+        .filter-modal-footer {
           padding: 1.25rem 1.5rem;
           border-top: 1px solid #e5e7eb;
           display: flex;
           gap: 0.75rem;
         }
 
-        .footer-button {
+        .filter-modal-footer-button {
           flex: 1;
           padding: 0.875rem 1.5rem;
           border-radius: 12px;
@@ -198,57 +198,57 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           border: none;
         }
 
-        .footer-button.outline {
+        .filter-modal-footer-button.outline {
           background: white;
           color: #3462F4;
           border: 1.5px solid #3462F4;
         }
 
-        .footer-button.outline:hover {
+        .filter-modal-footer-button.outline:hover {
           background: #eef2ff;
         }
 
-        .footer-button.primary {
+        .filter-modal-footer-button.primary {
           background: #3462F4;
           color: white;
         }
 
-        .footer-button.primary:hover {
+        .filter-modal-footer-button.primary:hover {
           background: #5558eb;
         }
 
         /* Property Type Category Styles */
-        .property-category-label {
+        .filter-modal-property-category-label {
           font-size: 0.875rem;
           color: #666;
           margin-bottom: 0.75rem;
           margin-top: 0.5rem;
         }
 
-        .checkbox-section {
+        .filter-modal-checkbox-section {
           max-height: 300px;
           overflow-y: auto;
         }
 
-        .checkbox-section::-webkit-scrollbar {
+        .filter-modal-checkbox-section::-webkit-scrollbar {
           width: 6px;
         }
 
-        .checkbox-section::-webkit-scrollbar-track {
+        .filter-modal-checkbox-section::-webkit-scrollbar-track {
           background: #f3f4f6;
           border-radius: 3px;
         }
 
-        .checkbox-section::-webkit-scrollbar-thumb {
+        .filter-modal-checkbox-section::-webkit-scrollbar-thumb {
           background: #3462F4;
           border-radius: 3px;
         }
 
-        .checkbox-group {
+        .filter-modal-checkbox-group {
           margin-bottom: 1rem;
         }
 
-        .parent-checkbox-label {
+        .filter-modal-parent-checkbox-label {
           display: flex;
           align-items: center;
           font-weight: 600;
@@ -258,11 +258,11 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           cursor: pointer;
         }
 
-        .parent-checkbox-label:hover {
+        .filter-modal-parent-checkbox-label:hover {
           color: #3462F4;
         }
 
-        .child-checkbox-label {
+        .filter-modal-child-checkbox-label {
           display: flex;
           align-items: center;
           font-size: 0.875rem;
@@ -271,11 +271,11 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           cursor: pointer;
         }
 
-        .child-checkbox-label:hover {
+        .filter-modal-child-checkbox-label:hover {
           color: #3462F4;
         }
 
-        .styled-checkbox {
+        .filter-modal-styled-checkbox {
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -289,12 +289,12 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
           flex-shrink: 0;
         }
 
-        .styled-checkbox.checked {
+        .filter-modal-styled-checkbox.checked {
           border-color: #3462F4;
           background-color: #3462F4;
         }
 
-        .styled-checkbox.checked::after {
+        .filter-modal-styled-checkbox.checked::after {
           content: '✓';
           color: white;
           font-size: 14px;
@@ -302,60 +302,60 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
         }
 
         @media (max-width: 768px) {
-          .modal-container {
+          .filter-modal-container {
             width: 100%;
             max-width: 100%;
             border-radius: 0;
             max-height: 100vh;
           }
 
-          .modal-header {
+          .filter-modal-header {
             padding: 16px;
             border-radius: 0;
           }
 
-          .modal-content {
+          .filter-modal-content {
             padding: 16px 16px 0 16px;
           }
 
-          .modal-footer {
+          .filter-modal-footer {
             padding: 12px 16px;
           }
 
-          .price-inputs {
+          .filter-modal-price-inputs {
             grid-template-columns: 1fr;
           }
 
-          .checkbox-section {
+          .filter-modal-checkbox-section {
             max-height: 250px;
           }
 
-          .child-checkbox-label {
+          .filter-modal-child-checkbox-label {
             margin-left: 1.5rem;
           }
         }
       `}</Style>
 
       {/* Filter Modal */}
-      <div class="modal-overlay" id="filter-modal">
-        <div class="modal-container">
-          <div class="modal-header">
-            <h2 class="modal-title">
+      <div class="filter-modal-overlay" id="filter-modal">
+        <div class="filter-modal-container">
+          <div class="filter-modal-header">
+            <h2 class="filter-modal-title">
               <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="TuneIcon" style="font-size: 20px; fill: #000000; vertical-align: middle; margin-right: 8px;"><path d="M3 17v2h6v-2zM3 5v2h10V5zm10 16v-2h8v-2h-8v-2h-2v6zM7 9v2H3v2h4v2h2V9zm14 4v-2H11v2zm-6-4h2V7h4V5h-4V3h-2z"></path></svg>
               Filter Properties
             </h2>
-            <button class="close-button" id="close-modal">
+            <button class="filter-modal-close-button" id="close-modal">
               <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CloseIcon" style="font-size: 20px;"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
             </button>
           </div>
 
-          <div class="modal-content">
-            <div class="filter-section">
-              <h3 class="section-title">Price Range</h3>
-              <div class="price-inputs">
-                <div class="price-input-wrapper">
-                  <label class="price-label">Minimum Price</label>
-                  <select class="price-select" id="min-price">
+          <div class="filter-modal-content">
+            <div class="filter-modal-section">
+              <h3 class="filter-modal-section-title">Price Range</h3>
+              <div class="filter-modal-price-inputs">
+                <div class="filter-modal-price-input-wrapper">
+                  <label class="filter-modal-price-label">Minimum Price</label>
+                  <select class="filter-modal-price-select" id="min-price">
                     <option value="">Any</option>
                     <option value="50000">RM 50,000</option>
                     <option value="100000">RM 100,000</option>
@@ -372,9 +372,9 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
                     <option value="2000000">RM 2,000,000</option>
                   </select>
                 </div>
-                <div class="price-input-wrapper">
-                  <label class="price-label">Maximum Price</label>
-                  <select class="price-select" id="max-price">
+                <div class="filter-modal-price-input-wrapper">
+                  <label class="filter-modal-price-label">Maximum Price</label>
+                  <select class="filter-modal-price-select" id="max-price">
                     <option value="">Any</option>
                     <option value="100000">RM 100,000</option>
                     <option value="200000">RM 200,000</option>
@@ -396,47 +396,47 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
               </div>
             </div>
 
-            <div class="filter-section">
-              <h3 class="section-title">Property Type</h3>
+            <div class="filter-modal-section">
+              <h3 class="filter-modal-section-title">Property Type</h3>
               <div class="filter-grid" id="property-type-grid"></div>
             </div>
 
-            <div class="filter-section" id="property-categories-section" style="display: none;">
-              <h3 class="section-title">Property Categories</h3>
-              <div class="property-category-label">Select Property Types</div>
-              <div class="checkbox-section" id="property-categories-container"></div>
+            <div class="filter-modal-section" id="property-categories-section" style="display: none;">
+              <h3 class="filter-modal-section-title">Property Categories</h3>
+              <div class="filter-modal-property-category-label">Select Property Types</div>
+              <div class="filter-modal-checkbox-section" id="property-categories-container"></div>
             </div>
 
-            <div class="filter-section">
-              <h3 class="section-title">Bedrooms</h3>
+            <div class="filter-modal-section">
+              <h3 class="filter-modal-section-title">Bedrooms</h3>
               <div class="filter-grid" id="bedrooms-grid"></div>
             </div>
 
-            <div class="filter-section">
-              <h3 class="section-title">Bathrooms</h3>
+            <div class="filter-modal-section">
+              <h3 class="filter-modal-section-title">Bathrooms</h3>
               <div class="filter-grid" id="bathrooms-grid"></div>
             </div>
 
-            <div class="filter-section">
-              <h3 class="section-title">Tenure</h3>
+            <div class="filter-modal-section">
+              <h3 class="filter-modal-section-title">Tenure</h3>
               <div class="filter-grid" id="tenure-grid"></div>
             </div>
 
-            <div class="filter-section">
-              <h3 class="section-title">Floor Level</h3>
+            <div class="filter-modal-section">
+              <h3 class="filter-modal-section-title">Floor Level</h3>
               <div class="filter-grid" id="floor-level-grid"></div>
             </div>
 
-            <div class="filter-section">
-              <h3 class="section-title">Furnishing</h3>
+            <div class="filter-modal-section">
+              <h3 class="filter-modal-section-title">Furnishing</h3>
               <div class="filter-grid" id="furnishing-grid"></div>
             </div>
           </div>
 
 
-          <div class="modal-footer">
-            <button class="footer-button outline" id="clear-filters">Clear All</button>
-            <button class="footer-button primary" id="apply-filters">Find Properties</button>
+          <div class="filter-modal-footer">
+            <button class="filter-modal-footer-button outline" id="clear-filters">Clear All</button>
+            <button class="filter-modal-footer-button primary" id="apply-filters">Find Properties</button>
           </div>
         </div>
       </div>
