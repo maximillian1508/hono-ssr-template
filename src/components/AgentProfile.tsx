@@ -304,21 +304,32 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .contact-btn {
+            background: transparent;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: opacity 0.2s;
+          }
+
+          .contact-btn:hover {
+            opacity: 0.8;
+          }
+
+          .contact-btn#share-button {
             background-color: white;
             border-radius: 25px;
             padding: 8px 20px;
             border: 1px solid #3462F4;
-            font-size: 1rem;
-            cursor: pointer;
-            text-decoration: none;
             color: #333;
-            display: inline-flex;
-            align-items: center;
             gap: 8px;
           }
 
-          .contact-btn:hover {
+          .contact-btn#share-button:hover {
             background-color: #f3f4f6;
+            opacity: 1;
           }
 
           .details-container {
