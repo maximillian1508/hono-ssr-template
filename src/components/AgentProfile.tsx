@@ -774,6 +774,52 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             margin-bottom: 1rem;
           }
 
+          /* Pagination Styles */
+          .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 0.5rem;
+          }
+
+          .pagination-item {
+            min-width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #333;
+            transition: all 0.2s;
+          }
+
+          .pagination-item:hover:not(.disabled):not(.selected) {
+            background-color: #f3f4f6;
+            border-color: #3462F4;
+          }
+
+          .pagination-item.selected {
+            background-color: #3462F4;
+            color: white;
+            border-color: #3462F4;
+          }
+
+          .pagination-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+
+          .pagination-item svg {
+            width: 20px;
+            height: 20px;
+          }
+
 
           @media (max-width: 768px) {
             .agent-detail-section {
@@ -1005,7 +1051,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
             <div class="search-filter-container">
               <div class="listing-count" id="listing-count">
-                Showing {agent.listings?.length || 0} of {agent._metadata?.activeListingCount || 0} Listings
+                Showing 0 of {agent._metadata?.activeListingCount || 0} Listings
               </div>
 
               <div class="search-filter-wrapper">
@@ -1035,6 +1081,9 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   <div class="empty-state">No listings available</div>
                 )}
               </div>
+            </div>
+
+            <div id="pagination-container" style="display: none; justify-content: center; align-items: center; padding: 2rem 0; margin-top: 3rem;">
             </div>
           </div>
           </main>
@@ -1107,10 +1156,21 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               }
             }
 
-            function updateListingCount(showing, total) {
+            function updateListingCount(currentListings, pagination) {
               const countEl = document.getElementById('listing-count');
               if (countEl) {
-                countEl.textContent = \`Showing \${showing} of \${total} Listings\`;
+                const itemsOnPage = currentListings?.length || 0;
+                const totalCount = pagination?.totalCount || 0;
+                const currentPageNum = pagination?.currentPage || currentPage;
+                const perPage = pagination?.perPage || 25;
+
+                if (itemsOnPage === 0) {
+                  countEl.textContent = \`Showing 0 of \${totalCount} Listings\`;
+                } else {
+                  const startItem = ((currentPageNum - 1) * perPage) + 1;
+                  const endItem = Math.min(startItem + itemsOnPage - 1, totalCount);
+                  countEl.textContent = \`Showing \${startItem}-\${endItem} of \${totalCount} Listings\`;
+                }
               }
             }
 
@@ -1124,6 +1184,68 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   badge.style.display = 'none';
                 }
               }
+            }
+
+            function renderPagination(pagination) {
+              const paginationContainer = document.getElementById('pagination-container');
+              if (!paginationContainer) return;
+
+              const pageCount = pagination?.pageCount || 0;
+              const currentPageNum = pagination?.currentPage || 1;
+
+              // Hide pagination if only 1 page or no pages
+              if (pageCount <= 1) {
+                paginationContainer.style.display = 'none';
+                return;
+              }
+
+              paginationContainer.style.display = 'flex';
+
+              // Build pagination HTML
+              let paginationHtml = '<nav aria-label="pagination navigation"><ul class="pagination">';
+
+              // Previous button
+              const prevDisabled = currentPageNum === 1 ? 'disabled' : '';
+              paginationHtml += \`
+                <li class="pagination-item \${prevDisabled}" data-page="\${currentPageNum - 1}" aria-label="Go to previous page">
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="NavigateBeforeIcon"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>
+                </li>
+              \`;
+
+              // Page numbers
+              for (let i = 1; i <= pageCount; i++) {
+                const isSelected = i === currentPageNum ? 'selected' : '';
+                const ariaCurrent = i === currentPageNum ? 'aria-current="true"' : '';
+                paginationHtml += \`
+                  <li class="pagination-item \${isSelected}" data-page="\${i}" \${ariaCurrent} aria-label="page \${i}">
+                    \${i}
+                  </li>
+                \`;
+              }
+
+              // Next button
+              const nextDisabled = currentPageNum === pageCount ? 'disabled' : '';
+              paginationHtml += \`
+                <li class="pagination-item \${nextDisabled}" data-page="\${currentPageNum + 1}" aria-label="Go to next page">
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="NavigateNextIcon"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg>
+                </li>
+              \`;
+
+              paginationHtml += '</ul></nav>';
+              paginationContainer.innerHTML = paginationHtml;
+
+              // Add click handlers
+              paginationContainer.querySelectorAll('.pagination-item:not(.disabled)').forEach(item => {
+                item.addEventListener('click', () => {
+                  const page = parseInt(item.dataset.page);
+                  if (page && page !== currentPageNum && page >= 1 && page <= pageCount) {
+                    currentPage = page;
+                    fetchListings(currentTab, currentPage);
+                    // Scroll to top of listings section
+                    document.querySelector('.listings-section')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                });
+              });
             }
 
 
@@ -1234,10 +1356,11 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               const container = document.getElementById('listings-container');
               currentListings = listings;
 
-              // Update listing count
-              const showing = listings?.length || 0;
-              const total = pagination?.totalCount || totalCount;
-              updateListingCount(showing, total);
+              // Update listing count with proper range calculation
+              updateListingCount(listings, pagination);
+
+              // Render pagination controls
+              renderPagination(pagination);
 
               if (!listings || listings.length === 0) {
                 container.innerHTML = \`
@@ -1890,6 +2013,18 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
             // Initialize filter options on page load
             initializeFilterOptions();
+
+            // Initialize pagination and listing count on page load
+            (function initializeListingsDisplay() {
+              const initialPagination = {
+                currentPage: 1,
+                pageCount: Math.ceil(totalCount / 25),
+                totalCount: totalCount,
+                perPage: 25
+              };
+              updateListingCount(initialData.listings, initialPagination);
+              renderPagination(initialPagination);
+            })();
 
             // Expandable description functionality
             function initializeExpandableDescription() {
