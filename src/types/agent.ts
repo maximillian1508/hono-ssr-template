@@ -45,27 +45,34 @@ export interface AgentApiResponse {
 }
 
 /**
- * Helper to get license label (REN/REA/PEA)
+ * Helper to get license label (REN/REA/PEA/E)
+ * @param licenseNumber - The license number to check
+ * @param withNo - Whether to include "no:" suffix (default: true)
  */
-export function getLicenseLabel(licenseNumber?: string): string {
-  if (!licenseNumber) return 'License No.:';
+export function getLicenseLabel(licenseNumber?: string, withNo: boolean = true): string {
+  if (!licenseNumber || licenseNumber.trim() === '') {
+    return withNo ? 'REN. no: -' : 'REN -';
+  }
 
   const upperLicense = licenseNumber.toUpperCase();
-  if (upperLicense.includes('REN')) return 'REN:';
-  if (upperLicense.includes('REA')) return 'REA:';
-  if (upperLicense.includes('PEA')) return 'PEA:';
 
-  return 'License No.:';
+  if (upperLicense.includes('PEA')) return withNo ? 'PEA. no:' : 'PEA';
+  if (upperLicense.includes('REA')) return withNo ? 'REA. no:' : 'REA';
+  if (upperLicense.includes('REN')) return withNo ? 'REN. no:' : 'REN';
+  if (upperLicense.startsWith('E')) return withNo ? 'E. no:' : 'E';
+
+  return withNo ? 'REN. no:' : 'REN';
 }
 
 /**
  * Format contact number to always show masked version
+ * Masks the last 4 digits of the phone number
  */
-export function formatContactNumber(contact: string): string {
-  if (!contact || contact.length <= 6) return contact;
+export function formatContactNumber(number: string | null): string | undefined {
+  if (number === null || !number) {
+    return undefined;
+  }
 
-  // Format: +60123456789 -> +6012****789
-  const prefix = contact.slice(0, -6);
-  const suffix = contact.slice(-3);
-  return `${prefix}****${suffix}`;
+  // Replace last 4 digits with ****
+  return number.replace(/\d{4}$/, '****');
 }
