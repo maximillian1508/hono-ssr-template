@@ -1575,9 +1575,9 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 const isSelected = isCategorySelected(category);
 
                 let categoryHtml = \`
-                  <div class="checkbox-group">
-                    <label class="parent-checkbox-label" data-category="\${category.value}">
-                      <span class="styled-checkbox \${isSelected ? 'checked' : ''}"></span>
+                  <div class="filter-modal-checkbox-group">
+                    <label class="filter-modal-parent-checkbox-label" data-category="\${category.value}">
+                      <span class="filter-modal-styled-checkbox \${isSelected ? 'checked' : ''}"></span>
                       \${category.label}
                     </label>
                 \`;
@@ -1587,8 +1587,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   category.options.forEach(subCategory => {
                     const isChildSelected = isSubCategorySelected(category, subCategory);
                     categoryHtml += \`
-                      <label class="child-checkbox-label" data-parent="\${category.value}" data-child="\${subCategory.value}">
-                        <span class="styled-checkbox \${isChildSelected ? 'checked' : ''}"></span>
+                      <label class="filter-modal-child-checkbox-label" data-parent="\${category.value}" data-child="\${subCategory.value}">
+                        <span class="filter-modal-styled-checkbox \${isChildSelected ? 'checked' : ''}"></span>
                         \${subCategory.label}
                       </label>
                     \`;
@@ -1602,7 +1602,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               container.innerHTML = html;
 
               // Add click handlers for category checkboxes
-              container.querySelectorAll('.parent-checkbox-label').forEach(label => {
+              container.querySelectorAll('.filter-modal-parent-checkbox-label').forEach(label => {
                 label.addEventListener('click', (e) => {
                   const categoryValue = e.currentTarget.dataset.category;
                   const category = fullData.find(c => c.value === categoryValue);
@@ -1610,7 +1610,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 });
               });
 
-              container.querySelectorAll('.child-checkbox-label').forEach(label => {
+              container.querySelectorAll('.filter-modal-child-checkbox-label').forEach(label => {
                 label.addEventListener('click', (e) => {
                   const parentValue = e.currentTarget.dataset.parent;
                   const childValue = e.currentTarget.dataset.child;
