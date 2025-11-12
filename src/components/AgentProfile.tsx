@@ -94,6 +94,13 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
         <meta name="language" content="English" />
         <meta name="author" content={name} />
 
+        {/* Favicon and App Icons */}
+        <link rel="icon" type="image/png" sizes="32x32" href={imageUrl} />
+        <link rel="icon" type="image/png" sizes="16x16" href={imageUrl} />
+        <link rel="apple-touch-icon" sizes="180x180" href={imageUrl} />
+        <link rel="shortcut icon" href={imageUrl} />
+        <meta name="theme-color" content="#3462F4" />
+
         {/* JSON-LD Structured Data */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{
           __html: JSON.stringify({
