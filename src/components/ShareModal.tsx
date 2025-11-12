@@ -14,6 +14,84 @@ export const ShareModal: FC<ShareModalProps> = ({ url, title }) => {
   return (
     <>
       <Style>{css`
+        /* Share Modal Overlay Styles */
+        .share-modal-overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.4);
+          z-index: 9999;
+          align-items: center;
+          justify-content: center;
+          animation: fadeIn 0.2s ease;
+        }
+
+        .share-modal-overlay.active {
+          display: flex;
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .share-modal-container {
+          background: white;
+          border-radius: 16px;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          width: 90%;
+          max-width: 500px;
+          max-height: 90vh;
+          display: flex;
+          flex-direction: column;
+          animation: slideIn 0.3s ease-out;
+        }
+
+        .share-modal-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 1.5rem;
+          border-bottom: 1px solid #e5e7eb;
+        }
+
+        .share-modal-title {
+          font-size: 1.25rem;
+          font-weight: 600;
+          margin: 0;
+        }
+
+        .share-modal-close-button {
+          background: none;
+          border: none;
+          padding: 0.5rem;
+          border-radius: 8px;
+          cursor: pointer;
+          color: #6b7280;
+          font-size: 1.5rem;
+          line-height: 1;
+          transition: all 0.2s;
+        }
+
+        .share-modal-close-button:hover {
+          background: #f3f4f6;
+          color: #000;
+        }
+
         /* Share Modal Specific Styles */
         .share-modal-content {
           padding: 1.5rem;
@@ -158,11 +236,11 @@ export const ShareModal: FC<ShareModalProps> = ({ url, title }) => {
       `}</Style>
 
       {/* Share Modal */}
-      <div class="modal-overlay" id="share-modal">
-        <div class="modal-container" style="max-width: 500px;">
-          <div class="modal-header">
-            <h2 class="modal-title">Share Social</h2>
-            <button class="close-button" id="close-share-modal">✕</button>
+      <div class="share-modal-overlay" id="share-modal">
+        <div class="share-modal-container" style="max-width: 500px;">
+          <div class="share-modal-header">
+            <h2 class="share-modal-title">Share Social</h2>
+            <button class="share-modal-close-button" id="close-share-modal">✕</button>
           </div>
 
           <div class="share-modal-content">
