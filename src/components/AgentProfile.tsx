@@ -1108,6 +1108,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           accountName={name}
           accountSlug={agent.slug}
           accountId={accountId}
+          domain={`https://${domain}`}
         />
 
         {/* Share Modal Component */}

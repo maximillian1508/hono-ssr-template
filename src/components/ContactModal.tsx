@@ -7,6 +7,7 @@ interface ContactModalProps {
   accountName: string;
   accountSlug: string;
   accountId: string;
+  domain: string;
 }
 
 /**
@@ -17,7 +18,8 @@ export const ContactModal: FC<ContactModalProps> = ({
   contactNumber,
   accountName,
   accountSlug,
-  accountId
+  accountId,
+  domain
 }) => {
   return (
     <>
@@ -770,7 +772,7 @@ export const ContactModal: FC<ContactModalProps> = ({
                   ? 'http://localhost:22080'
                   : 'https://api.propertygenie.com.my';
 
-                const source = \`https://propertygenie.com.my/agent-profile/${accountSlug}\`;
+                const source = '${domain}';
 
                 console.log('Sending logging request to:', \`\${apiBaseUrl}/v1/logging/interest\`);
                 console.log('Request payload:', {
@@ -823,12 +825,12 @@ export const ContactModal: FC<ContactModalProps> = ({
               const contactNumber = '${contactNumber}';
               const agentName = '${accountName.replace(/'/g, "\\'")}';
 
-              if (contactType === 'call') {
-                window.location.href = \`tel:\${contactNumber}\`;
-              } else {
-                const text = \`Hi \${agentName}, I am looking for property. I'm eager to explore the available options and would appreciate it if you could share details about any properties you have. Thank you!\`;
-                window.location.href = \`https://wa.me/\${contactNumber}/?text=\${encodeURIComponent(text)}\`;
-              }
+              // if (contactType === 'call') {
+              //   window.location.href = \`tel:\${contactNumber}\`;
+              // } else {
+              //   const text = \`Hi \${agentName}, I am looking for property. I'm eager to explore the available options and would appreciate it if you could share details about any properties you have. Thank you!\`;
+              //   window.location.href = \`https://wa.me/\${contactNumber}/?text=\${encodeURIComponent(text)}\`;
+              // }
 
               closeContactModal();
             });
