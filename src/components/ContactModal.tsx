@@ -772,6 +772,17 @@ export const ContactModal: FC<ContactModalProps> = ({
 
                 const source = \`https://propertygenie.com.my/agent-profile/${accountSlug}\`;
 
+                console.log('Sending logging request to:', \`\${apiBaseUrl}/v1/logging/interest\`);
+                console.log('Request payload:', {
+                  name: name,
+                  prefix: selectedCountry.code,
+                  number: phone,
+                  email: email,
+                  accountId: '${accountId}',
+                  type: 'agent-profile',
+                  source: source
+                });
+
                 const response = await fetch(\`\${apiBaseUrl}/v1/logging/interest\`, {
                   method: 'POST',
                   headers: {
@@ -788,11 +799,24 @@ export const ContactModal: FC<ContactModalProps> = ({
                   })
                 });
 
+                console.log('Logging API response status:', response.status);
+
                 if (!response.ok) {
-                  throw new Error('Failed to log interest');
+                  const errorText = await response.text();
+                  console.error('Logging API error response:', errorText);
+                  throw new Error(\`Failed to log interest: \${response.status} \${errorText}\`);
                 }
+
+                const responseData = await response.json();
+                console.log('Logging API success:', responseData);
               } catch (error) {
                 console.error('Error logging interest:', error);
+                console.error('Error details:', {
+                  message: error.message,
+                  stack: error.stack,
+                  name: error.name
+                });
+                // Continue with redirect even if logging fails
               }
 
               // Redirect based on contact type
