@@ -36,6 +36,12 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
   const contactNumber = mobileContact?.value || '';
   const maskedContact = formatContactNumber(contactNumber);
 
+  // Get email contact
+  const emailContact = agent.contact?.items?.find(
+    item => item.type?.code === 'email'
+  );
+  const email = emailContact?.value || '';
+
   const licenseNumber = agent.licenseNumber || '';
   const publisherName = agent.publisher?.name || '';
   const publisherRegistrationNumber = agent.publisher?.registrationNumber || '';
@@ -1096,7 +1102,15 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
         </div>
 
         {/* Footer Component */}
-        <AgentFooter publisherName={publisherName} />
+        <AgentFooter
+          publisherName={publisherName}
+          agentName={name}
+          licenseNumber={licenseNumber}
+          agencyRegistrationNumber={publisherRegistrationNumber}
+          phoneNumber={contactNumber}
+          email={email}
+          isRenVerified={isRenVerified}
+        />
 
 
         {/* Filter Modal Component */}
@@ -2124,6 +2138,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             // Contact modal button handlers
             const whatsappButton = document.getElementById('whatsapp-button');
             const callButton = document.getElementById('call-button');
+            const shareButton = document.getElementById('share-button');
 
             if (whatsappButton) {
               whatsappButton.addEventListener('click', () => {
@@ -2137,6 +2152,73 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               callButton.addEventListener('click', () => {
                 if (typeof window.openContactModal === 'function') {
                   window.openContactModal('call');
+                }
+              });
+            }
+
+            if (shareButton) {
+              shareButton.addEventListener('click', async () => {
+                if (navigator.share) {
+                  try {
+                    await navigator.share({
+                      title: document.title,
+                      url: window.location.href,
+                    });
+                  } catch (err) {
+                    console.log('Share cancelled or failed');
+                  }
+                } else {
+                  // Fallback: copy to clipboard
+                  try {
+                    await navigator.clipboard.writeText(window.location.href);
+                    alert('Link copied to clipboard!');
+                  } catch (err) {
+                    console.log('Failed to copy link');
+                  }
+                }
+              });
+            }
+
+            // Footer contact button handlers
+            const footerWhatsappButton = document.getElementById('footer-whatsapp-button');
+            const footerCallButton = document.getElementById('footer-call-button');
+            const footerShareButton = document.getElementById('footer-share-button');
+
+            if (footerWhatsappButton) {
+              footerWhatsappButton.addEventListener('click', () => {
+                if (typeof window.openContactModal === 'function') {
+                  window.openContactModal('whatsapp');
+                }
+              });
+            }
+
+            if (footerCallButton) {
+              footerCallButton.addEventListener('click', () => {
+                if (typeof window.openContactModal === 'function') {
+                  window.openContactModal('call');
+                }
+              });
+            }
+
+            if (footerShareButton) {
+              footerShareButton.addEventListener('click', async () => {
+                if (navigator.share) {
+                  try {
+                    await navigator.share({
+                      title: document.title,
+                      url: window.location.href,
+                    });
+                  } catch (err) {
+                    console.log('Share cancelled or failed');
+                  }
+                } else {
+                  // Fallback: copy to clipboard
+                  try {
+                    await navigator.clipboard.writeText(window.location.href);
+                    alert('Link copied to clipboard!');
+                  } catch (err) {
+                    console.log('Failed to copy link');
+                  }
                 }
               });
             }
