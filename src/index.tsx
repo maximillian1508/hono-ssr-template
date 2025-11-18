@@ -38,8 +38,11 @@ async function renderAgentProfile(c: any, accountId: string, domain: string) {
       console.error('Failed to fetch common data:', error);
     }
 
+    // Get template parameter from query string (default to '1')
+    const template = c.req.query('template') || '1';
+
     // Render agent profile
-    return c.html(<AgentProfile agent={agent} domain={domain} accountId={accountId} commonData={commonData} />);
+    return c.html(<AgentProfile agent={agent} domain={domain} accountId={accountId} commonData={commonData} template={template} />);
   } catch (error) {
     console.error('Error fetching agent data:', error);
     return c.html(
