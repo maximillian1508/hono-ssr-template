@@ -1,0 +1,336 @@
+---
+id: home-loan-calculator
+title: Home Loan Calculator API
+sidebar_label: Home Loan Calculator
+description: Mathematical formulas and field specifications for implementing a home loan calculator
+keywords:
+  - home loan
+  - calculator
+  - mortgage
+  - API
+  - mobile
+---
+
+# Home Loan Calculator API
+
+This document provides the mathematical formulas and field specifications for implementing a home loan calculator in your mobile application.
+
+## Overview
+
+The Home Loan Calculator helps users estimate their monthly mortgage payments based on property price, down payment, interest rate, and loan term. It supports two modes for down payment entry: by percentage or by absolute amount.
+
+---
+
+## Required Fields
+
+### Input Fields
+
+| Field Name | Type | Unit | Required | Default | Description |
+|------------|------|------|----------|---------|-------------|
+| `propertyPrice` | Number | RM | Yes | - | The total price of the property |
+| `downPaymentType` | Enum | - | Yes | `PERCENTAGE` | Either `PERCENTAGE` or `AMOUNT` |
+| `downPayment` | Number | RM or % | Yes | 0 | Down payment value (interpretation depends on `downPaymentType`) |
+| `downPaymentRate` | Number | % | Conditional | 0 | Down payment as percentage (when `downPaymentType` is `PERCENTAGE`) |
+| `interestRate` | Number | % | Yes | 3.5 | Annual interest rate |
+| `loanTerm` | Number | Years | Yes | 35 | Loan duration in years |
+
+### Output Fields
+
+| Field Name | Type | Unit | Description |
+|------------|------|------|-------------|
+| `monthlyPayment` | Number | RM | Calculated monthly loan payment |
+| `loanAmount` | Number | RM | Total loan amount after down payment |
+
+---
+
+## Formulas
+
+### 1. Down Payment Calculation
+
+#### When Using Percentage Mode (`downPaymentType = PERCENTAGE`)
+
+Calculate the down payment amount from the percentage:
+
+```
+downPayment = (propertyPrice × downPaymentRate) / 100
+```
+
+**Example:**
+- Property Price: RM 800,000
+- Down Payment Rate: 10%
+- Result: RM 800,000 × 10 / 100 = **RM 80,000**
+
+#### When Using Amount Mode (`downPaymentType = AMOUNT`)
+
+Calculate the down payment percentage from the amount:
+
+```
+downPaymentRate = (downPayment / propertyPrice) × 100
+```
+
+**Example:**
+- Property Price: RM 800,000
+- Down Payment: RM 80,000
+- Result: (RM 80,000 / RM 800,000) × 100 = **10%**
+
+---
+
+### 2. Loan Amount Calculation
+
+```
+loanAmount = propertyPrice - downPayment
+```
+
+**Example:**
+- Property Price: RM 800,000
+- Down Payment: RM 80,000
+- Result: RM 800,000 - RM 80,000 = **RM 720,000**
+
+---
+
+### 3. Monthly Loan Payment Calculation
+
+This uses the standard mortgage amortization formula:
+
+```
+monthlyPayment = P × [r(1 + r)^n] / [(1 + r)^n - 1]
+```
+
+**Where:**
+- `P` = Loan amount (principal)
+- `r` = Monthly interest rate = (annualInterestRate / 12 / 100)
+- `n` = Total number of payments = (loanTerm × 12)
+
+#### Simplified Implementation Formula
+
+```
+monthlyPayment = [
+  (interestRate / 1200) +
+  (interestRate / 1200) / ((1 + interestRate / 1200)^(loanTerm × 12) - 1)
+] × loanAmount
+```
+
+**Formula Breakdown:**
+- `interestRate / 1200` converts annual percentage to monthly decimal rate
+  - `/100` converts percentage to decimal
+  - `/12` converts annual to monthly
+- `loanTerm × 12` converts years to months
+- Round the final result to 2 decimal places
+
+#### Example Calculation
+
+**Given:**
+- Loan Amount: RM 720,000
+- Interest Rate: 3.5%
+- Loan Term: 35 years
+
+**Step-by-step:**
+
+1. Monthly interest rate (r) = 3.5 / 1200 = 0.00291667
+2. Number of payments (n) = 35 × 12 = 420 months
+3. Calculate: (1 + r)^n = (1.00291667)^420 ≈ 3.3517
+4. Monthly payment = 720,000 × [0.00291667 × 3.3517] / [3.3517 - 1]
+5. **Result: RM 2,576.62/month**
+
+---
+
+## Usage Guidelines
+
+### Validation Rules
+
+#### 1. Property Price
+- Must be greater than 0
+- No decimal places required (integer values acceptable)
+- Format with thousand separators for display
+
+#### 2. Down Payment Rate (Percentage Mode)
+- Must be between 0 and 100
+- Allow up to 2 decimal places
+- Automatically calculate `downPayment` amount when changed
+
+#### 3. Down Payment (Amount Mode)
+- Must be between 0 and property price
+- Allow up to 2 decimal places
+- Automatically calculate `downPaymentRate` when changed
+
+#### 4. Interest Rate
+- Must be greater than 0
+- Allow up to 2 decimal places
+- Typically ranges from 2% to 10%
+
+#### 5. Loan Term
+- Must be greater than 0
+- Whole numbers only (integer years)
+- Typically ranges from 5 to 35 years
+
+---
+
+### Edge Cases
+
+:::warning Edge Case: Zero Down Payment
+If `downPayment = 0`, then `loanAmount = propertyPrice`. The calculator should still function normally.
+:::
+
+:::warning Edge Case: Zero Interest Rate
+If `interestRate = 0`, monthly payment = `loanAmount / (loanTerm × 12)`. Avoid division by zero in the formula.
+:::
+
+:::danger Edge Case: Zero Property Price
+Return 0 or display appropriate message. Prevent calculation until valid price is entered.
+:::
+
+---
+
+### Number Formatting
+
+- **Display Format**: Use thousand separators (e.g., RM 800,000)
+- **Decimal Precision**: Round all monetary values to 2 decimal places
+- **Currency**: All amounts are in Malaysian Ringgit (RM)
+
+---
+
+## Default Values
+
+```json
+{
+  "interestRate": 3.5,
+  "loanTerm": 35,
+  "downPaymentType": "PERCENTAGE",
+  "downPaymentRate": 0
+}
+```
+
+---
+
+## Complete Calculation Example
+
+### Input
+
+```json
+{
+  "propertyPrice": 800000,
+  "downPaymentType": "PERCENTAGE",
+  "downPaymentRate": 10,
+  "interestRate": 3.5,
+  "loanTerm": 35
+}
+```
+
+### Step-by-step Calculation
+
+**Step 1: Calculate Down Payment Amount**
+
+```
+downPayment = (800,000 × 10) / 100 = RM 80,000
+```
+
+**Step 2: Calculate Loan Amount**
+
+```
+loanAmount = 800,000 - 80,000 = RM 720,000
+```
+
+**Step 3: Calculate Monthly Payment**
+
+```
+r = 3.5 / 1200 = 0.00291667
+n = 35 × 12 = 420
+monthlyPayment = 720,000 × [0.00291667(1.00291667)^420] / [(1.00291667)^420 - 1]
+monthlyPayment = RM 2,576.62
+```
+
+### Output
+
+```json
+{
+  "downPayment": 80000,
+  "loanAmount": 720000,
+  "monthlyPayment": 2576.62
+}
+```
+
+---
+
+## Additional Features (Optional)
+
+### Legal Fee Calculation (Tiered)
+
+Legal fees are calculated based on property price tiers:
+
+| Property Price Range | Rate |
+|---------------------|------|
+| First RM 500,000 | 1.0% |
+| RM 500,001 - RM 1,000,000 | 0.8% |
+| RM 1,000,001 - RM 3,000,000 | 0.7% |
+| RM 3,000,001 - RM 5,000,000 | 0.6% |
+| RM 5,000,001 - RM 7,500,000 | 0.5% |
+| Above RM 7,500,000 | 0.4% |
+
+:::info
+**Minimum legal fee: RM 500**
+:::
+
+---
+
+### Stamp Duty Calculation (Tiered)
+
+Stamp duty fees are calculated based on property price tiers:
+
+| Property Price Range | Rate |
+|---------------------|------|
+| First RM 100,000 | 1% |
+| RM 100,001 - RM 500,000 | 2% |
+| RM 500,001 - RM 1,000,000 | 3% |
+| Above RM 1,000,000 | 4% |
+
+---
+
+## Implementation Notes
+
+:::tip Implementation Tips
+1. **Rounding**: Always round monetary values to 2 decimal places using ceiling function
+2. **Performance**: For real-time calculations, debounce user input to avoid excessive recalculations
+3. **Validation**: Validate all inputs before performing calculations
+4. **Error Handling**: Handle edge cases gracefully (zero values, negative numbers, etc.)
+5. **Currency**: All calculations assume Malaysian Ringgit (RM)
+:::
+
+---
+
+## Constants Reference
+
+```javascript
+// Default values
+const HOME_CALCULATOR_INTEREST_RATE = 3.5;  // percent
+const HOME_CALCULATOR_LOAN_TERM = 35;        // years
+
+// Down payment types
+const DOWNPAYMENT_TYPE_AMOUNT = "AMOUNT";
+const DOWNPAYMENT_TYPE_RATE = "PERCENTAGE";
+```
+
+---
+
+## Quick Reference Table
+
+| Calculation | Formula |
+|-------------|---------|
+| Down Payment (%) | `(propertyPrice × downPaymentRate) / 100` |
+| Down Payment Rate | `(downPayment / propertyPrice) × 100` |
+| Loan Amount | `propertyPrice - downPayment` |
+| Monthly Payment | `[r + r / ((1 + r)^n - 1)] × loanAmount` where `r = interestRate/1200`, `n = loanTerm × 12` |
+
+---
+
+## Summary
+
+This API documentation provides everything needed to implement a home loan calculator:
+
+✅ Complete mathematical formulas with examples
+✅ Required and optional fields with validation rules
+✅ Edge case handling guidelines
+✅ Real-world calculation examples
+✅ Number formatting specifications
+✅ Additional features for legal fees and stamp duty
+
+For questions or clarifications, please contact the development team.
