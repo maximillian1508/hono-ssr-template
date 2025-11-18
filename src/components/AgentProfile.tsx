@@ -2159,24 +2159,11 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             }
 
             if (shareButton) {
-              shareButton.addEventListener('click', async () => {
-                if (navigator.share) {
-                  try {
-                    await navigator.share({
-                      title: document.title,
-                      url: window.location.href,
-                    });
-                  } catch (err) {
-                    console.log('Share cancelled or failed');
-                  }
-                } else {
-                  // Fallback: copy to clipboard
-                  try {
-                    await navigator.clipboard.writeText(window.location.href);
-                    alert('Link copied to clipboard!');
-                  } catch (err) {
-                    console.log('Failed to copy link');
-                  }
+              shareButton.addEventListener('click', () => {
+                const shareModal = document.getElementById('share-modal');
+                if (shareModal) {
+                  shareModal.classList.add('active');
+                  document.body.style.overflow = 'hidden';
                 }
               });
             }
@@ -2185,6 +2172,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             const footerWhatsappButton = document.getElementById('footer-whatsapp-button');
             const footerCallButton = document.getElementById('footer-call-button');
             const footerShareButton = document.getElementById('footer-share-button');
+            const footerPhoneLink = document.getElementById('footer-phone-link');
 
             if (footerWhatsappButton) {
               footerWhatsappButton.addEventListener('click', () => {
@@ -2202,25 +2190,20 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               });
             }
 
+            if (footerPhoneLink) {
+              footerPhoneLink.addEventListener('click', () => {
+                if (typeof window.openContactModal === 'function') {
+                  window.openContactModal('call');
+                }
+              });
+            }
+
             if (footerShareButton) {
-              footerShareButton.addEventListener('click', async () => {
-                if (navigator.share) {
-                  try {
-                    await navigator.share({
-                      title: document.title,
-                      url: window.location.href,
-                    });
-                  } catch (err) {
-                    console.log('Share cancelled or failed');
-                  }
-                } else {
-                  // Fallback: copy to clipboard
-                  try {
-                    await navigator.clipboard.writeText(window.location.href);
-                    alert('Link copied to clipboard!');
-                  } catch (err) {
-                    console.log('Failed to copy link');
-                  }
+              footerShareButton.addEventListener('click', () => {
+                const shareModal = document.getElementById('share-modal');
+                if (shareModal) {
+                  shareModal.classList.add('active');
+                  document.body.style.overflow = 'hidden';
                 }
               });
             }
@@ -2275,6 +2258,34 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   correspondingNavLink.classList.add('active');
                 }
               });
+            });
+
+            // Scroll detection to reset header nav active state
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+              // Debounce scroll event
+              clearTimeout(scrollTimeout);
+              scrollTimeout = setTimeout(() => {
+                const listingsSection = document.getElementById('listings-section');
+                if (!listingsSection) return;
+
+                const listingsSectionRect = listingsSection.getBoundingClientRect();
+                const headerHeight = 64;
+                const viewportHeight = window.innerHeight;
+
+                // Check if listings section is in viewport
+                // We consider it "out of view" if the top of the section is above the viewport
+                // or the bottom of the section is below the viewport
+                const isAboveViewport = listingsSectionRect.bottom < headerHeight;
+                const isBelowViewport = listingsSectionRect.top > viewportHeight;
+
+                // Reset active state if listings section is completely out of view
+                if (isAboveViewport || isBelowViewport) {
+                  document.querySelectorAll('.agent-profile-header-nav-link').forEach(link => {
+                    link.classList.remove('active');
+                  });
+                }
+              }, 100); // Wait 100ms after scroll stops
             });
           `
         }} />

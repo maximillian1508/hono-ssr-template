@@ -87,6 +87,23 @@ export const AgentFooter: FC<AgentFooterProps> = ({
           text-decoration: underline;
         }
 
+        .footer-phone-link {
+          color: #60a5fa;
+          text-decoration: none;
+          transition: color 0.2s;
+          background: none;
+          border: none;
+          padding: 0;
+          font-family: inherit;
+          font-size: inherit;
+          cursor: pointer;
+        }
+
+        .footer-phone-link:hover {
+          color: #93c5fd;
+          text-decoration: underline;
+        }
+
         .footer-contact-buttons {
           display: flex;
           gap: 0.75rem;
@@ -163,7 +180,7 @@ export const AgentFooter: FC<AgentFooterProps> = ({
             <div class="footer-column">
               <h3>Contact</h3>
               {phoneNumber && (
-                <p>Phone: <a href={`tel:${phoneNumber}`}>{phoneNumber}</a></p>
+                <p>Phone: <button class="footer-phone-link" id="footer-phone-link">{phoneNumber}</button></p>
               )}
               {email && (
                 <p>Email: <a href={`mailto:${email}`}>{email}</a></p>
@@ -185,7 +202,7 @@ export const AgentFooter: FC<AgentFooterProps> = ({
           </div>
 
           <div class="footer-content">
-            <p>&copy; {new Date().getFullYear()} {publisherName}. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} {agentName || publisherName}. All rights reserved.</p>
             <p>Powered by PropertyGenie</p>
           </div>
         </div>
