@@ -146,17 +146,17 @@ export const AgentProfileHeader: FC<AgentProfileHeaderProps> = ({ agentName }) =
               </button>
               <button
                 class="agent-profile-header-nav-link"
-                data-nav-tab="auction"
-                id="header-nav-auction"
-              >
-                For Auction
-              </button>
-              <button
-                class="agent-profile-header-nav-link"
                 data-nav-tab="rent"
                 id="header-nav-rent"
               >
                 For Rent
+              </button>
+              <button
+                class="agent-profile-header-nav-link"
+                data-nav-tab="auction"
+                id="header-nav-auction"
+              >
+                For Auction
               </button>
             </nav>
           </div>
