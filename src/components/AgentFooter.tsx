@@ -31,9 +31,10 @@ export const AgentFooter: FC<AgentFooterProps> = ({
         /* Footer Styles */
         .footer {
           margin-top: 4rem;
-          background-color: #1f2937;
-          color: white;
+          background-color: #fafaff;
+          color: #1f2937;
           padding: 2rem 0;
+          position: relative;
         }
 
         .footer-container {
@@ -48,7 +49,7 @@ export const AgentFooter: FC<AgentFooterProps> = ({
           gap: 3rem;
           margin-bottom: 2rem;
           padding-bottom: 2rem;
-          border-bottom: 1px solid #374151;
+          border-bottom: 1px solid #e5e7eb;
         }
 
         @media (max-width: 768px) {
@@ -62,33 +63,33 @@ export const AgentFooter: FC<AgentFooterProps> = ({
           font-size: 1.1rem;
           font-weight: 600;
           margin-bottom: 1rem;
-          color: #f9fafb;
+          color: #1f2937;
         }
 
         .footer-column p {
           margin: 0.5rem 0;
           font-size: 0.9rem;
-          color: #d1d5db;
+          color: #4b5563;
           line-height: 1.6;
         }
 
         .footer-column strong {
-          color: #f9fafb;
+          color: #1f2937;
         }
 
         .footer-column a {
-          color: #60a5fa;
+          color: #3462F4;
           text-decoration: none;
           transition: color 0.2s;
         }
 
         .footer-column a:hover {
-          color: #93c5fd;
+          color: #2451d9;
           text-decoration: underline;
         }
 
         .footer-phone-link {
-          color: #60a5fa;
+          color: #3462F4;
           text-decoration: none;
           transition: color 0.2s;
           background: none;
@@ -100,39 +101,66 @@ export const AgentFooter: FC<AgentFooterProps> = ({
         }
 
         .footer-phone-link:hover {
-          color: #93c5fd;
+          color: #2451d9;
           text-decoration: underline;
         }
 
         .footer-contact-buttons {
+          position: absolute;
+          bottom: 2rem;
+          right: 2rem;
           display: flex;
           gap: 0.75rem;
-          margin-top: 1rem;
-          flex-wrap: wrap;
+          align-items: center;
+        }
+
+        @media (max-width: 768px) {
+          .footer-contact-buttons {
+            bottom: 1rem;
+            right: 1rem;
+            gap: 0.5rem;
+          }
         }
 
         .footer-contact-btn {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: 0.5rem 1rem;
-          background-color: #374151;
-          color: white;
+          background: none;
           border: none;
-          border-radius: 0.375rem;
-          font-size: 0.9rem;
           cursor: pointer;
-          transition: background-color 0.2s;
-          gap: 0.5rem;
+          transition: transform 0.2s;
+          padding: 0;
         }
 
         .footer-contact-btn:hover {
-          background-color: #4b5563;
+          transform: scale(1.1);
         }
 
         .footer-contact-btn svg {
-          width: 20px;
-          height: 20px;
+          width: 40px;
+          height: 40px;
+        }
+
+        @media (max-width: 768px) {
+          .footer-contact-btn svg {
+            width: 36px;
+            height: 36px;
+          }
+        }
+
+        .footer-contact-btn#footer-share-button {
+          background-color: #3462F4;
+          color: white;
+          border-radius: 0.5rem;
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+          font-weight: 500;
+        }
+
+        .footer-contact-btn#footer-share-button:hover {
+          background-color: #2451d9;
+          transform: scale(1.05);
         }
 
         .footer-content {
@@ -142,7 +170,7 @@ export const AgentFooter: FC<AgentFooterProps> = ({
         .footer-content p {
           margin: 0.5rem 0;
           font-size: 0.9rem;
-          color: #d1d5db;
+          color: #6b7280;
         }
 
         .verified-icon {
