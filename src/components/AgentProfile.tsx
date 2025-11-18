@@ -4,6 +4,7 @@ import type { AgentApiResponse } from '../types/agent';
 import { getLicenseLabel, formatContactNumber } from '../types/agent';
 import { Header } from './Header';
 import { HeaderCompensation } from './HeaderCompensation';
+import { AgentProfileHeader } from './AgentProfileHeader';
 import { ShareModal } from './ShareModal';
 import { FilterModal } from './FilterModal';
 import { ContactModal } from './ContactModal';
@@ -35,6 +36,12 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
   );
   const contactNumber = mobileContact?.value || '';
   const maskedContact = formatContactNumber(contactNumber);
+
+  // Get email contact
+  const emailContact = agent.contact?.items?.find(
+    item => item.type?.code === 'email'
+  );
+  const email = emailContact?.value || '';
 
   const licenseNumber = agent.licenseNumber || '';
   const publisherName = agent.publisher?.name || '';
@@ -942,11 +949,12 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
         `}</Style>
       </head>
       <body>
-        {/* Header */}
-        <Header />
+        {/* Original Header - Backup (commented out) */}
+        {/* <Header /> */}
+        {/* <HeaderCompensation /> */}
 
-        {/* Spacer for fixed header */}
-        <HeaderCompensation />
+        {/* New Agent Profile Header */}
+        <AgentProfileHeader agentName={name} />
 
         {/* Listing Card Styles */}
         <ListingCardStyles />
@@ -1040,7 +1048,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
         </div>
 
 
-        <div class="listings-section">
+        <div class="listings-section" id="listings-section">
             <h2>{name}'s Listings</h2>
 
             <div class="tabs-container">
@@ -1096,7 +1104,15 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
         </div>
 
         {/* Footer Component */}
-        <AgentFooter publisherName={publisherName} />
+        <AgentFooter
+          publisherName={publisherName}
+          agentName={name}
+          licenseNumber={licenseNumber}
+          agencyRegistrationNumber={publisherRegistrationNumber}
+          phoneNumber={contactNumber}
+          email={email}
+          isRenVerified={isRenVerified}
+        />
 
 
         {/* Filter Modal Component */}
@@ -2124,6 +2140,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             // Contact modal button handlers
             const whatsappButton = document.getElementById('whatsapp-button');
             const callButton = document.getElementById('call-button');
+            const shareButton = document.getElementById('share-button');
 
             if (whatsappButton) {
               whatsappButton.addEventListener('click', () => {
@@ -2140,6 +2157,125 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 }
               });
             }
+
+            if (shareButton) {
+              shareButton.addEventListener('click', async () => {
+                if (navigator.share) {
+                  try {
+                    await navigator.share({
+                      title: document.title,
+                      url: window.location.href,
+                    });
+                  } catch (err) {
+                    console.log('Share cancelled or failed');
+                  }
+                } else {
+                  // Fallback: copy to clipboard
+                  try {
+                    await navigator.clipboard.writeText(window.location.href);
+                    alert('Link copied to clipboard!');
+                  } catch (err) {
+                    console.log('Failed to copy link');
+                  }
+                }
+              });
+            }
+
+            // Footer contact button handlers
+            const footerWhatsappButton = document.getElementById('footer-whatsapp-button');
+            const footerCallButton = document.getElementById('footer-call-button');
+            const footerShareButton = document.getElementById('footer-share-button');
+
+            if (footerWhatsappButton) {
+              footerWhatsappButton.addEventListener('click', () => {
+                if (typeof window.openContactModal === 'function') {
+                  window.openContactModal('whatsapp');
+                }
+              });
+            }
+
+            if (footerCallButton) {
+              footerCallButton.addEventListener('click', () => {
+                if (typeof window.openContactModal === 'function') {
+                  window.openContactModal('call');
+                }
+              });
+            }
+
+            if (footerShareButton) {
+              footerShareButton.addEventListener('click', async () => {
+                if (navigator.share) {
+                  try {
+                    await navigator.share({
+                      title: document.title,
+                      url: window.location.href,
+                    });
+                  } catch (err) {
+                    console.log('Share cancelled or failed');
+                  }
+                } else {
+                  // Fallback: copy to clipboard
+                  try {
+                    await navigator.clipboard.writeText(window.location.href);
+                    alert('Link copied to clipboard!');
+                  } catch (err) {
+                    console.log('Failed to copy link');
+                  }
+                }
+              });
+            }
+
+            // Header navigation handlers
+            document.querySelectorAll('.agent-profile-header-nav-link').forEach(navLink => {
+              navLink.addEventListener('click', () => {
+                const navTabType = navLink.dataset.navTab;
+
+                // Scroll to listings section
+                const listingsSection = document.getElementById('listings-section');
+                if (listingsSection) {
+                  const headerHeight = 64; // Height of fixed header
+                  const elementPosition = listingsSection.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                  });
+                }
+
+                // Update active state on header nav links
+                document.querySelectorAll('.agent-profile-header-nav-link').forEach(link => {
+                  link.classList.remove('active');
+                });
+                navLink.classList.add('active');
+
+                // Find and click the corresponding tab to trigger existing tab logic
+                setTimeout(() => {
+                  const correspondingTab = document.querySelector(\`.tab[data-tab="\${navTabType}"]\`);
+                  if (correspondingTab) {
+                    correspondingTab.click();
+                  }
+                }, 300); // Small delay to allow scroll to start
+              });
+            });
+
+            // Sync header nav active state with tab changes
+            document.querySelectorAll('.tab').forEach(tab => {
+              const originalClickHandler = tab.onclick;
+              tab.addEventListener('click', () => {
+                const tabType = tab.dataset.tab;
+
+                // Update header nav active state
+                document.querySelectorAll('.agent-profile-header-nav-link').forEach(link => {
+                  link.classList.remove('active');
+                });
+
+                const correspondingNavLink = document.querySelector(\`.agent-profile-header-nav-link[data-nav-tab="\${tabType}"]\`);
+                if (correspondingNavLink) {
+                  correspondingNavLink.classList.add('active');
+                }
+              });
+            });
           `
         }} />
       </body>
