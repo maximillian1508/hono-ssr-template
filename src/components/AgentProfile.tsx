@@ -2172,6 +2172,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             const footerWhatsappButton = document.getElementById('footer-whatsapp-button');
             const footerCallButton = document.getElementById('footer-call-button');
             const footerShareButton = document.getElementById('footer-share-button');
+            const footerPhoneLink = document.getElementById('footer-phone-link');
 
             if (footerWhatsappButton) {
               footerWhatsappButton.addEventListener('click', () => {
@@ -2183,6 +2184,14 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
             if (footerCallButton) {
               footerCallButton.addEventListener('click', () => {
+                if (typeof window.openContactModal === 'function') {
+                  window.openContactModal('call');
+                }
+              });
+            }
+
+            if (footerPhoneLink) {
+              footerPhoneLink.addEventListener('click', () => {
                 if (typeof window.openContactModal === 'function') {
                   window.openContactModal('call');
                 }
