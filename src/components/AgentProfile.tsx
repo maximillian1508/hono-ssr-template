@@ -214,16 +214,23 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             background-position: center top;
             background-repeat: no-repeat;
             width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 60vh;
+            max-height: 500px;
+            background-color: #3462F4;
+            padding: 0 2rem 2rem 2rem;
+          }
+
+          .hero-content {
+            max-width: 1280px;
+            width: 100%;
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: auto auto;
             justify-items: end;
             align-content: end;
-            text-align: right;
-            height: 60vh;
-            max-height: 500px;
-            background-color: #3462F4;
-            padding: 0 3rem 2rem 0;
             gap: 1rem;
           }
 
@@ -234,8 +241,13 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             font-size: 2.5rem;
             font-weight: bold;
             border-bottom: 2px solid white;
-            padding: 0 3rem 0.5rem 3rem;
+            padding: 0 3rem 0.5rem 0;
             margin: 0;
+            text-align: left;
+            width: fit-content;
+            max-width: 100%;
+            word-wrap: break-word;
+            white-space: normal;
           }
 
           .hero-copy-button {
@@ -253,10 +265,12 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             font-weight: 600;
             cursor: pointer;
             width: fit-content;
+            max-width: 100%;
             height: fit-content;
-            text-align: center;
+            text-align: left;
             transition: all 0.2s ease;
-            word-break: break-word;
+            word-wrap: break-word;
+            white-space: normal;
           }
 
           .hero-copy-button:hover {
@@ -268,6 +282,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             width: 20px;
             height: 20px;
             fill: currentColor;
+            flex-shrink: 0;
           }
 
           @media (max-width: 1024px) {
@@ -280,16 +295,19 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             .hero-copy-button {
               font-size: 0.9rem;
             }
+            .hero-section p {
+              font-size: 2rem;
+            }
           }
 
           @media (max-width: 576px) {
             .hero-copy-button {
-              grid-column: 1;
-              grid-row: 3;
               font-size: 0.85rem;
               padding: 0.5rem 1rem;
               border-radius: 12px;
-              margin: 0 auto;
+            }
+            .hero-section p {
+              font-size: 1.5rem;
             }
           }
 
@@ -1024,13 +1042,15 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
         <main>
 
         <div class="hero-section">
-          <p>{name}</p>
-          <button class="hero-copy-button" id="hero-copy-button" data-domain={domain}>
-            {domain}
-            <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ContentCopyIcon">
-              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m0 16H8V7h11z"></path>
-            </svg>
-          </button>
+          <div class="hero-content">
+            <p>{name}</p>
+            <button class="hero-copy-button" id="hero-copy-button" data-domain={domain}>
+              {domain}
+              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ContentCopyIcon">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m0 16H8V7h11z"></path>
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div class="agent-detail-section">
@@ -2243,11 +2263,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 const domain = heroCopyButton.getAttribute('data-domain');
                 if (domain && navigator.clipboard) {
                   navigator.clipboard.writeText(domain).then(() => {
-                    const originalText = heroCopyButton.innerHTML;
-                    heroCopyButton.innerHTML = 'Copied!';
                     heroCopyButton.style.background = '#a8d5ba';
                     setTimeout(() => {
-                      heroCopyButton.innerHTML = originalText;
                       heroCopyButton.style.background = '#C8D4F4';
                     }, 2000);
                   }).catch(err => {
