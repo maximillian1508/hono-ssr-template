@@ -215,12 +215,13 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             background-repeat: no-repeat;
             width: 100%;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            height: 45vh;
-            max-height: 400px;
+            justify-content: flex-end;
+            align-items: flex-end;
+            text-align: right;
+            height: 60vh;
+            max-height: 500px;
             background-color: #3462F4;
+            padding: 0 3rem 2rem 0;
           }
 
           .hero-section p {
@@ -962,7 +963,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
         <main>
 
         <div class="hero-section">
-          <p>PROPERTY AGENT</p>
+          <p>{name}</p>
         </div>
 
         <div class="agent-detail-section">
@@ -1109,7 +1110,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           agentName={name}
           licenseNumber={licenseNumber}
           agencyRegistrationNumber={publisherRegistrationNumber}
-          phoneNumber={contactNumber}
+          phoneNumber={maskedContact}
           email={email}
           isRenVerified={isRenVerified}
         />
