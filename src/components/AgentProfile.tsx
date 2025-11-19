@@ -214,22 +214,83 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             background-position: center top;
             background-repeat: no-repeat;
             width: 100%;
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-end;
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            justify-items: end;
+            align-content: end;
             text-align: right;
             height: 60vh;
             max-height: 500px;
             background-color: #3462F4;
             padding: 0 3rem 2rem 0;
+            gap: 1rem;
           }
 
           .hero-section p {
+            grid-column: 1;
+            grid-row: 1;
             color: white;
             font-size: 2.5rem;
             font-weight: bold;
             border-bottom: 2px solid white;
             padding: 0 3rem 0.5rem 3rem;
+            margin: 0;
+          }
+
+          .hero-copy-button {
+            grid-column: 1;
+            grid-row: 2;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #C8D4F4;
+            border: 1px solid #fff;
+            color: black;
+            padding: 0.5rem 1rem;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: fit-content;
+            height: fit-content;
+            text-align: center;
+            transition: all 0.2s ease;
+            word-break: break-word;
+          }
+
+          .hero-copy-button:hover {
+            background: #b3c5ed;
+            transform: scale(1.02);
+          }
+
+          .hero-copy-button svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+          }
+
+          @media (max-width: 1024px) {
+            .hero-copy-button {
+              font-size: 0.95rem;
+            }
+          }
+
+          @media (max-width: 768px) {
+            .hero-copy-button {
+              font-size: 0.9rem;
+            }
+          }
+
+          @media (max-width: 576px) {
+            .hero-copy-button {
+              grid-column: 1;
+              grid-row: 3;
+              font-size: 0.85rem;
+              padding: 0.5rem 1rem;
+              border-radius: 12px;
+              margin: 0 auto;
+            }
           }
 
           .agent-detail-section {
@@ -964,6 +1025,12 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
         <div class="hero-section">
           <p>{name}</p>
+          <button class="hero-copy-button" id="hero-copy-button" data-domain={domain}>
+            {domain}
+            <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ContentCopyIcon">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m0 16H8V7h11z"></path>
+            </svg>
+          </button>
         </div>
 
         <div class="agent-detail-section">
@@ -2165,6 +2232,27 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 if (shareModal) {
                   shareModal.classList.add('active');
                   document.body.style.overflow = 'hidden';
+                }
+              });
+            }
+
+            // Hero copy button handler
+            const heroCopyButton = document.getElementById('hero-copy-button');
+            if (heroCopyButton) {
+              heroCopyButton.addEventListener('click', () => {
+                const domain = heroCopyButton.getAttribute('data-domain');
+                if (domain && navigator.clipboard) {
+                  navigator.clipboard.writeText(domain).then(() => {
+                    const originalText = heroCopyButton.innerHTML;
+                    heroCopyButton.innerHTML = 'Copied!';
+                    heroCopyButton.style.background = '#a8d5ba';
+                    setTimeout(() => {
+                      heroCopyButton.innerHTML = originalText;
+                      heroCopyButton.style.background = '#C8D4F4';
+                    }, 2000);
+                  }).catch(err => {
+                    console.error('Failed to copy:', err);
+                  });
                 }
               });
             }
