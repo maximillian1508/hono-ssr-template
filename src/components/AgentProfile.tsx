@@ -251,7 +251,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .hero-copy-button {
-            margin-right: 1rem;
             grid-column: 1;
             grid-row: 2;
             display: flex;
@@ -265,7 +264,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            width: fit-content;
+            width: 100%;
             max-width: 100%;
             height: fit-content;
             text-align: left;
