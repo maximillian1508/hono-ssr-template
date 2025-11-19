@@ -220,7 +220,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             height: 60vh;
             max-height: 500px;
             background-color: #3462F4;
-            padding: 0 2rem 2rem 0;
+            padding: 0 0 2rem 2rem;
           }
 
           .hero-content {
