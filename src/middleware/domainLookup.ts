@@ -28,8 +28,8 @@ export type Variables = {
  * - Lookup accountId from KV/API using hostname
  *
  * Mode 2 (Dev/Staging - USE_DOMAIN_ROUTING=false):
- * - Domain comes from URL path (e.g., /test.app)
- * - Lookup accountId from KV/API using path as domain
+ * - Domain comes from query parameter (e.g., ?domain=test.app)
+ * - Lookup accountId from KV/API using query param as domain
  */
 export const domainLookup = createMiddleware<{ Bindings: Bindings; Variables: Variables }>(
   async (c, next) => {
@@ -39,35 +39,19 @@ export const domainLookup = createMiddleware<{ Bindings: Bindings; Variables: Va
     let hostname: string;
 
     if (useDomainRouting) {
-      // Production: Use actual hostname ONLY
-      // Path-based routing is disabled in production for security
-      const pathSegments = url.pathname.split('/').filter(Boolean);
-
-      // Only perform domain lookup for root path in production
-      if (pathSegments.length > 0) {
-        // Skip domain lookup for non-root paths (will likely 404)
-        await next();
-        return;
-      }
-
+      // Production: Use actual hostname
       hostname = url.hostname;
     } else {
-      // Dev/Staging: Extract domain from first path segment
-      const pathSegments = url.pathname.split('/').filter(Boolean);
+      // Dev/Staging: Extract domain from query parameter
+      const domainParam = url.searchParams.get('domain');
 
-      if (pathSegments.length === 0) {
-        // No domain in path, show instructions
+      if (!domainParam) {
+        // No domain in query, skip lookup (will show instructions)
         await next();
         return;
       }
 
-      hostname = pathSegments[0];
-
-      // Skip if it looks like an asset or API path
-      if (hostname.includes('.') === false || hostname.startsWith('_')) {
-        await next();
-        return;
-      }
+      hostname = domainParam;
     }
 
     // Try KV cache first (fast - 1-5ms)

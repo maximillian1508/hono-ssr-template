@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import { html } from 'hono/html';
 import { domainLookup, type Bindings, type Variables } from './middleware/domainLookup';
 import { AgentProfile } from './components/AgentProfile';
+import { NotFound } from './components/NotFound';
 import type { AgentApiResponse } from './types/agent';
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>();
@@ -57,12 +58,12 @@ async function renderAgentProfile(c: any, accountId: string, domain: string) {
 }
 
 /**
- * Unified route for both dev and production
+ * Main route for agent profile page
  *
- * Dev/Staging: http://localhost:8787/test.app (or any domain)
+ * Dev/Staging: http://localhost:8787/?domain=test.app
  * Production: https://agent-domain.com/
  */
-app.get('/*', async (c) => {
+app.get('/', async (c) => {
   const accountId = c.var.accountId;
   const domain = c.var.domain;
 
@@ -78,8 +79,8 @@ app.get('/*', async (c) => {
 
           {!useDomainRouting && (
             <>
-              <p>To view an agent profile, visit: <code>/domain.com</code></p>
-              <p>Example: <a href="/test.app">/test.app</a></p>
+              <p>To view an agent profile, add a domain query parameter: <code>?domain=your-domain.com</code></p>
+              <p>Example: <a href="/?domain=test.app">/?domain=test.app</a></p>
               <p>The middleware will lookup the domain and fetch the associated agent profile.</p>
             </>
           )}
@@ -96,6 +97,18 @@ app.get('/*', async (c) => {
   }
 
   return renderAgentProfile(c, accountId, domain);
+});
+
+/**
+ * Custom 404 handler
+ * Returns a styled not found page following the agent profile design
+ */
+app.notFound((c) => {
+  const domain = c.var.domain;
+  return c.html(
+    html`<!DOCTYPE html>${<NotFound domain={domain} />}`,
+    404
+  );
 });
 
 export default app;

@@ -78,23 +78,23 @@ npm run dev
 
 The worker supports two routing modes for domain lookup:
 
-#### 1. Path-based domain lookup (Dev/Staging - `USE_DOMAIN_ROUTING=false`)
+#### 1. Query parameter-based lookup (Dev/Staging - `USE_DOMAIN_ROUTING=false`)
 
-Use the domain as the first path segment. The middleware will extract the domain from the URL path and perform the lookup:
+Use a `domain` query parameter to test different agent domains locally:
 
 ```
-http://localhost:8787/test.app
-http://localhost:8787/agent-domain.com
+http://localhost:8787/?domain=test.app
+http://localhost:8787/?domain=agent-domain.com
 ```
 
 **How it works:**
-1. Request: `http://localhost:8787/test.app`
-2. Middleware extracts `test.app` as the domain
+1. Request: `http://localhost:8787/?domain=test.app`
+2. Middleware extracts `test.app` from the `domain` query parameter
 3. Looks up domain in KV cache or API
 4. Fetches the associated `accountId`
 5. Renders the agent profile
 
-This allows you to test the full domain lookup flow locally without configuring custom domains.
+This allows you to test the full domain lookup flow locally without configuring custom domains. You can easily test multiple domains by changing the query parameter.
 
 #### 2. Hostname-based domain lookup (Production - `USE_DOMAIN_ROUTING=true`)
 
@@ -106,10 +106,33 @@ https://agent-custom-domain.com/
 
 **How it works:**
 1. Request: `https://test.app/`
-2. Middleware uses `test.app` from hostname
+2. Middleware uses `test.app` from the hostname
 3. Looks up domain in KV cache or API
 4. Fetches the associated `accountId`
 5. Renders the agent profile
+
+### Adding New Routes
+
+With the standard routing setup, you can easily add new routes for future features:
+
+```typescript
+// Main agent profile page
+app.get('/', async (c) => {
+  // ... agent profile logic
+});
+
+// Example: About page
+app.get('/about', async (c) => {
+  // ... about page logic
+});
+
+// Example: Contact page
+app.get('/contact', async (c) => {
+  // ... contact page logic
+});
+```
+
+Static files (robots.txt, sitemap.xml, favicon.ico, etc.) placed in the `public/` folder are automatically served by Cloudflare Workers.
 
 ## Deployment
 
