@@ -218,7 +218,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             height: 60vh;
             max-height: 500px;
             background-color: #3462F4;
-            padding: 0 0 2rem 2rem;
+            padding: 0 0 4rem 2rem;
           }
 
           .hero-content {
@@ -427,7 +427,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             margin-top: 0;
             margin-left: 0;
             grid-area: details;
-            padding-top: 1rem;
           }
 
           .details-container p {
@@ -481,8 +480,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             grid-area: listings;
             display: flex;
             flex-direction: row;
-            border-top: 2px solid #dddddd;
-            border-bottom: 2px solid #dddddd;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border-radius: 8px;
             padding: 0;
             margin: 0 2rem;
           }
@@ -494,13 +493,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             align-items: center;
             justify-content: center;
             gap: 3px;
-            padding: 25px 0;
+            padding: 40px 0;
             text-align: center;
-          }
-
-          .listing-summary:nth-child(2) {
-            border-left: 2px solid #dddddd;
-            border-right: 2px solid #dddddd;
           }
 
           .listing-summary p {
@@ -938,7 +932,6 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             }
 
             .info-container {
-              margin-top: 100px;
               padding: 0 20px;
             }
 
