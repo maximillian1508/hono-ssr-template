@@ -318,42 +318,42 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             margin: 0 auto;
             width: 100%;
             display: grid;
-            grid-template-columns: 300px 1fr;
+            grid-template-columns: 1fr;
             grid-template-areas:
-              "left right"
-              "listings listings";
-            gap: 1rem 2rem;
+              "first-row"
+              "agent-content"
+              "listings";
+            gap: 2rem;
             position: relative;
             align-items: start;
           }
 
-          .left-column {
-            grid-area: left;
-            display: flex;
-            flex-direction: column;
-            padding: 0;
-          }
-
-          .right-column {
-            grid-area: right;
-            display: flex;
-            flex-direction: column;
-            padding: 0;
+          .first-row {
+            grid-area: first-row;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            grid-template-areas:
+              "image info"
+              "image details";
+            gap: 0 2rem;
+            position: relative;
+            align-items: start;
           }
 
           .image-container {
             background-color: white;
             padding: 5px;
             border: solid 0.1px #e0e0e0;
-            position: absolute;
+            position: relative;
             top: -50px;
-            left: 30px;
+            left: 0;
+            margin-left: 2rem;
             width: 250px;
             height: 250px;
             display: flex;
             justify-content: center;
             align-items: center;
-            grid-area:image;
+            grid-area: image;
           }
 
           .image-container img {
@@ -424,9 +424,10 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .details-container {
-            margin-top: 175px;
-            margin-left: 2rem;
+            margin-top: 0;
+            margin-left: 0;
             grid-area: details;
+            padding-top: 1rem;
           }
 
           .details-container p {
@@ -445,7 +446,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
           .agent-content-container {
             grid-area: agent-content;
-            padding: 0;
+            padding: 0 2rem;
           }
 
           .description-container {
@@ -483,7 +484,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             border-top: 2px solid #dddddd;
             border-bottom: 2px solid #dddddd;
             padding: 0;
-            margin-top: 2rem;
+            margin: 0 2rem;
           }
 
           .listing-summary {
@@ -915,22 +916,25 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             .agent-detail-section {
               grid-template-columns: 1fr;
               grid-template-areas:
-                "image"
-                "info"
-                "details"
+                "first-row"
                 "agent-content"
                 "listings";
             }
 
-            .left-column,
-            .right-column {
-              display: contents;
+            .first-row {
+              grid-template-columns: 1fr;
+              grid-template-areas:
+                "image"
+                "info"
+                "details";
+              gap: 0;
             }
 
             .image-container {
               width: 200px;
               height: 200px;
-              left: 20px;
+              left: 0;
+              margin-left: 1.25rem;
             }
 
             .info-container {
@@ -973,6 +977,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
             .listings-container {
               padding: 0;
+              margin: 0;
             }
 
             .listing-summary {
@@ -1058,10 +1063,25 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
         </div>
 
         <div class="agent-detail-section">
-          {/* Left Column */}
-          <div class="left-column">
+          {/* First Row - Image + Info + Details */}
+          <div class="first-row">
             <div class="image-container">
               <img src={avatarUrl} alt={name} />
+            </div>
+
+            <div class="info-container">
+              <h1>{name}</h1>
+              <h3>{publisherName}</h3>
+
+              <div class="contact-section">
+                <button class="contact-btn" id="whatsapp-button">
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WhatsAppIcon" style="fill:white;background-color:#25d366;border-radius:50%;padding:8px;width:40px;height:40px"><path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z"></path></svg>
+                </button>
+                <button class="contact-btn" id="call-button">
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CallIcon" style="fill:white;background-color:#3462F4;border-radius:50%;padding:8px;width:40px;height:40px"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99"></path></svg>
+                </button>
+                <button class="contact-btn" id="share-button">Share</button>
+              </div>
             </div>
 
             <div class="details-container">
@@ -1079,50 +1099,33 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             </div>
           </div>
 
-          {/* Right Column */}
-          <div class="right-column">
-            <div class="info-container">
-              <h1>{name}</h1>
-              <h3>{publisherName}</h3>
-
-              <div class="contact-section">
-                <button class="contact-btn" id="whatsapp-button">
-                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WhatsAppIcon" style="fill:white;background-color:#25d366;border-radius:50%;padding:8px;width:40px;height:40px"><path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z"></path></svg>
+          {/* Second Row - Agent Content */}
+          <div class="agent-content-container">
+            {description && (
+              <div class="description-container">
+                <div class="expandable-description" id="description-text">
+                  <p>{description}</p>
+                </div>
+                <button class="read-more-button" id="read-more-btn" style="display: none;">
+                  Read More
+                  <span class="expand-icon"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></span>
                 </button>
-                <button class="contact-btn" id="call-button">
-                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CallIcon" style="fill:white;background-color:#3462F4;border-radius:50%;padding:8px;width:40px;height:40px"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99"></path></svg>
-                </button>
-                <button class="contact-btn" id="share-button">Share</button>
               </div>
-            </div>
+            )}
 
-            <div class="agent-content-container">
-              {description && (
-                <div class="description-container">
-                  <div class="expandable-description" id="description-text">
-                    <p>{description}</p>
+            {/* Gallery Images - Inline Display */}
+            {agent.galleryImages && agent.galleryImages.length > 0 && (
+              <div class="gallery-container">
+                {agent.galleryImages.slice(0, 3).map((image, index) => (
+                  <div class="gallery-item-inline" key={index}>
+                    <img src={image.medium?.src || ""} alt={`Gallery ${index + 1}`} />
                   </div>
-                  <button class="read-more-button" id="read-more-btn" style="display: none;">
-                    Read More
-                    <span class="expand-icon"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></span>
-                  </button>
-                </div>
-              )}
-
-              {/* Gallery Images - Inline Display */}
-              {agent.galleryImages && agent.galleryImages.length > 0 && (
-                <div class="gallery-container">
-                  {agent.galleryImages.slice(0, 3).map((image, index) => (
-                    <div class="gallery-item-inline" key={index}>
-                      <img src={image.medium?.src || ""} alt={`Gallery ${index + 1}`} />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Listings Summary Container */}
+          {/* Third Row - Listings Summary */}
           <div class="listings-container">
             <div class="listing-summary">
               <p>{activeSaleListingCount}</p>
