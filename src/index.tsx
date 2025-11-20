@@ -1,4 +1,5 @@
 import { Hono } from 'hono';
+import { html } from 'hono/html';
 import { domainLookup, type Bindings, type Variables } from './middleware/domainLookup';
 import { AgentProfile } from './components/AgentProfile';
 import type { AgentApiResponse } from './types/agent';
@@ -37,8 +38,9 @@ async function renderAgentProfile(c: any, accountId: string, domain: string) {
       console.error('Failed to fetch common data:', error);
     }
 
-    // Render agent profile
-    return c.html(<AgentProfile agent={agent} domain={domain} accountId={accountId} commonData={commonData} />);
+    return c.html(
+      html`<!DOCTYPE html>${<AgentProfile agent={agent} domain={domain} accountId={accountId} commonData={commonData} />}`
+    );
   } catch (error) {
     console.error('Error fetching agent data:', error);
     return c.html(

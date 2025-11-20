@@ -521,7 +521,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             margin: 0;
           }
 
-          .listing-summary h3 {
+          .listing-summary h2 {
             font-size: 1.15rem;
             font-weight: 500;
             margin: 0;
@@ -996,7 +996,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               font-size: 1.75rem;
             }
 
-            .listing-summary h3 {
+            .listing-summary h2 {
               font-size: 1rem;
             }
 
@@ -1142,15 +1142,15 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           <div class="listings-container">
             <div class="listing-summary">
               <p>{activeSaleListingCount}</p>
-              <h3>Listings for Sale</h3>
+              <h2>Listings for Sale</h2>
             </div>
             <div class="listing-summary">
               <p>{activeRentListingCount}</p>
-              <h3>Listings for Rent</h3>
+              <h2>Listings for Rent</h2>
             </div>
             <div class="listing-summary">
               <p>{activeAuctionListingCount}</p>
-              <h3>Listings for Auction</h3>
+              <h2>Listings for Auction</h2>
             </div>
           </div>
         </div>
