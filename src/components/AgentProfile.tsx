@@ -2,8 +2,6 @@ import type { FC } from 'hono/jsx';
 import { css, Style } from 'hono/css';
 import type { AgentApiResponse } from '../types/agent';
 import { getLicenseLabel, formatContactNumber } from '../types/agent';
-import { Header } from './Header';
-import { HeaderCompensation } from './HeaderCompensation';
 import { AgentProfileHeader } from './AgentProfileHeader';
 import { ShareModal } from './ShareModal';
 import { FilterModal } from './FilterModal';
@@ -224,14 +222,19 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .hero-content {
+            width: 100%;
             max-width: 1280px;
-            margin-left: auto;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: auto auto;
             justify-items: end;
             align-content: end;
             gap: 1rem;
+          }
+
+          .hero-content div {
+            width: 300px;
           }
 
           .hero-section p {
@@ -251,19 +254,18 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .hero-copy-button {
-            margin-right: 1rem;
+            margin-top: 1rem;
             grid-column: 1;
             grid-row: 2;
             display: flex;
             align-items: center;
             gap: 1rem;
-            background: #C8D4F4;
+            background: oklch(0.95 0.01 270 / 0.85);
             border: 1px solid #fff;
             color: black;
             padding: 0.5rem 1rem;
-            border-radius: 14px;
+            border-radius: 6px;
             font-size: 1rem;
-            font-weight: 600;
             cursor: pointer;
             width: fit-content;
             max-width: 100%;
@@ -275,14 +277,13 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           }
 
           .hero-copy-button:hover {
-            background: #b3c5ed;
             transform: scale(1.02);
           }
 
           .hero-copy-button svg {
             width: 20px;
             height: 20px;
-            fill: currentColor;
+            fill: #3462F4;
             flex-shrink: 0;
           }
 
@@ -345,7 +346,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             padding: 5px;
             border: solid 0.1px #e0e0e0;
             position: absolute;
-            top: -100px;
+            top: -50px;
             left: 30px;
             width: 250px;
             height: 250px;
@@ -1044,13 +1045,15 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
         <div class="hero-section">
           <div class="hero-content">
-            <p>{name}</p>
-            <button class="hero-copy-button" id="hero-copy-button" data-domain={domain}>
-              {domain}
-              <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ContentCopyIcon">
-                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m0 16H8V7h11z"></path>
-              </svg>
-            </button>
+            <div>
+              <p>{name}</p>
+              <button class="hero-copy-button" id="hero-copy-button" data-domain={domain}>
+                {domain}
+                <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ContentCopyIcon">
+                  <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m0 16H8V7h11z"></path>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -1084,10 +1087,10 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
               <div class="contact-section">
                 <button class="contact-btn" id="whatsapp-button">
-                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WhatsAppIcon" style="fill:white;background-color:#25d366;border-radius:50%;padding:8px;width:50px;height:50px"><path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z"></path></svg>
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WhatsAppIcon" style="fill:white;background-color:#25d366;border-radius:50%;padding:8px;width:40px;height:40px"><path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z"></path></svg>
                 </button>
                 <button class="contact-btn" id="call-button">
-                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CallIcon" style="fill:white;background-color:#3462F4;border-radius:50%;padding:8px;width:50px;height:50px"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99"></path></svg>
+                  <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CallIcon" style="fill:white;background-color:#3462F4;border-radius:50%;padding:8px;width:40px;height:40px"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99"></path></svg>
                 </button>
                 <button class="contact-btn" id="share-button">Share</button>
               </div>

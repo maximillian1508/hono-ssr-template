@@ -129,7 +129,7 @@ export const ListingCardStyles: FC = () => {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 0.5rem;
-        margin: 0.75rem 0;
+        margin: 0.5rem 0;
       }
 
       .listing-detail-item {
@@ -139,7 +139,7 @@ export const ListingCardStyles: FC = () => {
         font-size: 0.875rem;
       }
 
-      .listing-price {
+      p.listing-price {
         font-size: 1.3rem;
         font-weight: 600;
         margin-top: 0.5rem;

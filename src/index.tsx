@@ -21,7 +21,6 @@ async function renderAgentProfile(c: any, accountId: string, domain: string) {
     }
 
     const agent = await response.json() as AgentApiResponse;
-    console.log(agent);
 
     if (!agent || !agent.id) {
       return c.text('Agent not found', 404);
