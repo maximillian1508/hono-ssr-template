@@ -258,7 +258,7 @@ export const MobileMenu: FC = () => {
           </button>
           <div class="drawer-logo">
             <a href={baseUrl}>
-              <img src="/images/Logo/pg-logo-white-r.png" alt="Logo" />
+              <img src="/images/Logo/pg-logo-white-r.png" alt="Logo" loading="lazy" />
             </a>
           </div>
           <div class="drawer-spacer"></div>

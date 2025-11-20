@@ -60,6 +60,7 @@ export const ListingCard: FC<ListingCardProps> = ({ listing, onShareClick }) => 
       <img
         src={listing.image?.medium?.src || '/images/amenties-placeholder.png'}
         alt={listing.name}
+        loading="lazy"
       />
       {propertyType && (
         <div class="property-type-badge" style={`background-color: ${getPropertyTypeColor(propertyType)};`}>
@@ -169,7 +170,7 @@ export function generateListingCardHTML(listing: any): string {
 
   return `
     <a class="listing-card" href="${listingUrl}" target="_blank" rel="noopener noreferrer">
-      <img src="${image}" alt="${listing.name}" />
+      <img src="${image}" alt="${listing.name}" loading="lazy" />
       ${propertyType ? `<div class="property-type-badge" style="background-color: ${propertyTypeColor};">${propertyType}</div>` : ''}
       <div class="action-buttons">
         <button class="action-button" onclick="handleShare(event, '${listing.slug}', '${listing.name.replace(/'/g, "\\'")}')">

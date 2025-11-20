@@ -71,7 +71,7 @@ export const Header: FC<HeaderProps> = ({ logoUrl = '/images/Logo/pg-logo-main-r
             {/* Logo */}
             <div class="header-logo">
               <a href={baseUrl}>
-                <img src={logoUrl} alt="Logo" />
+                <img src={logoUrl} alt="Logo" fetchpriority="high" loading="eager"/>
               </a>
             </div>
 

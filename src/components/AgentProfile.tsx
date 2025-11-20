@@ -1033,6 +1033,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           @media (max-width: 480px) {
           }
         `}</Style>
+        <link rel="preload" href={`/images/agent-profile-hero.webp`} as="image" type="image/webp" fetchpriority="high"/>
       </head>
       <body>
         {/* Original Header - Backup (commented out) */}
@@ -1065,7 +1066,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           {/* First Row - Image + Info + Details */}
           <div class="first-row">
             <div class="image-container">
-              <img src={avatarUrl} alt={name} />
+              <img src={avatarUrl} alt={name} fetchpriority="high" loading="eager"/>
             </div>
 
             <div class="right-content">
@@ -1119,7 +1120,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               <div class="gallery-container">
                 {agent.galleryImages.slice(0, 3).map((image, index) => (
                   <div class="gallery-item-inline" key={index}>
-                    <img src={image.medium?.src || ""} alt={`Gallery ${index + 1}`} />
+                    <img src={image.medium?.src || ""} alt={`Gallery ${index + 1}`} loading="lazy" />
                   </div>
                 ))}
               </div>
@@ -1432,7 +1433,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
               return \`
                 <a class="listing-card" href="\${listingUrl}" target="_blank" rel="noopener noreferrer">
-                  <img src="\${image}" alt="\${listing.name}" />
+                  <img src="\${image}" alt="\${listing.name}" loading="lazy" />
                   \${propertyType ? \`<div class="property-type-badge" style="background-color: \${propertyTypeColor};">\${propertyType}</div>\` : ''}
                   <div class="action-buttons">
                     <button class="action-button" onclick="handleShare(event, '\${listing.slug}', '\${listing.name.replace(/'/g, "\\'")}')">
@@ -1480,7 +1481,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 container.innerHTML = \`
                   <div class="empty-item-box">
                     <div class="empty-image-container">
-                      <img src="/images/not-found.png" alt="No results found" />
+                      <img src="/images/not-found.png" alt="No results found" loading="lazy" />
                     </div>
                     <h2 class="empty-title">No result found</h2>
                     <p class="empty-description">There are no property listing.</p>
@@ -1544,7 +1545,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 container.innerHTML = \`
                   <div class="empty-item-box">
                     <div class="empty-image-container">
-                      <img src="/images/not-found.png" alt="Error" />
+                      <img src="/images/not-found.png" alt="Error" loading="lazy" />
                     </div>
                     <h2 class="empty-title">Failed to load listings</h2>
                     <p class="empty-description">Please try again later.</p>
