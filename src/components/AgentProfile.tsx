@@ -388,7 +388,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             font-size: 2rem;
           }
 
-          .info-container h3 {
+          .info-container p.publisher-name {
             color: #666;
             font-weight: 500;
             font-size: 1.3rem;
@@ -954,7 +954,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
               max-width: 100%;
             }
 
-            .info-container h3 {
+            .info-container p.publisher-name {
               font-size: 1.2rem;
             }
 
@@ -1058,7 +1058,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           <div class="hero-content">
             <div>
               <p>{name}</p>
-              <button class="hero-copy-button" id="hero-copy-button" data-domain={domain}>
+              <button class="hero-copy-button" id="hero-copy-button" data-domain={domain} aria-label="Copy Agent Website URL">
                 <span>{domain}</span>
                 <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ContentCopyIcon">
                   <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m0 16H8V7h11z"></path>
@@ -1078,16 +1078,16 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             <div class="right-content">
               <div class="info-container">
                 <h1>{name}</h1>
-                <h3>{publisherName}</h3>
+                <p class="publisher-name">{publisherName}</p>
 
                 <div class="contact-section">
-                  <button class="contact-btn" id="whatsapp-button">
+                  <button class="contact-btn" id="whatsapp-button" aria-label="WhatsApp Agent">
                     <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WhatsAppIcon" style="fill:white;background-color:#25d366;border-radius:50%;padding:8px;width:40px;height:40px"><path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z"></path></svg>
                   </button>
-                  <button class="contact-btn" id="call-button">
+                  <button class="contact-btn" id="call-button" aria-label="Call Agent">
                     <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CallIcon" style="fill:white;background-color:#3462F4;border-radius:50%;padding:8px;width:40px;height:40px"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99"></path></svg>
                   </button>
-                  <button class="contact-btn" id="share-button">Share</button>
+                  <button class="contact-btn" id="share-button" aria-label="Share Agent Profile">Share</button>
                 </div>
               </div>
 
@@ -1115,7 +1115,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   <div class="expandable-description" id="description-text">
                     <p>{description}</p>
                   </div>
-                  <button class="read-more-button" id="read-more-btn" style="display: none;">
+                  <button class="read-more-button" id="read-more-btn" style="display: none;" aria-label="Read More">
                     Read More
                     <span class="expand-icon"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></span>
                   </button>
@@ -1157,10 +1157,10 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             <h2>{name}'s Listings</h2>
 
             <div class="tabs-container">
-              <button class="tab active" data-tab="all">All Listings</button>
-              <button class="tab" data-tab="sale">For Sale</button>
-              <button class="tab" data-tab="rent">For Rent</button>
-              <button class="tab" data-tab="auction">For Auction</button>
+              <button class="tab active" data-tab="all" aria-label="All Listings">All Listings</button>
+              <button class="tab" data-tab="sale" aria-label="For Sale">For Sale</button>
+              <button class="tab" data-tab="rent" aria-label="For Rent">For Rent</button>
+              <button class="tab" data-tab="auction" aria-label="For Auction">For Auction</button>
             </div>
 
             <div class="search-filter-container">
@@ -1177,7 +1177,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                     placeholder="Property Name...."
                     id="search-input"
                   />
-                  <button class="filter-button" id="filter-button">
+                  <button class="filter-button" id="filter-button" aria-label="Filter Listings">
                     <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="FilterListOutlinedIcon" style="width: 1.2em; height: 1.2em; fill: #ffffff;"><path d="M10 18h4v-2h-4zM3 6v2h18V6zm3 7h12v-2H6z"></path></svg>
                     <span class="filter-badge" id="filter-badge" style="display: none;">0</span>
                   </button>
@@ -1444,7 +1444,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                   <img src="\${image}" alt="\${listing.name}" loading="lazy" />
                   \${propertyType ? \`<div class="property-type-badge" style="background-color: \${propertyTypeColor};">\${propertyType}</div>\` : ''}
                   <div class="action-buttons">
-                    <button class="action-button" onclick="handleShare(event, '\${listing.slug}', '\${listing.name.replace(/'/g, "\\'")}')">
+                    <button class="action-button" aria-label="Share Listing" onclick="handleShare(event, '\${listing.slug}', '\${listing.name.replace(/'/g, "\\'")}')">
                       📤
                     </button>
                   </div>
@@ -1493,7 +1493,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                     </div>
                     <h2 class="empty-title">No result found</h2>
                     <p class="empty-description">There are no property listing.</p>
-                    <button class="empty-button" onclick="window.location.reload()">Refresh</button>
+                    <button aria-label="Refresh Listings" class="empty-button" onclick="window.location.reload()">Refresh</button>
                   </div>
                 \`;
                 return;
@@ -1557,7 +1557,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                     </div>
                     <h2 class="empty-title">Failed to load listings</h2>
                     <p class="empty-description">Please try again later.</p>
-                    <button class="empty-button" onclick="window.location.reload()">Refresh</button>
+                    <button aria-label="Refresh Listings" class="empty-button" onclick="window.location.reload()">Refresh</button>
                   </div>
                 \`;
               } finally {
@@ -1721,7 +1721,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
 
               if (propertyTypeGrid && categories.length > 0) {
                 const buttonsHtml = categories.map(category => {
-                  return \`<button class="filter-option" data-type="main-category" data-value="\${category.code}">\${category.name}</button>\`;
+                  return \`<button aria-label="Select Property Type" class="filter-option" data-type="main-category" data-value="\${category.code}">\${category.name}</button>\`;
                 }).join('');
                 propertyTypeGrid.innerHTML = buttonsHtml;
               }
@@ -1733,7 +1733,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 bedroomsGrid.innerHTML = bedrooms.map(item => {
                   const name = item.name || item.value;
                   const value = item.value;
-                  return \`<button class="filter-option" data-type="bedroom" data-value="\${value}">\${name}</button>\`;
+                  return \`<button aria-label="Select Bedroom" class="filter-option" data-type="bedroom" data-value="\${value}">\${name}</button>\`;
                 }).join('');
               }
 
@@ -1744,7 +1744,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 bathroomsGrid.innerHTML = bathrooms.map(item => {
                   const name = item.name || item.value;
                   const value = item.value;
-                  return \`<button class="filter-option" data-type="bathroom" data-value="\${value}">\${name}</button>\`;
+                  return \`<button aria-label="Select Bathroom" class="filter-option" data-type="bathroom" data-value="\${value}">\${name}</button>\`;
                 }).join('');
               }
 
@@ -1755,7 +1755,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 tenureGrid.innerHTML = tenures.map(item => {
                   const name = item.name || item.value;
                   const value = item.code || item.value;
-                  return \`<button class="filter-option" data-type="tenure" data-value="\${value}">\${name}</button>\`;
+                  return \`<button aria-label="Select Tenure" class="filter-option" data-type="tenure" data-value="\${value}">\${name}</button>\`;
                 }).join('');
               }
 
@@ -1766,7 +1766,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 floorLevelGrid.innerHTML = floorLevels.map(item => {
                   const name = item.name || item.value;
                   const value = item.code || item.value;
-                  return \`<button class="filter-option" data-type="floorLevel" data-value="\${value}">\${name}</button>\`;
+                  return \`<button aria-label="Select Floor Level" class="filter-option" data-type="floorLevel" data-value="\${value}">\${name}</button>\`;
                 }).join('');
               }
 
@@ -1777,7 +1777,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
                 furnishingGrid.innerHTML = furnishings.map(item => {
                   const name = item.name || item.value;
                   const value = item.code || item.value;
-                  return \`<button class="filter-option" data-type="furnishing" data-value="\${value}">\${name}</button>\`;
+                  return \`<button aria-label="Select Furnishing" class="filter-option" data-type="furnishing" data-value="\${value}">\${name}</button>\`;
                 }).join('');
               }
 

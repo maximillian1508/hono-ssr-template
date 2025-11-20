@@ -69,6 +69,7 @@ export const ListingCard: FC<ListingCardProps> = ({ listing, onShareClick }) => 
       )}
       <div class="action-buttons">
         <button
+          aria-label="Share Listing"
           class="action-button"
           data-action="share"
           data-slug={listing.slug}
@@ -173,7 +174,7 @@ export function generateListingCardHTML(listing: any): string {
       <img src="${image}" alt="${listing.name}" loading="lazy" />
       ${propertyType ? `<div class="property-type-badge" style="background-color: ${propertyTypeColor};">${propertyType}</div>` : ''}
       <div class="action-buttons">
-        <button class="action-button" onclick="handleShare(event, '${listing.slug}', '${listing.name.replace(/'/g, "\\'")}')">
+        <button aria-label="Share Listing" class="action-button" onclick="handleShare(event, '${listing.slug}', '${listing.name.replace(/'/g, "\\'")}')">
           📤
         </button>
       </div>

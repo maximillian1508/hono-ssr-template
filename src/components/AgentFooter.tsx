@@ -171,7 +171,7 @@ export const AgentFooter: FC<AgentFooterProps> = ({
           text-align: center;
         }
 
-        .footer-content p {
+        .footer-content p, .footer-content a {
           margin: 0.5rem 0;
           font-size: 0.9rem;
           color: #6b7280;
@@ -212,30 +212,30 @@ export const AgentFooter: FC<AgentFooterProps> = ({
             <div class="footer-column">
               <h3>Contact</h3>
               {phoneNumber && (
-                <p>Phone: <button class="footer-phone-link" id="footer-phone-link">{phoneNumber}</button></p>
+                <p>Phone: <button class="footer-phone-link" id="footer-phone-link" aria-label="Call Agent">{phoneNumber}</button></p>
               )}
               {email && (
-                <p>Email: <a href={`mailto:${email}`}>{email}</a></p>
+                <p>Email: <a href={`mailto:${email}`} aria-label="Email Agent">{email}</a></p>
               )}
               <div class="footer-contact-buttons">
-                <button class="footer-contact-btn" id="footer-whatsapp-button">
+                <button class="footer-contact-btn" id="footer-whatsapp-button" aria-label="WhatsApp Agent">
                   <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="WhatsAppIcon" style="fill:white;background-color:#25d366;border-radius:50%;padding:8px;width:40px;height:40px">
                     <path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z"></path>
                   </svg>
                 </button>
-                <button class="footer-contact-btn" id="footer-call-button">
+                <button class="footer-contact-btn" id="footer-call-button" aria-label="Call Agent">
                   <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CallIcon" style="fill:white;background-color:#3462F4;border-radius:50%;padding:8px;width:40px;height:40px">
                     <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99"></path>
                   </svg>
                 </button>
-                <button class="footer-contact-btn" id="footer-share-button">Share</button>
+                <button class="footer-contact-btn" id="footer-share-button" aria-label="Share Agent Profile">Share</button>
               </div>
             </div>
           </div>
 
           <div class="footer-content">
             <p>&copy; {new Date().getFullYear()} {agentName || publisherName}. All rights reserved.</p>
-            <p>Powered by PropertyGenie</p>
+            <p>Powered by <a href="https://www.propertygenie.com.my" target="_blank" rel="noopener noreferrer" aria-label="PropertyGenie">PropertyGenie</a></p>
           </div>
         </div>
       </footer>

@@ -239,7 +239,7 @@ export const MobileMenu: FC = () => {
       `}</Style>
 
       {/* Hamburger Button */}
-      <button class="mobile-menu-button" id="mobile-menu-button" aria-label="Open menu">
+      <button class="mobile-menu-button" id="mobile-menu-button" aria-label="Open Mobile Menu">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -251,7 +251,7 @@ export const MobileMenu: FC = () => {
       {/* Drawer */}
       <div class="mobile-drawer" id="mobile-drawer">
         <div class="drawer-header">
-          <button class="drawer-close" id="drawer-close" aria-label="Close menu">
+          <button class="drawer-close" id="drawer-close" aria-label="Close Mobile Menu">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -269,7 +269,7 @@ export const MobileMenu: FC = () => {
             <ul class="mobile-nav-list">
               {/* Buy Dropdown */}
               <li class="mobile-nav-item">
-                <button class="mobile-nav-toggle" data-dropdown="buy">
+                <button aria-label="Browse Auction Listings" class="mobile-nav-toggle" data-dropdown="buy">
                   <p>Buy</p>
                   <svg class="dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="white">
                     <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
@@ -293,7 +293,7 @@ export const MobileMenu: FC = () => {
 
               {/* Rent Dropdown */}
               <li class="mobile-nav-item">
-                <button class="mobile-nav-toggle" data-dropdown="rent">
+                <button aria-label="Browse by List View" class="mobile-nav-toggle" data-dropdown="rent">
                   <p>Rent</p>
                   <svg class="dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="white">
                     <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
@@ -311,7 +311,7 @@ export const MobileMenu: FC = () => {
 
               {/* Projects Dropdown */}
               <li class="mobile-nav-item">
-                <button class="mobile-nav-toggle" data-dropdown="projects">
+                <button aria-label="Browse Developers" class="mobile-nav-toggle" data-dropdown="projects">
                   <p>Projects</p>
                   <svg class="dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="white">
                     <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
@@ -332,7 +332,7 @@ export const MobileMenu: FC = () => {
 
               {/* Resources Dropdown */}
               <li class="mobile-nav-item">
-                <button class="mobile-nav-toggle" data-dropdown="resources">
+                <button aria-label="Location Insights" class="mobile-nav-toggle" data-dropdown="resources">
                   <p>Resources</p>
                   <svg class="dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="white">
                     <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
@@ -347,7 +347,7 @@ export const MobileMenu: FC = () => {
 
               {/* Others Dropdown */}
               <li class="mobile-nav-item">
-                <button class="mobile-nav-toggle" data-dropdown="others">
+                <button aria-label="Agent Directory" class="mobile-nav-toggle" data-dropdown="others">
                   <p>Others</p>
                   <svg class="dropdown-arrow" focusable="false" aria-hidden="true" viewBox="0 0 24 24" fill="white">
                     <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path>
@@ -364,7 +364,7 @@ export const MobileMenu: FC = () => {
 
               {/* Contact Us (no dropdown) */}
               <li class="mobile-nav-item">
-                <a href={`${baseUrl}/contact-us`} class="mobile-nav-link">
+                <a aria-label="Contact Us" href={`${baseUrl}/contact-us`} class="mobile-nav-link">
                   Contact Us
                 </a>
               </li>
@@ -373,13 +373,13 @@ export const MobileMenu: FC = () => {
 
           <div class="mobile-actions">
             <hr />
-            <a href={`${baseUrl}/login`} class="mobile-action-btn">
+            <a aria-label="Login as User" href={`${baseUrl}/login`} class="mobile-action-btn">
               Login as User
             </a>
-            <a href={`${baseUrl}/agent-sign-in`} class="mobile-action-btn">
+            <a aria-label="Login as Agent" href={`${baseUrl}/agent-sign-in`} class="mobile-action-btn">
               Login as Agent
             </a>
-            <a href={`${baseUrl}/agent-sign-up`} class="mobile-action-btn secondary">
+            <a aria-label="Join as Agent" href={`${baseUrl}/agent-sign-up`} class="mobile-action-btn secondary">
               Join as Agent
             </a>
           </div>

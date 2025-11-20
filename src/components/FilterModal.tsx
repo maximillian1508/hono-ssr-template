@@ -344,7 +344,7 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
               <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="TuneIcon" style="font-size: 20px; fill: #000000; vertical-align: middle; margin-right: 8px;"><path d="M3 17v2h6v-2zM3 5v2h10V5zm10 16v-2h8v-2h-8v-2h-2v6zM7 9v2H3v2h4v2h2V9zm14 4v-2H11v2zm-6-4h2V7h4V5h-4V3h-2z"></path></svg>
               Filter Properties
             </h2>
-            <button class="filter-modal-close-button" id="close-modal">
+            <button class="filter-modal-close-button" id="close-modal" aria-label="Close Filter Modal">
               <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CloseIcon" style="font-size: 20px;"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
             </button>
           </div>
@@ -435,8 +435,8 @@ export const FilterModal: FC<FilterModalProps> = ({ commonData }) => {
 
 
           <div class="filter-modal-footer">
-            <button class="filter-modal-footer-button outline" id="clear-filters">Clear All</button>
-            <button class="filter-modal-footer-button primary" id="apply-filters">Find Properties</button>
+            <button class="filter-modal-footer-button outline" id="clear-filters" aria-label="Clear All Filters">Clear All</button>
+            <button class="filter-modal-footer-button primary" id="apply-filters" aria-label="Apply Filters">Find Properties</button>
           </div>
         </div>
       </div>

@@ -134,10 +134,11 @@ export const AgentProfileHeader: FC<AgentProfileHeaderProps> = ({ agentName }) =
       <header class="agent-profile-header">
         <div class="agent-profile-header-container">
           <div class="agent-profile-header-content">
-            <h1 class="agent-profile-header-name">{agentName}</h1>
+            <p class="agent-profile-header-name">{agentName}</p>
 
             <nav class="agent-profile-header-nav">
               <button
+                aria-label="For Sale Navigation"
                 class="agent-profile-header-nav-link"
                 data-nav-tab="sale"
                 id="header-nav-sale"
@@ -145,6 +146,7 @@ export const AgentProfileHeader: FC<AgentProfileHeaderProps> = ({ agentName }) =
                 For Sale
               </button>
               <button
+                aria-label="For Rent Navigation"
                 class="agent-profile-header-nav-link"
                 data-nav-tab="rent"
                 id="header-nav-rent"
@@ -152,6 +154,7 @@ export const AgentProfileHeader: FC<AgentProfileHeaderProps> = ({ agentName }) =
                 For Rent
               </button>
               <button
+                aria-label="For Auction Navigation"
                 class="agent-profile-header-nav-link"
                 data-nav-tab="auction"
                 id="header-nav-auction"

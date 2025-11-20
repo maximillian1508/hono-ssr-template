@@ -104,6 +104,7 @@ export const HeaderLinks: FC = () => {
         </a>
         <div style="position: relative;">
           <button
+            aria-label="Sign Up"
             class="action-btn signup-btn"
             data-gtm-action="sign_up_intent_header"
             type="button"
@@ -127,6 +128,7 @@ export const HeaderLinks: FC = () => {
         </div>
         <div style="position: relative;">
           <button
+            aria-label="Login"
             class="action-btn login-btn"
             data-gtm-action="login_intent_header"
             type="button"
