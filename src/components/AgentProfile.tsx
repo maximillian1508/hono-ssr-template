@@ -427,6 +427,8 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             margin-top: 0;
             margin-left: 0;
             grid-area: details;
+            display: flex;
+            gap: 1.5rem;
           }
 
           .details-container p {
@@ -951,9 +953,11 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             }
 
             .details-container {
-              margin-top: 0;
+              margin-top: 1rem;
               margin-left: 0;
               padding: 0 20px;
+              flex-direction: column;
+              gap: 0;
             }
 
             .details-container p {
