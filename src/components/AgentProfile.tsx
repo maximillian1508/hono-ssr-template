@@ -280,6 +280,12 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             transform: scale(1.02);
           }
 
+          .hero-copy-button span {
+            word-wrap: break-word;
+            white-space:normal;
+            width: 87.5%;
+          }
+
           .hero-copy-button svg {
             width: 20px;
             height: 20px;
@@ -1053,7 +1059,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             <div>
               <p>{name}</p>
               <button class="hero-copy-button" id="hero-copy-button" data-domain={domain}>
-                {domain}
+                <span>{domain}</span>
                 <svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="ContentCopyIcon">
                   <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m0 16H8V7h11z"></path>
                 </svg>
@@ -1102,30 +1108,32 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           </div>
 
           {/* Second Row - Agent Content */}
-          <div class="agent-content-container">
-            {description && (
-              <div class="description-container">
-                <div class="expandable-description" id="description-text">
-                  <p>{description}</p>
-                </div>
-                <button class="read-more-button" id="read-more-btn" style="display: none;">
-                  Read More
-                  <span class="expand-icon"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></span>
-                </button>
-              </div>
-            )}
-
-            {/* Gallery Images - Inline Display */}
-            {agent.galleryImages && agent.galleryImages.length > 0 && (
-              <div class="gallery-container">
-                {agent.galleryImages.slice(0, 3).map((image, index) => (
-                  <div class="gallery-item-inline" key={index}>
-                    <img src={image.medium?.src || ""} alt={`Gallery ${index + 1}`} loading="lazy" />
+          {(description || (agent.galleryImages && agent.galleryImages.length > 0)) && (
+            <div class="agent-content-container">
+              {description && (
+                <div class="description-container">
+                  <div class="expandable-description" id="description-text">
+                    <p>{description}</p>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
+                  <button class="read-more-button" id="read-more-btn" style="display: none;">
+                    Read More
+                    <span class="expand-icon"><svg focusable="false" aria-hidden="true" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6z"></path></svg></span>
+                  </button>
+                </div>
+              )}
+
+              {/* Gallery Images - Inline Display */}
+              {agent.galleryImages && agent.galleryImages.length > 0 && (
+                <div class="gallery-container">
+                  {agent.galleryImages.slice(0, 3).map((image, index) => (
+                    <div class="gallery-item-inline" key={index}>
+                      <img src={image.medium?.src || ""} alt={`Gallery ${index + 1}`} loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Third Row - Listings Summary */}
           <div class="listings-container">
