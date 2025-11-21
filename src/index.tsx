@@ -40,7 +40,7 @@ async function renderAgentProfile(c: any, accountId: string, domain: string) {
     }
 
     return c.html(
-      html`<!DOCTYPE html>${<AgentProfile agent={agent} domain={domain} accountId={accountId} commonData={commonData} />}`
+      html`<!DOCTYPE html>${<AgentProfile agent={agent} domain={domain} accountId={accountId} commonData={commonData} apiBaseUrl={c.env.API_BASE_URL} />}`
     );
   } catch (error) {
     console.error('Error fetching agent data:', error);

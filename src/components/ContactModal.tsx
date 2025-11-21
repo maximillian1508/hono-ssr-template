@@ -8,6 +8,7 @@ interface ContactModalProps {
   accountSlug: string;
   accountId: string;
   domain: string;
+  apiBaseUrl: string;
 }
 
 /**
@@ -19,7 +20,8 @@ export const ContactModal: FC<ContactModalProps> = ({
   accountName,
   accountSlug,
   accountId,
-  domain
+  domain,
+  apiBaseUrl
 }) => {
   return (
     <>
@@ -768,9 +770,7 @@ export const ContactModal: FC<ContactModalProps> = ({
 
               // Post logging interest
               try {
-                const apiBaseUrl = window.location.hostname === 'localhost'
-                  ? 'http://localhost:22080'
-                  : 'https://api.propertygenie.com.my';
+                const apiBaseUrl = '${apiBaseUrl}';
 
                 const source = '${domain}';
 

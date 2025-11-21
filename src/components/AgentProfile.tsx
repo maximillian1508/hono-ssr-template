@@ -15,13 +15,14 @@ interface AgentProfileProps {
   domain: string;
   accountId: string;
   commonData: any;
+  apiBaseUrl: string;
 }
 
 /**
  * Agent Profile Component - Premium Version
  * Displays agent information without authentication
  */
-export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, commonData }) => {
+export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, commonData, apiBaseUrl }) => {
   // Helper function to get property type color
 
   // Extract agent data
@@ -1233,6 +1234,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
           accountSlug={agent.slug}
           accountId={accountId}
           domain={`https://${domain}`}
+          apiBaseUrl={apiBaseUrl}
         />
 
         {/* Share Modal Component */}
@@ -1246,7 +1248,7 @@ export const AgentProfile: FC<AgentProfileProps> = ({ agent, domain, accountId, 
             const initialData = {
               accountId: '${accountId}',
               accountSlug: '${agent.slug}',
-              apiBaseUrl: window.location.hostname === 'localhost' ? 'http://localhost:22080' : 'https://api.propertygenie.com.my',
+              apiBaseUrl: '${apiBaseUrl}',
               listings: ${JSON.stringify(agent.listings || [])},
               metadata: ${JSON.stringify(agent._metadata || {})},
               commonData: ${JSON.stringify(commonData || {})}

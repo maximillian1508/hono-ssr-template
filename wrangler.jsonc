@@ -11,9 +11,9 @@
     }
   ],
   "vars": {
-    "API_BASE_URL": "https://api.propertygenie.com.my",
+    "API_BASE_URL": "https://api.uat.propertygenie.com.my",
     "USE_DOMAIN_ROUTING": "true",
-    "WEBSITE_URL": "https://www.propertygenie.com.my"
+    "WEBSITE_URL": "https://staging.propertygenie.com.my"
   },
   "assets": {
     "directory": "public",
