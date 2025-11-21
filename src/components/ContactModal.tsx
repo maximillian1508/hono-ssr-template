@@ -811,12 +811,12 @@ export const ContactModal: FC<ContactModalProps> = ({
               const contactNumber = '${contactNumber}';
               const agentName = '${accountName.replace(/'/g, "\\'")}';
 
-              // if (contactType === 'call') {
-              //   window.location.href = \`tel:\${contactNumber}\`;
-              // } else {
-              //   const text = \`Hi \${agentName}, I am looking for property. I'm eager to explore the available options and would appreciate it if you could share details about any properties you have. Thank you!\`;
-              //   window.location.href = \`https://wa.me/\${contactNumber}/?text=\${encodeURIComponent(text)}\`;
-              // }
+              if (contactType === 'call') {
+                window.location.href = \`tel:\${contactNumber}\`;
+              } else {
+                const text = \`Hi \${agentName}, I am looking for property. I'm eager to explore the available options and would appreciate it if you could share details about any properties you have. Thank you!\`;
+                window.location.href = \`https://wa.me/\${contactNumber}/?text=\${encodeURIComponent(text)}\`;
+              }
 
               closeContactModal();
             });
